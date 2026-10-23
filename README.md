@@ -66,7 +66,7 @@ python3 build.py my-status.json  # your own data
 open index.html                  # or xdg-open on Linux
 ```
 
-The status file format is documented in [docs/data-format.md](docs/data-format.md). Edit the `TILES` array in `template.html` to change the launch tiles, and `AREAS` to rename the project groups.
+The status file format is documented in [docs/data-format.md](docs/data-format.md). Edit the `TILES` array in `template.html` to change the launch tiles, and set `area_order` / `area_labels` in status.json to add, rename or reorder project areas (any number of columns).
 
 ## Security design
 

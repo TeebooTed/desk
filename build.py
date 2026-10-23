@@ -5,6 +5,22 @@ here = pathlib.Path(__file__).parent
 src = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else str(here / "example-status.json"))
 data = json.loads(src.read_text()) if src.exists() else {"areas": {}, "generated": "not set up yet"}  # empty -> first-run setup card
 data.setdefault("areas", {})
+# Areas (any number of columns). Optional keys in status.json:
+#   "area_order":  ["Work", "Side", "Personal"]      column order; defaults to the order of "areas"
+#   "area_labels": {"Side": "Side project"}          display names; defaults to the key
+#   "area_rules":  {"Side": "regex"}                 move projects whose name matches into that area
+import re as _re
+for tgt, rx in (data.get("area_rules") or {}).items():
+    for a in list(data["areas"]):
+        if a == tgt: continue
+        hit = [p for p in data["areas"][a] if _re.search(rx, p.get("name", ""), _re.I)]
+        if hit:
+            data["areas"][a] = [p for p in data["areas"][a] if p not in hit]
+            data["areas"].setdefault(tgt, []).extend(hit)
+_order = data.get("area_order") or list(data["areas"])
+data["areas"] = {**{k: data["areas"].get(k, []) for k in _order}, **{k: v for k, v in data["areas"].items() if k not in _order}}
+data["area_order"] = list(data["areas"])
+data["area_labels"] = {k: k for k in data["areas"]} | (data.get("area_labels") or {})
 import re, difflib
 flag = []
 for md in src.parent.glob("*.md"):

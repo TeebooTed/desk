@@ -58,7 +58,7 @@ h2 small{font-size:13px;font-weight:500;color:var(--mut);margin-left:8px;letter-
 .filters button.on{background:var(--card);color:var(--fg);box-shadow:var(--sh)}
 .filters .dot{width:7px;height:7px;border-radius:50%}
 .filters em{font-style:normal;color:var(--mut);font-size:11.5px;font-variant-numeric:tabular-nums}
-.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:18px;align-items:start}
+.areas{display:grid;grid-template-columns:repeat(var(--acols,3),minmax(0,1fr));gap:18px;align-items:start}@media(max-width:1199px){.areas{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .area{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px 18px 8px;box-shadow:var(--sh)}
 .ah{display:flex;align-items:center;gap:14px;margin-bottom:12px}
 .ah h3{margin:0 0 2px;font-size:17px;font-weight:700;letter-spacing:-.01em}.ah small{color:var(--mut);font-size:12.5px}
@@ -290,7 +290,7 @@ const DATA=/*__DATA__*/null||{areas:{},generated:"—"};if(!DATA.areas)DATA.area
 const LIVE=/*__LIVE__*/null||{};
 if(LIVE.unread)TILES.forEach(t=>{if(t.letter=="M"&&LIVE.unread[t.label]!=null){const n=+LIVE.unread[t.label];t.badge=n>0?(n>99?"99+":String(n)):"";t.title=t.label+" · "+n+" unread in inbox"}});
 const BUILT="/*__BUILT__*/";
-const TZ=Intl.DateTimeFormat().resolvedOptions().timeZone,AREAS={Work:"Work",Side:"Side project",Personal:"Personal"};
+const TZ=Intl.DateTimeFormat().resolvedOptions().timeZone,AREAS=Object.assign({},(typeof DATA=="object"&&DATA&&DATA.area_labels)||{});
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const unv=p=>p.unverified===true||p.verified===false||/UNVERIFIED/i.test(JSON.stringify(p));
 // theme toggle (persists in localStorage; falls back to prefers-color-scheme)
@@ -339,14 +339,14 @@ const ALL=Object.values(DATA.areas).flat();
 const statuses=["all",...new Set(ALL.map(p=>p.status))];let F="all";
 const cnt=(ps,s)=>ps.filter(p=>p.status==s).length;
 const PK="desk-prio",PL=["","high","medium","low"],PR={high:0,medium:1,low:2},PC={high:"P1",medium:"P2",low:"P3"};
-let LP={};try{LP=JSON.parse(localStorage.getItem(PK)||"{}")||{}}catch(e){}
+let LP={};try{LP=JSON.parse(localStorage.getItem(PK)||"{}")||{}}catch(e){}(()=>{const A=DATA.areas||{},w={};for(const k in A)for(const p of A[k])w[p.name]=k;let ch=0;for(const key of Object.keys(LP)){const i=key.indexOf("::");if(i<0)continue;const a=key.slice(0,i),n=key.slice(i+2);if(A[a]&&A[a].some(p=>p.name==n))continue;const b=w[n];if(b&&b!=a){if(!(b+"::"+n in LP))LP[b+"::"+n]=LP[key];delete LP[key];ch=1}}if(ch)try{localStorage.setItem(PK,JSON.stringify(LP))}catch(e){}})();
 const pkey=(k,p)=>k+"::"+p.name,prio=(k,p)=>{const x=LP[pkey(k,p)];return x!==undefined?x:(PR[p.priority]!==undefined?p.priority:"")};
 const pinSvg='<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 3l5 5-3 1-4 4 1 5-2 2-4-4-5 5-1-1 5-5-4-4 2-2 5 1 4-4z"/></svg>';
-function areaKeys(){const o=SO("projects").area_order||[],ks=Object.keys(DATA.areas);return ks.slice().sort((a,b)=>{const ia=o.indexOf(a),ib=o.indexOf(b);return (ia<0?999+ks.indexOf(a):ia)-(ib<0?999+ks.indexOf(b):ib)})}
+function areaKeys(){const ks=Object.keys(DATA.areas),df=(DATA.area_order||[]).filter(k=>ks.includes(k)).concat(ks.filter(k=>!(DATA.area_order||[]).includes(k))),o=(SO("projects").area_order||[]).filter(k=>ks.includes(k));if(!o.length)return df;df.forEach((k,i)=>{if(o.includes(k))return;let j=i?o.indexOf(df[i-1])+1:0;o.splice(j<0?o.length:j,0,k)});return o}
 function PSORT(a,b){const s=SO("projects").sort;if(s=="name")return String(a.p.name).localeCompare(String(b.p.name));if(s=="progress")return (+b.p.percent||0)-(+a.p.percent||0)||a.i-b.i;if(s=="status")return String(a.p.status).localeCompare(String(b.p.status))||a.i-b.i;return ((PR[a.q]??3)-(PR[b.q]??3))||a.i-b.i}
 function render(){document.getElementById("filters").innerHTML=statuses.map(s=>`<button type="button" class="${s==F?"on":""}" data-s="${esc(s)}" aria-pressed="${s==F}">${s=="all"?"":`<i class="dot" style="background:${col(s)}"></i>`}${esc(s)}<em>${s=="all"?ALL.length:cnt(ALL,s)}</em></button>`).join("");
  document.getElementById("ph").innerHTML=`Projects<small>${ALL.length} total · ${cnt(ALL,"blocked")} blocked</small>`;
- document.getElementById("areas").innerHTML=areaKeys().map(k=>[k,DATA.areas[k]]).map(([k,ps])=>{const avg=Math.round(ps.reduce((a,p)=>a+(+p.percent||0),0)/(ps.length||1));
+ document.getElementById("areas").style.setProperty("--acols",Math.max(1,Math.min(5,areaKeys().length)));document.getElementById("areas").innerHTML=areaKeys().map(k=>[k,DATA.areas[k]]).map(([k,ps])=>{const avg=Math.round(ps.reduce((a,p)=>a+(+p.percent||0),0)/(ps.length||1));
   const ss=[...new Set(ps.map(p=>p.status))];
   const mix=`<div class="mix" aria-hidden="true">${ss.map(s=>`<i style="flex:${cnt(ps,s)};background:${col(s)}"></i>`).join("")}</div><div class="legend">${ss.map(s=>`<span><i style="background:${col(s)}"></i>${cnt(ps,s)} ${esc(s)}</span>`).join("")}</div>`;
   const rows=ps.map((p,i)=>({p,i,q:prio(k,p)})).sort(PSORT).filter(({p})=>F=="all"?p.status!="done":p.status==F).map(({p,q})=>`<div class="row${q=="high"?" hi":""}" data-pr="${q}" data-k="${esc(pkey(k,p))}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open details for ${esc(p.name)}"><div class="r1"><span class="nmw"><button type="button" class="pin${q?" on":""}${LP[pkey(k,p)]!==undefined?" loc":""}" data-k="${esc(pkey(k,p))}" title="Priority: ${q||"none"} (click to change)" aria-label="Set priority for ${esc(p.name)}, currently ${q||"none"}">${pinSvg}</button>${q?`<span class="pc ${q}">${PC[q]}</span>`:""}<span class="nm" title="${esc(p.name)}">${esc(p.name)}</span></span><span class="pill s-${esc(p.status).replace(/ /g,"-")}">${esc(p.status)}</span></div><div class="pr"><div class="pb"><i style="width:${+p.percent||0}%;background:${col(p.status)}"></i></div><span class="pct">${unv(p)?'<span class="est" title="Estimate, not yet verified">est.</span>':""}${+p.percent||0}%</span></div><div class="meta"><span class="nx">${esc(p.next_step)}</span><span class="ow">${esc(p.owner)} · ${esc(p.last_update)}</span></div></div>`).join("")||'<div class="empty">No projects with this status.</div>';
@@ -515,7 +515,7 @@ function applyApp(){const a=L.appearance,R=document.documentElement;
  document.body.classList.remove("dn-compact","dn-cozy","dn-roomy");document.body.classList.add("dn-"+a.density);
  document.querySelector(".wrap").style.zoom=a.font_scale==100?"":a.font_scale/100;
  const r=a.radius;let st=document.getElementById("lycss");if(!st){st=document.createElement("style");st.id="lycss";document.head.appendChild(st)}
- st.textContent=(r!=14?`.area,.tcard,.wg,.rtn,.ask,.setup,.tile{border-radius:${r}px!important}`:"")+(a.columns?`@media(min-width:701px){.areas{grid-template-columns:repeat(${a.columns},minmax(0,1fr))!important}}`:"");
+ st.textContent=(r!=14?`.area,.tcard,.wg,.rtn,.ask,.setup,.tile{border-radius:${r}px!important}`:"")+(a.columns?`@media(min-width:1200px){.areas{grid-template-columns:repeat(${a.columns},minmax(0,1fr))!important}}`:"");
  if(L.theme=="auto"){if(window.__THCHG){delete R.dataset.theme;try{localStorage.removeItem("desk-theme")}catch(e){}}}else if(R.dataset.theme!=L.theme){R.dataset.theme=L.theme;try{localStorage.setItem("desk-theme",L.theme)}catch(e){}}
  window.__THCHG=0;try{paintTT()}catch(e){}}
 function apply(){const ids=ordIds();ids.forEach(id=>{const e=secEl(id);if(e)B.appendChild(e)});

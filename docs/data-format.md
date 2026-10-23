@@ -10,10 +10,18 @@
 
 ## Areas
 
-Each key of `areas` (e.g. `"Work"`) is shown as a card. Display names come from
-the `AREAS` map in `template.html`
-(`AREAS={Work:"Work",Side:"Side project",Personal:"Personal"}`); a key missing
-from `AREAS` is shown as-is. Edit `AREAS` to rename or reorder areas.
+Each key of `areas` (e.g. `"Work"`) is shown as one column. Use as many areas as you
+like: the grid shows one column per area on wide screens (up to 5), 2 at medium widths
+(under 1200px) and 1 on phones. Optional top-level keys:
+
+| Field | Type | Notes |
+|---|---|---|
+| `area_order` | array of area ids | Column order. Areas listed here always render, even when empty. Defaults to the order of `areas`. |
+| `area_labels` | object | Display names, e.g. `{"Side": "Side project"}`. A missing key is shown as-is. |
+| `area_rules` | object | `{"Area": "regex"}`: `build.py` moves any project whose name matches into that area. |
+
+Readers can still reorder columns in the page (Customize → Projects → Area order); a
+new area is slotted in after its neighbor from `area_order`.
 
 ## Project
 
@@ -143,7 +151,7 @@ docs/data-format.md, then in ~/Desk:
    waiting (decisions you need from me, with 2-3 short answer options),
    unread (unread count per inbox, using my tile labels), routines (all my
    routines with schedule, next/last run, status, paused) and replies: [].
-3. Edit TILES and AREAS in template.html to match my inboxes and areas.
+3. Edit TILES in template.html to match my inboxes; set area_order/area_labels in status.json.
 4. Run: python3 ~/Desk/build.py ~/Desk/status.json
 5. Create a twice-daily "Desk progress refresh" routine that repeats 1, 2, 4,
    and a webhook "Desk messages" routine as in docs/routines.md.
