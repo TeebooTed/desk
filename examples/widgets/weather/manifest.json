@@ -1,0 +1,26 @@
+{
+  "id": "weather",
+  "name": "Weather",
+  "version": "1.0.0",
+  "author": "Desk examples",
+  "homepage": "https://open-meteo.com",
+  "description": "Current conditions and today's high/low from Open-Meteo (free, no key). Set your location in the widget.",
+  "entry": "index.html",
+  "size": {
+    "default": "s",
+    "height": 150
+  },
+  "permissions": [
+    "theme",
+    "storage",
+    "network"
+  ],
+  "network": [
+    "https://api.open-meteo.com"
+  ],
+  "refresh": 1800,
+  "sha256": {
+    "app.js": "ee06793f8f3f30d9eda9a04e1f99f92ed1a2e1f2b8bd1744219126f665a54289",
+    "index.html": "b287e9191f8fca3ce070102a0719ac2113f9709f8fbda1f4100c5f9bdd48bdb1"
+  }
+}

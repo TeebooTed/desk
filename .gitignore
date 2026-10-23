@@ -1,0 +1,8 @@
+config.json
+*.secret
+status.json
+index.html
+live.json
+layout.json
+layout.prev.json
+__pycache__/

@@ -1,0 +1,20 @@
+{
+  "id": "notes",
+  "name": "Scratchpad",
+  "version": "1.0.0",
+  "author": "Desk examples",
+  "homepage": "https://github.com/TeebooTed/desk",
+  "description": "A notes box that saves as you type. Notes stay in Desk; only this widget can read them.",
+  "entry": "index.html",
+  "size": {
+    "default": "m",
+    "height": 180
+  },
+  "permissions": [
+    "theme",
+    "storage"
+  ],
+  "sha256": {
+    "index.html": "d2f7c23681fa8a88415e8765c1fd2f28b66299232fa32aba339a5a80a60e560c"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "clock",
+  "name": "Clock & countdown",
+  "version": "1.0.0",
+  "author": "Desk examples",
+  "homepage": "https://github.com/TeebooTed/desk",
+  "description": "A big clock plus a countdown to a date you pick.",
+  "entry": "index.html",
+  "size": {
+    "default": "s",
+    "height": 150
+  },
+  "permissions": [
+    "theme",
+    "time",
+    "storage"
+  ],
+  "refresh": 0,
+  "sha256": {
+    "app.js": "3d997b7d9744331286ca04eeb9119fad2f4a602f1a4cab3455d61ea999ab82ee",
+    "index.html": "c9b273056f0c3e89752b50e9d46d6cafe986d3d1951bad30f26a94e4bd108592",
+    "style.css": "431c85c2ffaeb0a464292dc11647e6bf5e442b59d4f041569664febc62d9b120"
+  }
+}

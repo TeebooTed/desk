@@ -1,0 +1,78 @@
+{
+ "generated": "2026-01-15T16:00:00Z",
+ "areas": {
+  "Work": [
+   {
+    "name": "Website refresh",
+    "status": "active",
+    "percent": 60,
+    "priority": "high",
+    "next_step": "Review homepage draft",
+    "owner": "Example Agent",
+    "last_update": "2026-01-15",
+    "summary": "Example project: refresh the marketing site.",
+    "in_progress": "Homepage and pricing page drafted.",
+    "recent": [
+     "2026-01-14: draft homepage ready"
+    ],
+    "waiting_on": "Design sign-off",
+    "links": [
+     {
+      "label": "example.com",
+      "url": "https://example.com/"
+     }
+    ]
+   },
+   {
+    "name": "Quarterly report",
+    "status": "blocked",
+    "percent": 30,
+    "next_step": "Get Q4 numbers",
+    "owner": "You",
+    "last_update": "2026-01-12",
+    "summary": "Example blocked project.",
+    "in_progress": "Outline done.",
+    "recent": [],
+    "waiting_on": "Finance data"
+   }
+  ],
+  "Side": [
+   {
+    "name": "Podcast backlog",
+    "status": "active",
+    "percent": 45,
+    "next_step": "Upload episodes 5-10",
+    "owner": "Example Agent",
+    "last_update": "2026-01-13",
+    "summary": "Example side project.",
+    "in_progress": "4 of 10 episodes uploaded.",
+    "recent": []
+   }
+  ],
+  "Personal": [
+   {
+    "name": "Garden plan",
+    "status": "active",
+    "percent": 35,
+    "priority": "medium",
+    "next_step": "Order seeds for spring",
+    "owner": "You",
+    "last_update": "2026-01-14",
+    "summary": "Plan raised beds and planting calendar."
+   },
+   {
+    "name": "Plan trip",
+    "status": "done",
+    "percent": 100,
+    "next_step": "None",
+    "owner": "You",
+    "last_update": "2026-01-10",
+    "summary": "Example finished item.",
+    "in_progress": "Booked.",
+    "recent": [
+     "2026-01-10: booked"
+    ]
+   }
+  ]
+ }
+}

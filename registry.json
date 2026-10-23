@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "widgets": [
+    {
+      "id": "clock",
+      "name": "Clock & countdown",
+      "author": "Desk examples",
+      "description": "A big clock plus a countdown to a date you pick.",
+      "version": "1.0.0",
+      "permissions": [
+        "theme",
+        "time",
+        "storage"
+      ],
+      "manifest": "https://raw.githubusercontent.com/TeebooTed/desk/main/examples/widgets/clock/manifest.json",
+      "sha256": "779b7a39e035d3f1d90b8c8e7f9c27a3b6f9237d6fd958895b6935b5a0da1cec",
+      "bundled": "examples/widgets/clock"
+    },
+    {
+      "id": "notes",
+      "name": "Scratchpad",
+      "author": "Desk examples",
+      "description": "A notes box that saves as you type. Notes stay in Desk; only this widget can read them.",
+      "version": "1.0.0",
+      "permissions": [
+        "theme",
+        "storage"
+      ],
+      "manifest": "https://raw.githubusercontent.com/TeebooTed/desk/main/examples/widgets/notes/manifest.json",
+      "sha256": "0c23a5d7c555c55f985cc37522772b71351da92193e8616206e15be11bfdaa8a",
+      "bundled": "examples/widgets/notes"
+    },
+    {
+      "id": "weather",
+      "name": "Weather",
+      "author": "Desk examples",
+      "description": "Current conditions and today's high/low from Open-Meteo (free, no key). Set your location in the widget.",
+      "version": "1.0.0",
+      "permissions": [
+        "theme",
+        "storage",
+        "network"
+      ],
+      "manifest": "https://raw.githubusercontent.com/TeebooTed/desk/main/examples/widgets/weather/manifest.json",
+      "sha256": "728beeff34c3d7877bf0c3f32f4d933d9c8c1b192a1e6b1fe8470f2db8deaa10",
+      "bundled": "examples/widgets/weather"
+    }
+  ]
+}

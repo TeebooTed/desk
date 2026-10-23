@@ -1,0 +1,2 @@
+[{"type": "counter", "title": "Unread email", "icon": "✉️", "value": 12, "url": "https://mail.google.com", "refreshed": "2026-10-23T13:00:00-07:00"},
+ {"type": "link", "title": "Team wiki", "icon": "📘", "value": "docs.example.com", "url": "https://example.com"}]

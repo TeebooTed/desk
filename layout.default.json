@@ -1,0 +1,88 @@
+{
+ "version": 1,
+ "updated": "2026-01-01T00:00:00Z",
+ "updated_by": "default",
+ "sections": [
+  {
+   "id": "setup",
+   "visible": true,
+   "size": "full"
+  },
+  {
+   "id": "ask",
+   "visible": true,
+   "size": "s"
+  },
+  {
+   "id": "today",
+   "visible": true,
+   "size": "s",
+   "days": 2
+  },
+  {
+   "id": "waiting",
+   "visible": true,
+   "size": "s"
+  },
+  {
+   "id": "activity",
+   "visible": true,
+   "size": "s"
+  },
+  {
+   "id": "routsum",
+   "visible": true,
+   "size": "s"
+  },
+  {
+   "id": "teammates",
+   "visible": true,
+   "size": "s"
+  },
+  {
+   "id": "tiles",
+   "visible": true,
+   "size": "full",
+   "labels": true,
+   "order": [],
+   "hidden": [],
+   "extra": []
+  },
+  {
+   "id": "widgets",
+   "visible": true,
+   "size": "full"
+  },
+  {
+   "id": "projects",
+   "visible": true,
+   "size": "full",
+   "fields": {
+    "progress": true,
+    "next": true,
+    "owner": true,
+    "legend": true
+   },
+   "sort": "priority",
+   "default_filter": "all",
+   "area_order": []
+  },
+  {
+   "id": "routines",
+   "visible": true,
+   "size": "full",
+   "show": "all"
+  }
+ ],
+ "phone": {
+  "order": []
+ },
+ "appearance": {
+  "accent": "",
+  "density": "cozy",
+  "font_scale": 100,
+  "radius": 14,
+  "columns": 0
+ },
+ "theme": "auto"
+}

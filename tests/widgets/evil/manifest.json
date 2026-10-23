@@ -1,0 +1,1 @@
+{"id":"evil-test","name":"Escape test","version":"0.0.1","author":"Desk tests","description":"Tries to break out of the sandbox. For automated tests only.","entry":"index.html","permissions":["theme"],"size":{"default":"m","height":220}}

@@ -1,0 +1,9 @@
+[Unit]
+Description=Desk local relay (127.0.0.1:8765)
+
+[Service]
+ExecStart=/usr/bin/python3 %h/desk/relay/desk-relay.py
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
