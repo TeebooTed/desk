@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-"""Desk relay: forwards Desk messages to the webhook. Listens on 127.0.0.1 only. Also stores the page layout (GET/POST /layout -> $DESK_DIR/layout.json, default ~/Desk)
-and installed widget packages (GET/POST/DELETE /widgets -> $DESK_DIR/widgets/<id>/). Every request needs the header X-Desk: 1."""
-import json, os, re, shutil, time, urllib.request, urllib.error
-from http.server import BaseHTTPRequestHandler, HTTPServer
+"""Desk relay: forwards Desk messages to the webhook. Listens on 127.0.0.1 only. Also stores the page layout (GET/POST /layout -> $DESK_DIR/layout.json)
+and installed widget packages (GET/POST/DELETE /widgets -> $DESK_DIR/widgets/<id>/). Every request needs the header X-Desk: 1.
+Sync: GET/POST /state keeps page state (pins, collapsed panels, widget storage, layout...) in $DESK_DIR/state.json as
+{key: {v, t, d}} merged last-writer-wins per key (t = ms timestamp, d = device; v null = deleted). Other devices sync by
+POSTing their keys here (box job), or, if ~/.config/desk-relay/sync.json has {"token": "...", "peers": ["https://host/"]},
+this helper pulls each peer's /sync/state every 30 s (peer requests must carry X-Desk-Sync: <token>)."""
+import json, os, re, shutil, socket, threading, time, hmac, urllib.request, urllib.error
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 DIR = os.path.expanduser("~/.config/desk-relay"); CFG = os.path.join(DIR, "config.json")
 DESK = os.path.expanduser(os.environ.get("DESK_DIR", "~/Desk")); LAYOUT = os.path.join(DESK, "layout.json")
 WDIR = os.path.join(DESK, "widgets")
@@ -65,6 +69,59 @@ def wwrite(wid, m, files, meta):
     shutil.rmtree(old, ignore_errors=True)
     if os.path.isdir(dst): os.replace(dst, old)
     os.replace(tmp, dst); shutil.rmtree(old, ignore_errors=True)
+STATE = os.path.join(DESK, "state.json"); SYNCCFG = os.path.join(DIR, "sync.json"); LOCK = threading.Lock()
+DEV = os.environ.get("DESK_DEVICE") or socket.gethostname().split(".")[0][:40]
+SKEY = re.compile(r"^desk[-.:][A-Za-z0-9_.:-]{1,80}$"); MAX_STATE = 4 * 1024 * 1024
+def read_state():
+    try:
+        with open(STATE) as f: d = json.load(f)
+        return d if isinstance(d, dict) else {}
+    except Exception: return {}
+def sync_cfg():
+    try:
+        with open(SYNCCFG) as f: c = json.load(f)
+        return c if isinstance(c, dict) and c.get("token") else None
+    except Exception: return None
+def write_layout(d):
+    os.makedirs(DESK, exist_ok=True)
+    if os.path.exists(LAYOUT): os.replace(LAYOUT, os.path.join(DESK, "layout.prev.json"))
+    with open(LAYOUT + ".tmp", "w") as f: json.dump(d, f, indent=1)
+    os.replace(LAYOUT + ".tmp", LAYOUT)
+def newer(a, b):  # is entry a newer than b?
+    return b is None or (a.get("t", 0), str(a.get("d", ""))) > (b.get("t", 0), str(b.get("d", "")))
+def merge(incoming, dev=None):
+    """Merge {key: {v, t, d?}} into state.json (last writer wins per key). Returns number of keys changed."""
+    if not isinstance(incoming, dict): raise ValueError("keys must be an object")
+    with LOCK:
+        st = read_state(); n = 0; lay = None
+        for k, e in incoming.items():
+            if not isinstance(k, str) or not SKEY.match(k) or not isinstance(e, dict) or not isinstance(e.get("t"), (int, float)): continue
+            e = {"v": e.get("v"), "t": int(e["t"]), "d": str(e.get("d") or dev or DEV)[:40]}
+            if e["t"] > time.time() * 1000 + 86400000: continue  # ignore clocks far in the future
+            if newer(e, st.get(k)):
+                st[k] = e; n += 1
+                if k == "desk-layout" and isinstance(e["v"], str): lay = e["v"]
+        if n:
+            b = json.dumps(st)
+            if len(b) > MAX_STATE: raise ValueError("state too large")
+            os.makedirs(DESK, exist_ok=True)
+            with open(STATE + ".tmp", "w") as f: f.write(b)
+            os.replace(STATE + ".tmp", STATE)
+        if lay:
+            try:
+                L = json.loads(lay)
+                if isinstance(L, dict) and L.get("version") == 1 and isinstance(L.get("sections"), list): write_layout(L)
+            except Exception: pass
+        return n
+def peer_loop():
+    while True:
+        c = sync_cfg()
+        for u in (c or {}).get("peers") or []:
+            try:
+                req = urllib.request.Request(u.rstrip("/") + "/sync/state", headers={"X-Desk-Sync": c["token"]})
+                with urllib.request.urlopen(req, timeout=10) as r: merge(json.load(r).get("keys") or {})
+            except Exception: pass
+        time.sleep(30)
 PORT = int(os.environ.get("DESK_RELAY_PORT", "8765"))
 def read_layout():
     try:
@@ -100,9 +157,14 @@ class H(BaseHTTPRequestHandler):
         if not self._ok_origin(): return
         self._hdr(204); self.send_header("Content-Length", "0"); self.end_headers()
     def do_GET(self):
-        if not self._ok_origin(): return
         p = self.path.split("?")[0]
-        if p == "/health": self._j(200, {"ok": True, "configured": load() is not None, "layout": True, "widgets": True})
+        if p == "/sync/state":  # device-to-device pull; needs the shared sync token, never used by the page
+            c = sync_cfg(); t = self.headers.get("X-Desk-Sync") or ""
+            if not c or not hmac.compare_digest(t, str(c["token"])) or self.headers.get("Origin"): return self._j(403, {"ok": False, "error": "forbidden"})
+            return self._j(200, {"ok": True, "device": DEV, "keys": read_state()})
+        if not self._ok_origin(): return
+        if p == "/state": return self._j(200, {"ok": True, "device": DEV, "keys": read_state(), "peers": len((sync_cfg() or {}).get("peers") or [])})
+        if p == "/health": self._j(200, {"ok": True, "configured": load() is not None, "layout": True, "widgets": True, "sync": True, "device": DEV})
         elif p == "/widgets": self._j(200, {"ok": True, "widgets": wlist()})
         elif p == "/layout": self._j(200, {"ok": True, "layout": read_layout()})
         else: self._j(404, {"ok": False, "error": "not found"})
@@ -117,7 +179,7 @@ class H(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self._ok_origin(): return
         p = self.path.split("?")[0]
-        try: d = self._body(int(MAX_PKG * 1.6) if p == "/widgets" else 100000)
+        try: d = self._body(int(MAX_PKG * 1.6) if p == "/widgets" else MAX_STATE if p == "/state" else 100000)
         except Exception: return self._j(400, {"ok": False, "error": "bad json or too large"})
         if p == "/widgets":
             if isinstance(d, dict) and d.get("action") == "set":  # enable/disable or change grants without touching files
@@ -134,6 +196,10 @@ class H(BaseHTTPRequestHandler):
             except ValueError as e: return self._j(400, {"ok": False, "error": str(e)})
             except Exception as e: return self._j(500, {"ok": False, "error": "write failed: " + type(e).__name__})
             return self._j(200, {"ok": True, "id": wid})
+        if p == "/state":
+            try: n = merge((d or {}).get("keys"), (d or {}).get("device"))
+            except ValueError as e: return self._j(400, {"ok": False, "error": str(e)})
+            return self._j(200, {"ok": True, "changed": n, "device": DEV, "keys": read_state() if (d or {}).get("return") else None})
         if p == "/config":
             u, a = str(d.get("url", "")).strip(), str(d.get("auth", "")).strip()
             if not u.startswith("https://") or not a: return self._j(400, {"ok": False, "error": "need https url and auth"})
@@ -156,12 +222,10 @@ class H(BaseHTTPRequestHandler):
             if not isinstance(d, dict) or d.get("version") != 1 or not isinstance(d.get("sections"), list):
                 return self._j(400, {"ok": False, "error": "need layout version 1 with sections"})
             try:
-                os.makedirs(DESK, exist_ok=True)
-                if os.path.exists(LAYOUT): os.replace(LAYOUT, os.path.join(DESK, "layout.prev.json"))
-                with open(LAYOUT + ".tmp", "w") as f: json.dump(d, f, indent=1)
-                os.replace(LAYOUT + ".tmp", LAYOUT)
+                with LOCK: write_layout(d)
             except Exception as e: return self._j(500, {"ok": False, "error": "write failed: " + type(e).__name__})
             return self._j(200, {"ok": True, "saved": True})
         self._j(404, {"ok": False, "error": "not found"})
 if __name__ == "__main__":
-    HTTPServer(("127.0.0.1", PORT), H).serve_forever()
+    threading.Thread(target=peer_loop, daemon=True).start()
+    ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()
