@@ -6,8 +6,15 @@
   desk-log --agent Scout --new "Project name" --area Work --note "Why it's needed"
 
 Env overrides (for testing): DESK_STATUS (status.json), DESK_UPDATES (updates.jsonl), DESK_TZ.
+
+Solid pod mode (optional): add --pod ENVFILE (or set DESK_POD_ENV) to read projects from, and write the update into, the
+project's area folder in your pod (<pod>/<root>/<area-folder>/updates/) instead of updates.jsonl. ENVFILE (chmod 600) holds:
+  DESK_POD_URL=https://pod.example.org/you/     DESK_POD_ROOT=grokbot/ (default)     DESK_POD_ISSUER=... (default: pod's server)
+  DESK_POD_CLIENT_ID=...    DESK_POD_CLIENT_SECRET=...    DESK_POD_AREAS=area-a,area-b (optional: only these folders)
+Uses Solid client credentials with DPoP when the "cryptography" package is installed, else a Bearer token. See docs/solid-pod.md.
 """
-import argparse, datetime, difflib, fcntl, json, os, re, sys, zoneinfo
+import argparse, base64, datetime, difflib, fcntl, hashlib, json, os, re, sys, time, uuid, zoneinfo
+import urllib.error, urllib.parse, urllib.request
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 STATUS = os.environ.get("DESK_STATUS") or next((p for p in (os.path.join(_HERE, "status.json"), os.path.join(_HERE, "example-status.json")) if os.path.exists(p)), os.path.join(_HERE, "status.json"))
@@ -58,6 +65,91 @@ def append(entry):
     finally:
         fcntl.flock(fd, fcntl.LOCK_UN); os.close(fd)
 
+class Pod:
+    """Solid pod backend: one folder per area under <pod>/<root>/, each with status.json and updates/."""
+    def __init__(self, envfile):
+        try:
+            st = os.stat(envfile)
+            if st.st_mode & 0o077: print("desk-log: warning: %s is readable by others; chmod 600 it" % envfile, file=sys.stderr)
+            env = dict(l.split("=", 1) for l in (x.strip() for x in open(envfile)) if l and not l.startswith("#") and "=" in l)
+        except OSError as e: die("can't read pod env file %s: %s" % (envfile, e), 3)
+        env = {k.strip(): v.strip().strip('"').strip("'") for k, v in env.items()}
+        for k in ("DESK_POD_URL", "DESK_POD_CLIENT_ID", "DESK_POD_CLIENT_SECRET"):
+            if not env.get(k): die("%s is missing from %s" % (k, envfile), 3)
+        self.pod = env["DESK_POD_URL"].rstrip("/") + "/"
+        self.root = urllib.parse.urljoin(self.pod, (env.get("DESK_POD_ROOT") or "grokbot/").strip("/") + "/")
+        u = urllib.parse.urlparse(self.pod)
+        self.issuer = (env.get("DESK_POD_ISSUER") or "%s://%s/" % (u.scheme, u.netloc)).rstrip("/") + "/"
+        self.cid, self.secret = env["DESK_POD_CLIENT_ID"], env["DESK_POD_CLIENT_SECRET"]
+        self.only = [x.strip().strip("/") for x in (env.get("DESK_POD_AREAS") or "").split(",") if x.strip()]
+        self.tok = None; self.key = None
+        try:
+            from cryptography.hazmat.primitives.asymmetric import ec
+            self.key = ec.generate_private_key(ec.SECP256R1())
+        except Exception: pass
+    @staticmethod
+    def _b64(b): return base64.urlsafe_b64encode(b).rstrip(b"=").decode()
+    def _proof(self, method, url, ath=None):
+        from cryptography.hazmat.primitives import hashes
+        from cryptography.hazmat.primitives.asymmetric import ec
+        from cryptography.hazmat.primitives.asymmetric.utils import decode_dss_signature
+        n = self.key.public_key().public_numbers()
+        jwk = {"kty": "EC", "crv": "P-256", "x": self._b64(n.x.to_bytes(32, "big")), "y": self._b64(n.y.to_bytes(32, "big"))}
+        body = {"htu": url.split("?")[0].split("#")[0], "htm": method, "jti": str(uuid.uuid4()), "iat": int(time.time())}
+        if ath: body["ath"] = ath
+        si = self._b64(json.dumps({"alg": "ES256", "typ": "dpop+jwt", "jwk": jwk}).encode()) + "." + self._b64(json.dumps(body).encode())
+        r, s = decode_dss_signature(self.key.sign(si.encode(), ec.ECDSA(hashes.SHA256())))
+        return si + "." + self._b64(r.to_bytes(32, "big") + s.to_bytes(32, "big"))
+    def _token(self):
+        if self.tok: return self.tok
+        try:
+            with urllib.request.urlopen(self.issuer + ".well-known/openid-configuration", timeout=15) as r: te = json.load(r)["token_endpoint"]
+        except Exception as e: die("can't reach the pod's sign-in server %s: %s" % (self.issuer, e), 5)
+        h = {"Content-Type": "application/x-www-form-urlencoded",
+             "Authorization": "Basic " + base64.b64encode(("%s:%s" % (urllib.parse.quote(self.cid, safe=""), urllib.parse.quote(self.secret, safe=""))).encode()).decode()}
+        if self.key: h["DPoP"] = self._proof("POST", te)
+        try:
+            with urllib.request.urlopen(urllib.request.Request(te, data=b"grant_type=client_credentials&scope=webid", headers=h), timeout=15) as r: j = json.load(r)
+        except urllib.error.HTTPError as e: die("pod sign-in failed (HTTP %d); check the client id/secret in the env file" % e.code, 5)
+        except Exception as e: die("pod sign-in failed: %s" % e, 5)
+        self.tok = (j.get("token_type") or "Bearer", j["access_token"]); return self.tok
+    def req(self, method, url, body=None, headers=None):
+        kind, tok = self._token(); h = dict(headers or {})
+        if self.key and kind.lower() == "dpop":
+            h["Authorization"] = "DPoP " + tok; h["DPoP"] = self._proof(method, url, self._b64(hashlib.sha256(tok.encode()).digest()))
+        else: h["Authorization"] = "Bearer " + tok
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, data=body, headers=h, method=method), timeout=20) as r: return r.status, r.read(), r.headers
+        except urllib.error.HTTPError as e: return e.code, b"", e.headers
+        except Exception as e: die("pod unreachable: %s" % e, 5)
+    def folders(self):
+        if self.only: return [urllib.parse.urljoin(self.root, f + "/") for f in self.only]
+        c, b, _ = self.req("GET", self.root, headers={"Accept": "application/ld+json"})
+        if c in (401, 403): die("this agent can't list %s; set DESK_POD_AREAS=<folder>,... in the env file to the area folders it may write to" % self.root, 5)
+        if c != 200: die("can't list %s (HTTP %d)" % (self.root, c), 5)
+        g = json.loads(b); nodes = g if isinstance(g, list) else g.get("@graph", [g])
+        kids = [urllib.parse.urljoin(self.root, x["@id"] if isinstance(x, dict) else x) for n in nodes if n.get("@id") in (self.root, "")
+                for x in n.get("http://www.w3.org/ns/ldp#contains", []) + n.get("contains", [])]
+        return sorted({k for k in kids if k.endswith("/")})
+    def load(self):
+        out, areas, self.where = [], [], {}
+        for f in self.folders():
+            c, b, _ = self.req("GET", f + "status.json", headers={"Accept": "application/json"})
+            if c != 200: continue  # not an area folder, or no access for this agent
+            st = json.loads(b); a = str(st.get("area") or f.rstrip("/").rsplit("/", 1)[-1]); areas.append(a); self.where[a] = f
+            for p in st.get("projects") or []:
+                pid = str(p.get("id") or slug(p.get("name", "")))
+                out.append({"id": pid, "name": p.get("name", ""), "area": a, "status": p.get("status", ""), "percent": p.get("percent")})
+        if not areas: die("no readable area folders under %s (does this agent have access?)" % self.root, 5)
+        return out, areas
+    def append(self, entry, area):
+        u = self.where[area] + "updates/"
+        name = re.sub(r"[^0-9A-Za-z]+", "", entry["at"]) + "-" + slug(entry["agent"]) + ".json"
+        c, _, h = self.req("POST", u, json.dumps(entry, ensure_ascii=False).encode("utf-8"), {"Content-Type": "application/json", "Slug": name})
+        if c not in (200, 201): die("pod refused the update (HTTP %d on %s)" % (c, u), 5)
+        return h.get("Location") or u
+POD = None
+
 def main():
     ap = argparse.ArgumentParser(prog="desk-log", description="Log progress on a Desk project.")
     ap.add_argument("--agent", help="your name, e.g. Scout")
@@ -69,9 +161,12 @@ def main():
     ap.add_argument("--list", action="store_true", help="print project ids and names")
     ap.add_argument("--area", help="filter --list, or the area for --new")
     ap.add_argument("--new", metavar="NAME", help="propose a new project for your bot to review")
+    ap.add_argument("--pod", metavar="ENVFILE", default=os.environ.get("DESK_POD_ENV"), help="write to your Solid pod using the client credentials in ENVFILE")
     ap.add_argument("--at", help=argparse.SUPPRESS)  # ISO override (testing/backfill)
     a = ap.parse_args()
-    projects, areas = load_projects()
+    global POD
+    if a.pod: POD = Pod(a.pod)
+    projects, areas = POD.load() if POD else load_projects()
 
     if a.list:
         if a.area and a.area.lower() not in [x.lower() for x in areas]: die("unknown area %r; areas: %s" % (a.area, ", ".join(areas)))
@@ -102,7 +197,9 @@ def main():
         if a.note: entry["note"] = check_note(a.note)
         for k in ("percent", "status", "next_step"):
             if getattr(a, k) is not None: die("--%s isn't used with --new" % k.replace("_", "-"))
-        append(entry); print("proposed new project %r in %s (for your bot to review; not added to Desk yet)" % (name, area)); return
+        if POD: POD.append(entry, area)
+        else: append(entry)
+        print("proposed new project %r in %s (for your bot to review; not added to Desk yet)" % (name, area)); return
 
     if not a.project: die("--project is required (see desk-log --list)")
     ids = {p["id"]: p for p in projects}
@@ -125,7 +222,8 @@ def main():
         if not s: die("--status must be one of: active, blocked, on_hold, done")
         entry["status"] = "on_hold" if s == "on hold" else s
     if a.next_step is not None: entry["next_step"] = check_note(a.next_step, "--next-step")
-    append(entry)
+    if POD: print("pod:", POD.append(entry, ids[a.project]["area"]))
+    else: append(entry)
     print("logged for %s (%s) at %s" % (a.project, ids[a.project]["name"], entry["at"]))
 
 if __name__ == "__main__":

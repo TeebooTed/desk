@@ -11,3 +11,5 @@ PENDING_DEPLOY
 PENDING_DEPLOY.tmp
 desk-watch.log
 .desk-watch.lock
+tools/solid/node_modules/
+*.env

@@ -4,7 +4,9 @@ and installed widget packages (GET/POST/DELETE /widgets -> $DESK_DIR/widgets/<id
 Sync: GET/POST /state keeps page state (pins, collapsed panels, widget storage, layout...) in $DESK_DIR/state.json as
 {key: {v, t, d}} merged last-writer-wins per key (t = ms timestamp, d = device; v null = deleted). Other devices sync by
 POSTing their keys here (box job), or, if ~/.config/desk-relay/sync.json has {"token": "...", "peers": ["https://host/"]},
-this helper pulls each peer's /sync/state every 30 s (peer requests must carry X-Desk-Sync: <token>)."""
+this helper pulls each peer's /sync/state every 30 s (peer requests must carry X-Desk-Sync: <token>).
+GET /app/ serves $DESK_DIR/index.html (and assets/*.js|svg|png|ico) so Desk can be opened at http://127.0.0.1:8765/app/; that origin
+(and only it) is allowed alongside file:// pages. Only needed for the optional Solid pod mode (docs/solid-pod.md)."""
 import json, os, re, shutil, socket, threading, time, hmac, urllib.request, urllib.error
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 DIR = os.path.expanduser("~/.config/desk-relay"); CFG = os.path.join(DIR, "config.json")
@@ -123,6 +125,9 @@ def peer_loop():
             except Exception: pass
         time.sleep(30)
 PORT = int(os.environ.get("DESK_RELAY_PORT", "8765"))
+SELF = {"http://127.0.0.1:%d" % PORT, "http://localhost:%d" % PORT}  # the page served at /app/ (same origin as this helper)
+HOSTS = {"127.0.0.1:%d" % PORT, "localhost:%d" % PORT}
+APPF = re.compile(r"^assets/[A-Za-z0-9_-][A-Za-z0-9._-]{0,63}\.(js|svg|png|ico)$")
 def read_layout():
     try:
         with open(LAYOUT) as f: return json.load(f)
@@ -136,7 +141,7 @@ class H(BaseHTTPRequestHandler):
     def log_message(self, *a): pass  # never log
     def _hdr(self, code, ctype="application/json"):
         self.send_response(code); self.send_header("Content-Type", ctype)
-        self.send_header("Access-Control-Allow-Origin", "null")
+        o = self.headers.get("Origin"); self.send_header("Access-Control-Allow-Origin", o if o in SELF else "null")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type, X-Desk")
         self.send_header("Access-Control-Allow-Private-Network", "true")
@@ -145,7 +150,7 @@ class H(BaseHTTPRequestHandler):
         b = json.dumps(obj).encode(); self._hdr(code); self.send_header("Content-Length", str(len(b))); self.end_headers(); self.wfile.write(b)
     def _ok_origin(self):
         o = self.headers.get("Origin")
-        if o is not None and o != "null": self._j(403, {"ok": False, "error": "origin not allowed"}); return False
+        if o is not None and o != "null" and o not in SELF: self._j(403, {"ok": False, "error": "origin not allowed"}); return False
         if self.command != "OPTIONS" and self.headers.get("X-Desk") != "1":  # forces a CORS preflight; plain navigations/forms can't add it
             self._j(403, {"ok": False, "error": "missing X-Desk header"}); return False
         return True
@@ -156,8 +161,21 @@ class H(BaseHTTPRequestHandler):
     def do_OPTIONS(self):
         if not self._ok_origin(): return
         self._hdr(204); self.send_header("Content-Length", "0"); self.end_headers()
+    def _app(self, p):  # GET /app/ serves the built Desk page over http (needed only for Solid pod sign-in). Read-only, fixed files.
+        if self.headers.get("Host") not in HOSTS: return self._j(403, {"ok": False, "error": "bad host"})  # blocks DNS rebinding
+        rel = p[len("/app/"):] or "index.html"
+        if rel != "index.html" and not APPF.match(rel): return self._j(404, {"ok": False, "error": "not found"})
+        f = os.path.join(DESK, rel)
+        if not os.path.isfile(f): return self._j(404, {"ok": False, "error": "not found"})
+        with open(f, "rb") as fh: b = fh.read()
+        ct = {"html": "text/html; charset=utf-8", "js": "text/javascript", "svg": "image/svg+xml", "png": "image/png", "ico": "image/x-icon"}[rel.rsplit(".", 1)[1]]
+        self.send_response(200); self.send_header("Content-Type", ct); self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff"); self.send_header("Referrer-Policy", "no-referrer"); self.send_header("X-Frame-Options", "DENY")
+        self.send_header("Content-Length", str(len(b))); self.end_headers(); self.wfile.write(b)
     def do_GET(self):
         p = self.path.split("?")[0]
+        if p == "/app": self.send_response(301); self.send_header("Location", "/app/"); self.send_header("Content-Length", "0"); self.end_headers(); return
+        if p.startswith("/app/"): return self._app(p)
         if p == "/sync/state":  # device-to-device pull; needs the shared sync token, never used by the page
             c = sync_cfg(); t = self.headers.get("X-Desk-Sync") or ""
             if not c or not hmac.compare_digest(t, str(c["token"])) or self.headers.get("Origin"): return self._j(403, {"ok": False, "error": "forbidden"})

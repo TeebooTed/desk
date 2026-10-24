@@ -1,0 +1,11 @@
+{
+  "name": "desk-solid-tools",
+  "private": true,
+  "description": "Builds assets/solid-auth.js (Solid sign-in for Desk's optional pod mode). Not needed in local mode.",
+  "license": "MIT",
+  "scripts": { "build": "node build.mjs" },
+  "devDependencies": {
+    "@inrupt/solid-client-authn-browser": "5.0.1",
+    "esbuild": "0.28.2"
+  }
+}

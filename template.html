@@ -224,6 +224,13 @@ body.dn-roomy .board{gap:32px 26px}body.dn-roomy .row{padding-top:14px;padding-b
 .arr{display:flex;flex-direction:column;gap:6px;max-height:320px;overflow:auto;margin-bottom:6px}.arrb{display:flex;gap:6px}.arrc{flex:1;min-width:0}.arrc>small{color:var(--mut);font-size:10.5px}
 .arrl{list-style:none;margin:0;padding:3px;border:1px dashed var(--bd);border-radius:8px;min-height:26px;display:flex;flex-direction:column;gap:3px}
 .arrl li{padding:4px 7px;border:1px solid var(--bd);border-radius:6px;background:var(--bg2);font-size:12px;cursor:grab;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.arrl li:focus-visible{outline:2px solid var(--acc)}.arrf li{background:var(--card)}.arrf small{color:var(--mut)}
+.sd{max-height:calc(100vh - 100px);overflow:auto}.stg{border-top:1px solid var(--bd);margin-top:16px;padding-top:12px}.stg h3{margin:0 0 8px;font-size:14px}
+.stm{display:flex;gap:16px}.stm label,.spc,#spfound li label{display:inline-flex!important;align-items:center;gap:6px;text-transform:none!important;letter-spacing:0!important;font-size:13.5px!important;color:var(--fg)!important;margin:0!important}
+.stg input[type=radio],.stg input[type=checkbox]{width:auto!important;margin:0}#spfound ul{list-style:none;padding:0;margin:8px 0;font-size:13px}#spfound li{padding:3px 0}#spfound li.ok span{color:#2e9d5b;margin-right:6px}#spfound em{color:var(--mut);font-style:normal;font-size:12px}#spfound code{font-size:12px}.spl{font-size:12px;color:var(--mut);margin-top:10px}.spc{margin:6px 0!important}#spmsg.err{color:#d0453a}
+#podpill{position:fixed;left:14px;bottom:14px;z-index:60;display:flex;align-items:center;gap:8px;max-width:min(640px,calc(100vw - 28px));background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:999px;padding:5px 6px 5px 12px;box-shadow:var(--shh);font-size:12.5px}
+#podpill[hidden]{display:none}#podpill i{width:8px;height:8px;border-radius:50%;background:#8a8f98;flex:none}#podpill span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--fg2)}#podpill .mbtn{padding:3px 9px;font-size:12px;border-radius:999px}
+#podpill[data-state=pod] i{background:#2e9d5b}#podpill[data-state=busy] i{background:#d9a400}#podpill[data-state=fallback]{border-color:#d0453a}#podpill[data-state=fallback] i,#podpill[data-state=signed-out] i{background:#d0453a}#podpill[data-state=empty] i,#podpill[data-state=setup] i{background:#d9a400}
+.podchg{outline:2px solid #2e9d5b;outline-offset:2px;transition:outline-color 4s}
 </style></head><body><div class="wrap">
 <header><div><div class="dbrand"><img class="dtile" alt="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjMmY2ZmVkIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvc3ZnPg=="><img class="dlogo lt" alt="Desk" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIwIDQwIDI5NiAxMTAiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwIDU1LjApIHNjYWxlKDAuNykiPjxkZWZzPjxjbGlwUGF0aCBpZD0ieGsiPjxyZWN0IHg9IjI4MyIgeT0iMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiLz48L2NsaXBQYXRoPjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTQxNzFjIiBzdHJva2Utd2lkdGg9IjIyIj4KPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkiLz48cGF0aCBkPSJNODkgLTUwVjEwMCIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAgMCkiPjxwYXRoIGQ9Ik04OSA1MEEzOSAzOSAwIDEgMCA4MC42IDc0LjQiLz48cGF0aCBkPSJNMTEgNTBIODkiIC8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMjIgMCkiPjxwYXRoIGQ9Ik01MS41IDIwLjVBMTkgMTkgMCAxIDAgMzUgNDlBMjEgMjEgMCAxIDEgMTYuOCA4MC41Ii8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAgMCkiPjxwYXRoIGQ9Ik0xMSAtNTBWMTAwIi8+PC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjeGspIj48cGF0aCBkPSJNMzk1IC0yMEwzMTYgNjYiLz48cGF0aCBkPSJNMzQwIDQyTDM5OCAxMjAiLz48L2c+CjwvZz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODguMCAxNDcuMCkgc2NhbGUoMS42KSI+PHBhdGggZmlsbD0iIzJmNmZlZCIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iIzJmNmZlZCIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvZz48L3N2Zz4="><img class="dlogo dk" alt="Desk" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIwIDQwIDI5NiAxMTAiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwIDU1LjApIHNjYWxlKDAuNykiPjxkZWZzPjxjbGlwUGF0aCBpZD0ieGsiPjxyZWN0IHg9IjI4MyIgeT0iMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiLz48L2NsaXBQYXRoPjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTllY2YxIiBzdHJva2Utd2lkdGg9IjIyIj4KPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkiLz48cGF0aCBkPSJNODkgLTUwVjEwMCIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAgMCkiPjxwYXRoIGQ9Ik04OSA1MEEzOSAzOSAwIDEgMCA4MC42IDc0LjQiLz48cGF0aCBkPSJNMTEgNTBIODkiIC8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMjIgMCkiPjxwYXRoIGQ9Ik01MS41IDIwLjVBMTkgMTkgMCAxIDAgMzUgNDlBMjEgMjEgMCAxIDEgMTYuOCA4MC41Ii8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAgMCkiPjxwYXRoIGQ9Ik0xMSAtNTBWMTAwIi8+PC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjeGspIj48cGF0aCBkPSJNMzk1IC0yMEwzMTYgNjYiLz48cGF0aCBkPSJNMzQwIDQyTDM5OCAxMjAiLz48L2c+CjwvZz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODguMCAxNDcuMCkgc2NhbGUoMS42KSI+PHBhdGggZmlsbD0iIzZhOWJmZiIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iIzZhOWJmZiIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvZz48L3N2Zz4="></div><h1 id="greet">Hello</h1></div>
 <div class="hr"><div class="time"><div id="clock"></div><div id="date"></div></div>
@@ -249,7 +256,15 @@ body.dn-roomy .board{gap:32px 26px}body.dn-roomy .row{padding-top:14px;padding-b
 <label for="hu">Webhook URL</label><input id="hu" type="url" autocomplete="off" spellcheck="false" placeholder="https://…">
 <label for="ha">Authorization header value</label><input id="ha" type="password" autocomplete="off" spellcheck="false" placeholder="Bearer …">
 <div class="ca"><button type="button" class="mbtn" id="hdc">Disconnect</button><span class="sp"></span><button type="button" class="mbtn" id="htx">Send test</button><button type="button" class="mbtn" id="hcl">Close</button><button type="button" class="mbtn pri" id="hsv">Save</button></div>
-<div class="nt">Stored only in this browser (localStorage). Never included in Desk's build files.</div></div></div>
+<div class="nt">Stored only in this browser (localStorage). Never included in Desk's build files.</div>
+<div class="stg" id="stg"><h3>Storage</h3><div class="stm" role="radiogroup" aria-label="Storage"><label><input type="radio" name="stm" value="local" checked> This computer</label><label><input type="radio" name="stm" value="pod"> Solid pod</label></div>
+<div id="stpod" hidden><label for="spu">Pod URL</label><input id="spu" type="url" autocomplete="off" spellcheck="false" placeholder="https://pod.example.org/you/">
+<label for="spr">Desk folder in the pod</label><input id="spr" type="text" autocomplete="off" spellcheck="false" placeholder="grokbot/">
+<label for="spi">Sign-in server (optional)</label><input id="spi" type="url" autocomplete="off" spellcheck="false" placeholder="defaults to the pod's server">
+<div class="nt" id="spst"></div>
+<div class="ca"><button type="button" class="mbtn pri" id="spin">Sign in</button><button type="button" class="mbtn" id="spout" hidden>Sign out</button><span class="sp"></span><button type="button" class="mbtn" id="spscan">Scan pod</button><button type="button" class="mbtn" id="spex">Export from pod</button></div>
+<div id="spfound"></div><div class="nt" id="spmsg" role="status"></div></div>
+<div class="nt">Optional. "This computer" uses the data build.py writes into this page. "Solid pod" reads the same data from your own pod, one folder per area (docs/solid-pod.md).</div></div></div></div>
 <div class="mb" id="mb" aria-hidden="true"><div class="md" id="md" role="dialog" aria-modal="true" aria-labelledby="mt" tabindex="-1"></div></div>
 <script>/* SortableJS 1.15.6, MIT, inlined */
 /*! Sortable 1.15.6 - MIT | git://github.com/SortableJS/Sortable.git */
@@ -884,4 +899,196 @@ window.__deskWidgets={PK,addDlg,validate,buildDoc,checkOrigin,unzip};
 loadAll().then(mountAll);
 })();
 
-</script></body></html>
+</script>
+<script>/* Desk storage layer. One interface, two backends:
+   - "This computer" (default): the data build.py baked into this page from status.json + updates.jsonl. Nothing below runs in this mode
+     except reading one localStorage key, so local Desk behaves exactly as before.
+   - "Solid pod": the same data format, read from per-area folders in your pod: <pod>/<root>/<area-folder>/status.json + updates/.
+     Sign-in uses assets/solid-auth.js (loaded only in pod mode). If sign-in fails or the pod is unreachable, Desk keeps showing
+     this computer's data and says so. See docs/solid-pod.md.
+   Interface (both backends): loadStatus() -> status.json shape, loadUpdates() -> [update entries], appendUpdate(entry), saveStatus(status). */
+(()=>{
+const SK="desk-storage",$=id=>document.getElementById(id);
+const conf=()=>{let c={};try{c=JSON.parse(localStorage.getItem(SK)||"{}")||{}}catch(e){}return{mode:c.mode==="pod"?"pod":"local",pod:String(c.pod||""),root:String(c.root||"grokbot/"),issuer:String(c.issuer||"")}};
+const setConf=p=>{const c=Object.assign(conf(),p);try{localStorage.setItem(SK,JSON.stringify(c))}catch(e){}return c};
+const slug=(n,d)=>String(n||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,48)||d||"area";
+const clone=o=>JSON.parse(JSON.stringify(o));
+const raw=p=>{const q={};for(const k in p)if(k[0]!=="_"&&k!=="unverified")q[k]=p[k];return q};
+const LOCAL=clone(DATA);
+const folderOf=(key,maps)=>{for(const m of maps)if(m&&m[key])return String(m[key]).replace(/^\/+|\/+$/g,"");return slug(key)};
+
+/* ---- build.py's merge, ported (same rules, same output shape) ---- */
+const LST={active:"active",blocked:"blocked",on_hold:"on hold","on hold":"on hold",hold:"on hold",done:"done"};
+const ZN={PT:"America/Los_Angeles",MT:"America/Denver",CT:"America/Chicago",ET:"America/New_York",UTC:"UTC"};
+function tzOff(tz,ms){const p=new Intl.DateTimeFormat("en-US",{timeZone:tz,hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"}).formatToParts(new Date(ms));const g=t=>+p.find(x=>x.type==t).value;return Date.UTC(g("year"),g("month")-1,g("day"),g("hour")%24,g("minute"),g("second"))-ms}
+function zoned(Y,M,D,h,mi,s,tz){const g=Date.UTC(Y,M-1,D,h,mi,s);return g-tzOff(tz,g-tzOff(tz,g))}
+function when(s,tz,end){s=String(s||"").trim();let m=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);if(m)return zoned(+m[1],+m[2],+m[3],end?23:0,end?59:0,end?59:0,tz);
+ m=s.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?$/);if(!m)return null;
+ if(m[7]){const v=Date.parse(s.replace(" ","T"));return isNaN(v)?null:v}return zoned(+m[1],+m[2],+m[3],+m[4],+m[5],+(m[6]||0),tz)}
+function stamp(ms,tz){const p=new Intl.DateTimeFormat("en-US",{timeZone:tz,hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).formatToParts(new Date(ms));const g=t=>(p.find(x=>x.type==t)||{}).value||"";return `${g("year")}-${g("month")}-${g("day")} ${g("hour")}:${g("minute")} ${g("timeZoneName")}`}
+function updOf(p,tz){const lu=String(p.last_update||"").trim();if(!lu)return null;
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(lu)){const w=when(lu,tz);return w==null?null:{at:new Date(w).toISOString(),date_only:false}}
+ let best=null;for(const r of p.recent||[]){const x=String(r).match(/^(\d{4}-\d{2}-\d{2})\s+~?(\d{1,2}):(\d{2})\s*(PT|MT|CT|ET|UTC)?\b/);if(!x||x[1]!==lu)continue;
+  const [Y,M,D]=x[1].split("-").map(Number),w=zoned(Y,M,D,+x[2],+x[3],0,x[4]?ZN[x[4]]:tz);if(best==null||w>best)best=w}
+ return best!=null?{at:new Date(best).toISOString(),date_only:false}:{at:new Date(when(lu,tz,true)).toISOString(),date_only:true}}
+function prepare(st,ups){const d=clone(st||{});d.areas=d.areas||{};const tz=d.tz||Intl.DateTimeFormat().resolvedOptions().timeZone;
+ for(const [tgt,rx] of Object.entries(d.area_rules||{})){let re;try{re=new RegExp(rx,"i")}catch(e){continue}
+  for(const a of Object.keys(d.areas)){if(a===tgt)continue;const hit=d.areas[a].filter(p=>re.test(p.name||""));if(hit.length){d.areas[a]=d.areas[a].filter(p=>!hit.includes(p));(d.areas[tgt]=d.areas[tgt]||[]).push(...hit)}}}
+ const A={};for(const k of (d.area_order&&d.area_order.length?d.area_order:Object.keys(d.areas)))A[k]=d.areas[k]||[];for(const k in d.areas)if(!(k in A))A[k]=d.areas[k];
+ d.areas=A;d.area_order=Object.keys(A);d.area_labels=Object.assign(Object.fromEntries(d.area_order.map(k=>[k,k])),d.area_labels||{});
+ const seen=new Set();for(const ps of Object.values(A))for(const p of ps)if(p.id)seen.add(String(p.id));
+ for(const ps of Object.values(A))for(const p of ps)if(!p.id){const b=slug(p.name,"project");let i=b,n=2;while(seen.has(i))i=b+"-"+n++;p.id=i;seen.add(i)}
+ const log={},props=[];for(const e0 of ups||[]){if(!e0||typeof e0!=="object"||!e0.agent)continue;const w=when(e0.at,tz);if(w==null)continue;const e=Object.assign({},e0,{_w:w});
+  if(e.kind==="new_project"){props.push(e);continue}if(e.project_id&&e.note)(log[e.project_id]=log[e.project_id]||[]).push(e)}
+ const known={};for(const ps of Object.values(A))for(const p of ps)known[p.id]=p;
+ for(const [pid,es] of Object.entries(log)){const p=known[pid];if(!p)continue;es.sort((a,b)=>a._w-b._w);const base=when(p.last_update,tz,false);const nw=es.filter(e=>base==null||e._w>=base);
+  if(nw.length){const top=nw[nw.length-1];p.last_update=String(top.at);p.updated_by=String(top.agent).slice(0,40);
+   for(const k of ["percent","status","next_step"]){const e=[...nw].reverse().find(e=>e[k]!=null&&e[k]!=="");if(!e)continue;let v=e[k];
+    if(k==="percent"){v=parseInt(v,10);if(isNaN(v))continue;v=Math.max(0,Math.min(100,v))}if(k==="status"){v=LST[String(v).trim().toLowerCase()];if(!v)continue}p[k]=v}}
+  const sn=new Set(),rec=[];for(const r of [...[...es].reverse().map(e=>`${stamp(e._w,tz)}: ${String(e.note).split(/\s+/).filter(Boolean).join(" ")} (${e.agent})`),...(p.recent||[])]){
+   const key=String(r).toLowerCase().replace(/[^\p{L}\p{N}_]+/gu," ").trim();if(sn.has(key))continue;sn.add(key);rec.push(r)}p.recent=rec.slice(0,12)}
+ d.proposed_projects=props.map(e=>({name:e.name,area:e.area,agent:e.agent,at:new Date(e._w).toISOString(),note:e.note||""}));
+ for(const ps of Object.values(A))for(const p of ps){const u=updOf(p,tz);if(u)p._upd=u;else delete p._upd}
+ return d}
+
+/* ---- backend 1: this computer ---- */
+const local={kind:"local",label:"This computer",
+ async loadStatus(){return clone(LOCAL)},
+ async loadUpdates(){return[]},  // build.py already merged updates.jsonl into this page
+ async appendUpdate(){throw new Error("On this computer, agents log with ./desk-log (it appends to updates.jsonl).")},
+ async saveStatus(){throw new Error("On this computer, your bot writes status.json and runs build.py.")}};
+
+/* ---- backend 2: Solid pod, one folder per area ---- */
+let AUTH=null;
+function loadAuth(){if(AUTH)return AUTH;AUTH=new Promise((ok,no)=>{if(window.DeskSolidAuth)return ok(window.DeskSolidAuth);const s=document.createElement("script");s.src="assets/solid-auth.js";
+ s.onload=()=>window.DeskSolidAuth?ok(window.DeskSolidAuth):no(new Error("assets/solid-auth.js did not load"));s.onerror=()=>{AUTH=null;no(new Error("couldn't load assets/solid-auth.js"))};document.head.appendChild(s)});return AUTH}
+const withTimeout=(p,ms,what)=>Promise.race([p,new Promise((_,no)=>setTimeout(()=>no(new Error(what+" timed out")),ms))]);
+async function reachable(u){try{const r=await withTimeout(fetch(u,{cache:"no-store",credentials:"omit"}),5000,"pod");return r.ok}catch(e){return false}}
+async function findIssuer(c){if(c.issuer)return c.issuer;const o=new URL(c.pod);if(await reachable(o.origin+"/.well-known/openid-configuration"))return o.origin+"/";
+ const h=o.hostname.split(".");if(h.length>2){const p=o.protocol+"//"+h.slice(1).join(".")+"/";if(await reachable(p+".well-known/openid-configuration"))return p}return o.origin+"/"}
+function rootUrl(c){return new URL(c.root.replace(/^\/+/,"").replace(/\/*$/,"/"),c.pod.replace(/\/*$/,"/")).href}
+function podBackend(c,A){
+ const root=rootUrl(c),f=(u,o)=>withTimeout(A.fetch(u,Object.assign({cache:"no-store"},o||{})),15000,"pod request");
+ const fail=(r,u)=>{const e=new Error(r.status+" on "+u.replace(root,c.root));e.status=r.status;return e};
+ async function getJ(u){const r=await f(u,{headers:{accept:"application/json"}});if(!r.ok)throw fail(r,u);return{j:await r.json(),etag:r.headers.get("etag")}}
+ async function list(u){const r=await f(u,{headers:{accept:"application/ld+json"}});if(r.status===404)return null;if(!r.ok)throw fail(r,u);
+  const g=await r.json(),ns=Array.isArray(g)?g:(g["@graph"]||[g]);  // CSS can split a container over several nodes with the same @id
+  return[...new Set(ns.filter(n=>n["@id"]===u||n["@id"]==="").flatMap(n=>n["http://www.w3.org/ns/ldp#contains"]||n.contains||[]).map(x=>new URL(typeof x==="string"?x:x["@id"],u).href))]}
+ async function put(u,body,type,hdr){const r=await f(u,{method:"PUT",headers:Object.assign({"content-type":type},hdr||{}),body});return r}
+ async function create(u,body,type){const r=await put(u,body,type,{"if-none-match":"*"});if(r.status===412)return"kept";if(!r.ok)throw fail(r,u);return"created"}  // never overwrites
+ const webId=()=>A.getDefaultSession().info.webId;
+ const aclTtl=w=>`@prefix acl: <http://www.w3.org/ns/auth/acl#>.\n# Desk: owner-only. To let an agent write here, add a rule naming its WebID (see docs/solid-pod.md).\n<#owner> a acl:Authorization; acl:agent <${w}>;\n  acl:accessTo <./>; acl:default <./>;\n  acl:mode acl:Read, acl:Write, acl:Control.\n`;
+ async function ownerOnly(u){  // WAC servers: write an owner-only .acl if the folder has none. ACP servers (.acr): new resources inherit the pod's private default.
+  const r=await f(u,{method:"HEAD"});const lk=(r.headers.get("link")||"").match(/<([^>]+)>\s*;\s*rel="?acl"?/);if(!lk)return"no-acl-link";
+  const au=new URL(lk[1],u).href;if(!/\.acl$/.test(au))return"acp";return create(au,aclTtl(webId()),"text/turtle")}
+ const B={kind:"pod",label:"Solid pod",root,
+  async scan(){const kids=await list(root);if(kids==null)return{exists:false,folders:[],meta:null};let meta=null;if(kids.includes(root+"meta.json"))try{meta=(await getJ(root+"meta.json")).j}catch(e){if(e.status!==404)throw e}
+   const folders=await Promise.all(kids.filter(u=>u.endsWith("/")).map(async u=>{let st=null,etag=null,hasUpd=false;try{const ks=await list(u)||[];hasUpd=ks.includes(u+"updates/");if(ks.includes(u+"status.json")){const x=await getJ(u+"status.json");st=x.j;etag=x.etag}}catch(e){}  // list first: no 404 probes
+    return{folder:decodeURIComponent(u.slice(root.length,-1)),url:u,status:st,etag,hasUpd}}));return{exists:true,folders,meta}},
+  async loadStatus(){const s=await B.scan(),m=s.meta||{},st={generated:"Solid pod · "+c.root,areas:{},area_order:[],area_labels:{},area_folders:{}};
+   if(m.tz)st.tz=m.tz;if(m.area_rules)st.area_rules=m.area_rules;
+   for(const x of s.folders){if(!x.status)continue;const k=String(x.status.area||x.folder);st.areas[k]=x.status.projects||[];st.area_labels[k]=x.status.label||(m.area_labels||{})[k]||k;st.area_folders[k]=x.folder}
+   st.area_order=[...(m.area_order||[]).filter(k=>k in st.areas),...Object.keys(st.areas).filter(k=>!(m.area_order||[]).includes(k))];B.last=s;return st},
+  async loadUpdates(){const s=B.last||await B.scan(),out=[];await Promise.all(s.folders.filter(x=>x.status&&x.hasUpd).map(async x=>{const us=await list(x.url+"updates/").catch(()=>null)||[];
+   const es=await Promise.all(us.filter(u=>!u.endsWith("/")).map(u=>getJ(u).then(r=>r.j).catch(()=>null)));for(const e of es)if(e&&typeof e==="object")out.push(Object.assign(e,{_folder:x.folder}))}));return out},
+  async appendUpdate(e,area){const s=B.last||await B.scan();let folder=null;
+   for(const x of s.folders)if(x.status&&(area?String(x.status.area||x.folder)===area:(x.status.projects||[]).some(p=>p.id===e.project_id)))folder=x.folder;
+   if(!folder)throw new Error("no area folder holds project "+(e.project_id||area));const u=root+encodeURIComponent(folder)+"/updates/";
+   const r=await f(u,{method:"POST",headers:{"content-type":"application/json",slug:String(e.at||new Date().toISOString()).replace(/[^0-9A-Za-z]+/g,"")+"-"+slug(e.agent,"agent")+".json"},body:JSON.stringify(e)});if(!r.ok)throw fail(r,u);return r.headers.get("location")},
+  async ensureRoot(st){const out={};const k=await list(root);if(k==null){const r=await put(root,"","text/turtle");if(!r.ok&&r.status!==409)throw fail(r,root);out.root="created"}else out.root="exists";
+   out.rootAcl=await ownerOnly(root);
+   out.meta=await create(root+"meta.json",JSON.stringify({schema:"desk-pod/1",area_order:st.area_order||Object.keys(st.areas||{}),area_labels:st.area_labels||{},area_folders:st.area_folders||{},tz:st.tz||Intl.DateTimeFormat().resolvedOptions().timeZone},null,1),"application/json");return out},
+  async ensureArea(key,label,folder,projects){const u=root+encodeURIComponent(folder)+"/",res={area:key,folder};
+   res.status=await create(u+"status.json",JSON.stringify({area:key,label:label||key,projects:(projects||[]).map(raw)},null,1),"application/json");
+   {const r=await put(u+"updates/","","text/turtle",{"if-none-match":"*"});if(!r.ok&&r.status!==412&&r.status!==409)throw fail(r,u+"updates/")}  // 412 = already there
+   res.acl=await ownerOnly(u);return res},
+  async saveStatus(st,opt){opt=opt||{};const s=await B.scan();await B.ensureRoot(st);const res=[];
+   for(const k of st.area_order||Object.keys(st.areas||{})){const folder=folderOf(k,[st.area_folders,(s.meta||{}).area_folders]);const x=s.folders.find(y=>y.folder===folder);
+    if(x&&x.status&&opt.overwrite&&x.etag){const r=await put(x.url+"status.json",JSON.stringify(Object.assign({},x.status,{area:k,label:(st.area_labels||{})[k]||k,projects:st.areas[k].map(raw)}),null,1),"application/json",{"if-match":x.etag});
+     if(r.status===412)throw new Error("someone else changed "+folder+"/status.json; reload and try again");if(!r.ok)throw fail(r,x.url);res.push({area:k,folder,status:"updated"})}
+    else res.push(await B.ensureArea(k,(st.area_labels||{})[k],folder,st.areas[k]))}B.last=null;return res}};
+ return B}
+
+/* ---- pod mode wiring: pill, refresh, fallback ---- */
+const S={mode:conf().mode,state:"local",backend:local,pod:null,sig:null,busy:false,err:null};window.DeskStore=S;
+S.local=local;S.prepare=prepare;S.conf=conf;S.setConf=setConf;
+function pill(state,text,btn){let p=$("podpill");if(!p){p=document.createElement("div");p.id="podpill";p.setAttribute("role","status");document.body.appendChild(p)}
+ S.state=state;p.dataset.state=state;p.hidden=state==="local";p.innerHTML=`<i></i><b>Solid pod</b><span></span>`+(btn?`<button type="button" class="mbtn">${btn}</button>`:"")+`<button type="button" class="mbtn" data-a="cfg" title="Storage settings">⚙︎</button>`;
+ p.querySelector("span").textContent=text;const b=p.querySelector("button:not([data-a])");if(b)b.onclick=()=>btn==="Sign in"?signIn():refresh(true);p.querySelector("[data-a=cfg]").onclick=()=>{document.getElementById("gear").click();setTimeout(()=>$("stg")&&$("stg").scrollIntoView({block:"nearest"}),50)}}
+function apply(d){DATA.areas=d.areas;DATA.area_order=d.area_order;DATA.area_labels=d.area_labels;DATA.generated=d.generated;DATA.proposed_projects=d.proposed_projects||[];
+ for(const k of Object.keys(AREAS))if(!(k in d.area_labels))delete AREAS[k];Object.assign(AREAS,d.area_labels);ALL.splice(0,ALL.length,...Object.values(DATA.areas).flat());
+ statuses.splice(1,statuses.length-1,...new Set(ALL.map(p=>p.status)));const su=$("setup");if(su&&ALL.length)su.hidden=true;render();
+ const ft=document.querySelector("#foot span");if(ft&&d.generated)ft.textContent=(S.state==="pod"?"Status data: ":"Status data: ")+d.generated}
+function fallback(why){S.err=why;if(S.applied){apply(prepare(LOCAL,[]));S.applied=false;S.sig=null}pill("fallback","Showing this computer's data — "+why,"Retry");if(typeof toast==="function")toast("Solid pod: "+why+". Showing this computer's data.",1)}
+async function signIn(){const c=conf();try{if(location.protocol==="file:")throw new Error("pod sign-in needs Desk opened over http(s), e.g. http://127.0.0.1:8765/app/");
+ if(!c.pod)throw new Error("enter your pod URL in ⚙︎ settings first");const A=await loadAuth();const iss=await findIssuer(c);
+ if(!await reachable(iss.replace(/\/*$/,"/")+".well-known/openid-configuration"))throw new Error("can't reach the sign-in server "+iss);
+ await A.login({oidcIssuer:iss,redirectUrl:location.href.split(/[?#]/)[0],clientName:"Desk"})}catch(e){fallback(e.message)}}
+async function connect(){const c=conf();S.mode=c.mode;if(c.mode!=="pod"){S.backend=local;pill("local","");return false}
+ if(location.protocol==="file:"){fallback("pod mode needs Desk opened over http(s) (e.g. http://127.0.0.1:8765/app/)");return false}
+ if(!c.pod){pill("setup","enter your pod URL in ⚙︎ settings — showing this computer's data");return false}
+ pill("busy","connecting…");let A;try{A=await loadAuth()}catch(e){fallback(e.message);return false}
+ const back=/[?&](code|state)=/.test(location.search);
+ try{if(back)await withTimeout(A.handleIncomingRedirect(location.href),20000,"sign-in");
+  else{const iss=await findIssuer(c);if(!await reachable(iss.replace(/\/*$/,"/")+".well-known/openid-configuration")){fallback("your pod's server isn't reachable");return false}
+   await withTimeout(A.handleIncomingRedirect({url:location.href,restorePreviousSession:true}),20000,"sign-in")}}catch(e){fallback("sign-in failed: "+e.message);return false}
+ if(!A.getDefaultSession().info.isLoggedIn){pill("signed-out","not signed in — showing this computer's data","Sign in");return false}
+ S.pod=podBackend(c,A);S.backend=S.pod;S.webId=A.getDefaultSession().info.webId;return true}
+async function refresh(force){if(S.busy)return;if(!S.pod){if(await connect())return refresh(force);return}S.busy=true;
+ try{const st=await S.pod.loadStatus();
+  if(!Object.keys(st.areas).length){pill("empty",`signed in · no Desk folders in ${conf().root} yet — open ⚙︎ to connect or create them`);return}
+  await autoAreas(st);
+  const ups=await S.pod.loadUpdates(),d=prepare(st,ups),sig=JSON.stringify(d.areas);
+  if(force||sig!==S.sig){const prev=S.sig&&JSON.parse(S.sig);apply(d);S.applied=true;
+   if(prev){const o={};for(const ps of Object.values(prev))for(const p of ps)o[p.id]=JSON.stringify(p);for(const ps of Object.values(d.areas))for(const p of ps)if(o[p.id]!==JSON.stringify(p))document.querySelectorAll(`[data-pid="${CSS.escape(p.id)}"]`).forEach(el=>el.classList.add("podchg"))}S.sig=sig}
+  S.err=null;S.read=new Date();pill("pod",`${d.area_order.length} area${d.area_order.length==1?"":"s"} · ${ups.length} update${ups.length==1?"":"s"} · read ${S.read.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})}`,"Refresh")}
+ catch(e){console.warn("Desk pod:",e.message);fallback("couldn't read your pod ("+e.message+")")}finally{S.busy=false}}
+async function autoAreas(st){  // areas added later on this computer get their own pod folder (created only if missing; nothing is overwritten)
+ const m=(S.pod.last&&S.pod.last.meta)||null;if(!m)return;const have=new Set(Object.keys(st.areas));let n=0;
+ for(const k of LOCAL.area_order||Object.keys(LOCAL.areas||{})){if(have.has(k))continue;const folder=folderOf(k,[m.area_folders,LOCAL.area_folders]);if((S.pod.last.folders||[]).some(x=>x.folder===folder))continue;
+  try{await S.pod.ensureArea(k,(LOCAL.area_labels||{})[k],folder,LOCAL.areas[k]);n++}catch(e){console.warn("Desk pod: couldn't create",folder,e.message)}}
+ if(n){const s2=await S.pod.loadStatus();Object.assign(st,s2)}}
+S.refresh=refresh;S.connect=connect;S.signIn=signIn;
+
+/* ---- settings: Storage ---- */
+function stUI(){const c=conf();for(const r of document.querySelectorAll('input[name="stm"]'))r.checked=r.value===c.mode;$("stpod").hidden=c.mode!=="pod";$("spu").value=c.pod;$("spr").value=c.root;$("spi").value=c.issuer;
+ const li=S.pod&&S.webId;$("spin").hidden=!!li;$("spout").hidden=!li;$("spscan").disabled=!li;$("spex").disabled=!li;
+ $("spst").textContent=c.mode!=="pod"?"":location.protocol==="file:"?"Pod mode needs Desk opened over http(s), e.g. http://127.0.0.1:8765/app/ (served by the Desk helper).":li?"Signed in as "+S.webId:"Not signed in."}
+function msg(t,err){const m=$("spmsg");m.textContent=t;m.classList.toggle("err",!!err)}
+function dl(name,text,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+async function scanUI(){if(!S.pod){msg("Sign in first.",1);return}msg("Scanning "+conf().root+" …");const box=$("spfound");box.innerHTML="";
+ try{const s=await S.pod.scan(),m=s.meta||{},lo=LOCAL.area_order||Object.keys(LOCAL.areas||{}),rows=[],used=new Set();
+  for(const k of lo){const folder=folderOf(k,[m.area_folders,LOCAL.area_folders]);const x=s.folders.find(y=>y.folder===folder||(y.status&&y.status.area===k));if(x)used.add(x.folder);
+   rows.push(x&&x.status?`<li class="ok"><span>✓</span><b></b> → <code></code>/ <em>connected · ${(x.status.projects||[]).length} projects</em></li>`:`<li><label><input type="checkbox" checked data-k=""> <b></b> → <code></code>/ <em>${x?"folder exists, no status.json — will add one":"missing — create"}</em></label></li>`);
+   rows[rows.length-1]=[rows[rows.length-1],k,x?x.folder:folder]}
+  const extra=s.folders.filter(x=>!used.has(x.folder)&&x.status);
+  box.innerHTML=`<div class="spl">${s.exists?"Found in":"Not created yet:"} <code></code></div><ul>${rows.map(r=>r[0]).join("")}${extra.map(x=>`<li class="ok"><span>✓</span><b></b> → <code></code>/ <em>only in the pod · ${(x.status.projects||[]).length} projects</em></li>`).join("")}</ul>`+
+   (rows.some(r=>!r[0].startsWith('<li class="ok"'))?`<label class="spc"><input type="checkbox" id="spcp" checked> Copy this computer's projects into the new folders</label><div class="ca"><button type="button" class="mbtn pri" id="spmk">Copy my Desk into my pod</button></div>`:"")+
+   `<div class="nt">Desk only creates what's missing. Existing files are never overwritten or deleted. Each area folder gets its own owner-only access rule.</div>`;
+  box.querySelector(".spl code").textContent=S.pod.root;const lis=box.querySelectorAll("li");
+  rows.forEach((r,i)=>{lis[i].querySelector("b").textContent=(LOCAL.area_labels||{})[r[1]]||r[1];lis[i].querySelector("code").textContent=r[2];const cb=lis[i].querySelector("input");if(cb){cb.dataset.k=r[1];cb.dataset.f=r[2]}});
+  extra.forEach((x,i)=>{const li=lis[rows.length+i];li.querySelector("b").textContent=x.status.label||x.status.area||x.folder;li.querySelector("code").textContent=x.folder});
+  const mk=$("spmk");if(mk)mk.onclick=()=>createUI();
+  msg(`${rows.filter(r=>r[0].startsWith('<li class="ok"')).length+extra.length} area folder(s) connected, ${rows.filter(r=>!r[0].startsWith('<li class="ok"')).length} missing.`)}catch(e){msg("Couldn't scan the pod: "+e.message,1)}}
+async function createUI(){const pick=[...document.querySelectorAll("#spfound input[data-k]:checked")];if(!pick.length){msg("Nothing selected.",1);return}const copy=$("spcp")&&$("spcp").checked;msg("Creating…");
+ try{const af={};for(const cb of pick)af[cb.dataset.k]=cb.dataset.f;const st={area_order:LOCAL.area_order,area_labels:LOCAL.area_labels,area_folders:Object.assign({},LOCAL.area_folders||{},af),tz:LOCAL.tz,areas:LOCAL.areas};
+  const r0=await S.pod.ensureRoot(st),out=[];for(const cb of pick){const k=cb.dataset.k;out.push(await S.pod.ensureArea(k,(LOCAL.area_labels||{})[k],cb.dataset.f,copy?LOCAL.areas[k]:[]))}
+  const acp=[r0.rootAcl,...out.map(x=>x.acl)].includes("acp");S.pod.last=null;await scanUI();msg(`Done: ${out.map(x=>x.folder+"/ ("+x.status+")").join(", ")}.`+(acp?" Your pod uses ACP access control: these folders inherit its private default.":" Owner-only access rules set."));
+  await refresh(true)}catch(e){msg("Couldn't create folders: "+e.message,1)}}
+async function exportUI(){if(!S.pod){msg("Sign in first.",1);return}msg("Exporting…");
+ try{const st=await S.pod.loadStatus(),ups=await S.pod.loadUpdates();delete st.generated;st.generated=new Date().toISOString().slice(0,10);
+  ups.sort((a,b)=>String(a.at).localeCompare(String(b.at)));dl("status.json",JSON.stringify(st,null,1),"application/json");
+  setTimeout(()=>dl("updates.jsonl",ups.map(e=>{const q=Object.assign({},e);delete q._folder;return JSON.stringify(q)}).join("\n")+(ups.length?"\n":""),"application/x-ndjson"),400);
+  msg(`Exported ${Object.keys(st.areas).length} areas and ${ups.length} updates. Put both files next to build.py and run python3 build.py status.json.`)}catch(e){msg("Export failed: "+e.message,1)}}
+function wire(){if(!$("stg"))return;stUI();
+ for(const r of document.querySelectorAll('input[name="stm"]'))r.onchange=async()=>{setConf({mode:r.value});S.mode=r.value;stUI();
+  if(r.value==="local"){S.pod=null;S.backend=local;if(S.applied){apply(prepare(LOCAL,[]));S.applied=false;S.sig=null}pill("local","")}else refresh(true).then(stUI)};
+ for(const [id,k] of [["spu","pod"],["spr","root"],["spi","issuer"]])$(id).onchange=()=>{let v=$(id).value.trim();if(k==="root")v=(v||"grokbot/").replace(/^\/+/,"").replace(/\/*$/,"/");setConf({[k]:v});if(S.pod){S.pod=null;S.sig=null}stUI();if(conf().mode==="pod")refresh(true).then(stUI)};
+ $("spin").onclick=signIn;$("spout").onclick=async()=>{try{await (await loadAuth()).logout()}catch(e){}S.pod=null;S.webId=null;stUI();fallback("signed out")};
+ $("spscan").onclick=scanUI;$("spex").onclick=exportUI;document.getElementById("gear").addEventListener("click",()=>setTimeout(stUI,0))}
+wire();
+if(S.mode==="pod"){refresh(true).then(()=>{try{stUI()}catch(e){}});setInterval(()=>{if(conf().mode==="pod"&&!document.hidden)refresh(false)},60000);
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden&&conf().mode==="pod")refresh(false)})}
+})();
+</script>
+</body></html>

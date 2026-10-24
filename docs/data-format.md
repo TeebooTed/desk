@@ -160,3 +160,13 @@ docs/data-format.md, then in ~/Desk:
    and a webhook "Desk messages" routine as in docs/routines.md.
 No secrets in any of these files.
 ```
+
+## Optional: `area_folders` (Solid pod mode)
+
+In pod mode, each area is stored in its own folder under `<pod>/grokbot/`. The folder name is a slug of the area key unless you map it:
+
+```json
+"area_folders": { "Side": "side-project" }
+```
+
+See [solid-pod.md](solid-pod.md).

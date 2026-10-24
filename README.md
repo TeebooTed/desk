@@ -27,6 +27,18 @@ Paste this to your Grok Bot:
 
 > Set up Desk for me. Follow docs/bot-template.md in github.com/TeebooTed/desk: install it on my computer, create a twice-daily "Desk refresh" routine that writes ~/Desk/status.json and ~/Desk/live.json and rebuilds, and create a "Desk messages" webhook routine that handles [Desk setup], [Desk ask], [Desk routine], [Desk approval] and [Desk · Waiting on you] messages. Then give me the webhook URL and key to paste into Desk's settings. Never put the key in any file other than the relay config.
 
+## Works with or without a Solid pod
+
+By default Desk keeps everything on **this computer**, exactly as described above. If you want, you can switch **⚙︎ Settings → Storage** to **Solid pod** instead. Desk then reads your projects from a [Solid](https://solidproject.org/) pod you control, self-hosted or from any provider, under `<pod>/grokbot/<area>/`. Each area folder holds its own `status.json` and `updates/`.
+
+- **Setup scans your pod.** It connects to area folders that already exist and offers a checkbox list to create the missing ones. It never overwrites or deletes anything, and every area folder gets an owner-only access rule.
+- **Agents can log straight to the pod.** Run `desk-log --pod agent.env` with client credentials. Each agent can be granted just the areas it works on.
+- **It always falls back to your local data.** If sign-in fails or the pod can't be reached, Desk shows this computer's data with a notice, never a blank page. **Export from pod** gives you `status.json` + `updates.jsonl` back.
+
+Pod mode needs Desk opened over http: the relay serves it at `http://127.0.0.1:8765/app/`. See [docs/solid-pod.md](docs/solid-pod.md).
+
+<p><img src="docs/img/solid-pod-connect.png" alt="Connecting to and creating area folders in a Solid pod" width="300"></p>
+
 ## Customize the layout
 
 Click the pencil (or press **E**) to drag sections around, resize them, hide them, change the accent, density, font size and corners, and set per-section options. Changes save to `~/Desk/layout.json` through the local relay (and in the browser if the relay is off). Undo/redo, reset, export and import are in the edit bar. Bots can edit the same file; see [docs/layout.md](docs/layout.md). To share layout, pins and widget data between computers, see [docs/sync.md](docs/sync.md).
@@ -47,6 +59,7 @@ Add your own cards (links, counters, lists, metrics) via `live.json` `widgets` o
 | `docs/` | Screenshots, [data format](docs/data-format.md), [routine prompts](docs/routines.md) |
 | `deploy/` | Example macOS LaunchAgent and Linux systemd user unit |
 | `assets/` | Logo, icons, `favicon.svg/.ico`, `apple-touch-icon.png`, `build_logo.py` |
+| `assets/solid-auth.js`, `tools/solid/` | Optional Solid pod sign-in (bundled Inrupt library, loaded only in pod mode) and how to rebuild it. See [docs/solid-pod.md](docs/solid-pod.md) |
 
 ## Quick install (Mac and Linux)
 
@@ -72,6 +85,7 @@ The status file format is documented in [docs/data-format.md](docs/data-format.m
 
 - The webhook URL and key are kept **only** by the local relay, in `~/.config/desk-relay/config.json` (directory `0700`, file `0600`). The browser never sees or stores the key; after saving, the key field is cleared.
 - The relay listens on `127.0.0.1` only, never logs requests, and caps request bodies at 100 KB.
+- For optional Solid pod mode, the relay also serves Desk itself read-only at `/app/`. It serves only `index.html` and `assets/*.js|svg|png|ico`, checks the `Host` header (against DNS rebinding), and only lets the page's own origin call it.
 - It accepts only requests with **`Origin: null`** (what a `file://` page sends) or no Origin at all. Any website trying to reach it gets HTTP 403.
 - Endpoints: `GET /health`, `POST /config` (`{url, auth}`, https only), `POST /send` (`{message, ...}` forwarded to the webhook).
 - Never commit `config.json` or your real status file (both are in `.gitignore`).

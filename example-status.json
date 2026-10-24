@@ -8,6 +8,9 @@
   "area_labels": {
     "Side": "Side project"
   },
+  "area_folders": {
+    "Side": "side-project"
+  },
   "areas": {
     "Work": [
       {
