@@ -6,6 +6,15 @@ Desk is a single-file, self-contained personal dashboard that you open locally i
 
 > **Desk is deliberately _not_ a kanban or Trello board.** It is organized **by project first, then by progress**, and that is the key difference. Each project is one card with its own status, percent complete and next step. Tasks don't move between "To do / Doing / Done" columns. You see every project at a glance, grouped by area, and each one shows how far along it is and what happens next.
 
+> **Desk works best if you have a SOLID Pod.**
+>
+> **Recommended: use a [Solid pod](docs/solid-pod.md).**
+> - **You own your data.** Your projects live in a pod you control, not inside one browser or one app.
+> - **Open Desk on any computer** just by signing in. No copying files around.
+> - **Give each AI agent access to only the areas it works on**, and take it back any time.
+>
+> **No pod? No problem.** Local mode is the zero-setup option: install below and Desk keeps everything on this computer. You can connect a pod later from **⚙︎ Settings → Storage** ([Why a pod?](docs/solid-pod.md#why-use-a-pod) · [Get one free](https://solidproject.org/users/get-a-pod)).
+
 ## Screenshots
 
 <p><img src="docs/screenshot-main.png" alt="Desk main view" width="720"></p>
@@ -29,13 +38,15 @@ Paste this to your Grok Bot:
 
 ## Works with or without a Solid pod
 
-By default Desk keeps everything on **this computer**, exactly as described above. If you want, you can switch **⚙︎ Settings → Storage** to **Solid pod** instead. Desk then reads your projects from a [Solid](https://solidproject.org/) pod you control, self-hosted or from any provider, under `<pod>/grokbot/<area>/`. Each area folder holds its own `status.json` and `updates/`.
+By default Desk keeps everything on **this computer**, exactly as described above. On a fresh install Desk shows a short welcome card once, offering to set up a pod (**Set up my pod** / **Maybe later** / **Don't ask again**), plus a small dismissible note in the header. At most one gentle reminder follows after a week of use, and **Don't ask again** turns all of it off for good. You can also switch **⚙︎ Settings → Storage** to **Solid pod** instead. Desk then reads your projects from a [Solid](https://solidproject.org/) pod you control, self-hosted or from any provider, under `<pod>/grokbot/<area>/`. Each area folder holds its own `status.json` and `updates/`.
 
 - **Setup scans your pod.** It connects to area folders that already exist and offers a checkbox list to create the missing ones. It never overwrites or deletes anything, and every area folder gets an owner-only access rule.
 - **Agents can log straight to the pod.** Run `desk-log --pod agent.env` with client credentials. Each agent can be granted just the areas it works on.
 - **It always falls back to your local data.** If sign-in fails or the pod can't be reached, Desk shows this computer's data with a notice, never a blank page. **Export from pod** gives you `status.json` + `updates.jsonl` back.
 
 Pod mode needs Desk opened over http: the relay serves it at `http://127.0.0.1:8765/app/`. See [docs/solid-pod.md](docs/solid-pod.md).
+
+<p><img src="docs/img/pod-welcome.png" alt="The one-time welcome card: Desk works best if you have a SOLID Pod." width="560"></p>
 
 <p><img src="docs/img/solid-pod-connect.png" alt="Connecting to and creating area folders in a Solid pod" width="300"></p>
 

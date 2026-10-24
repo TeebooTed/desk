@@ -1,8 +1,8 @@
-# Desk with a Solid pod (optional)
+# Desk with a Solid pod (recommended)
 
-Desk works **with or without** a [Solid](https://solidproject.org/) pod.
+**Desk works best if you have a SOLID Pod.** It still works fully **without** one: a [Solid](https://solidproject.org/) pod is recommended, never required.
 
-- **This computer (default).** Same as always: `build.py` bakes your status JSON into `index.html`, agents run `desk-log` to add to `updates.jsonl`, and nothing leaves your machine. If you never open the Storage setting, nothing changes. No pod code is loaded and nothing is written to localStorage.
+- **This computer (default).** Same as always: `build.py` bakes your status JSON into `index.html`, agents run `desk-log` to add to `updates.jsonl`, and nothing leaves your machine. If you never open the Storage setting, nothing changes. No pod code is loaded; the only thing Desk remembers is whether you've seen the pod welcome card (`desk-pod-nudge` in localStorage).
 - **Solid pod.** Desk reads your projects and updates from a pod you control. Agents write their progress there with their own credentials, and you can give each one access to only the areas it works on.
 
 ## Why use a pod?
@@ -10,6 +10,14 @@ Desk works **with or without** a [Solid](https://solidproject.org/) pod.
 - **One copy, many devices.** Your laptop, phone, and agents running elsewhere all read and write the same data. You don't need to sync files.
 - **You own it.** The pod can be self-hosted, such as the Community Solid Server on your own box, or run by any provider. Desk talks standard Solid (LDP + WAC), so you can switch providers without changing Desk.
 - **Fine-grained agent access.** Each area folder has its own access rule. An agent that only works on "Side project" can be granted that folder and nothing else.
+
+### How Desk suggests a pod (and how to turn it off)
+
+- **Welcome card, once.** On a fresh install Desk shows one card above your projects: "Desk works best if you have a SOLID Pod." with the three points above. **Set up my pod** opens a short flow ("I have a pod" → paste its URL and sign in, or "I don't have a pod yet" → free providers and how to host your own). **Maybe later** hides it.
+- **A small header note** with the same sentence. Click it for a plain-words "Why a pod?" explainer; the × hides it. The same explainer is linked from **⚙︎ Settings → Storage**.
+- **At most one reminder**, after at least 7 days and 3 separate days of use. It never repeats.
+- **Don't ask again** (on the card) turns off the card, the note and the reminder for good on that browser.
+- **Nothing shows in pod mode.** No countdowns, no blocking: every part of Desk works the same either way.
 
 ## Folder layout
 

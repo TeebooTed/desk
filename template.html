@@ -231,6 +231,19 @@ body.dn-roomy .board{gap:32px 26px}body.dn-roomy .row{padding-top:14px;padding-b
 #podpill[hidden]{display:none}#podpill i{width:8px;height:8px;border-radius:50%;background:#8a8f98;flex:none}#podpill span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--fg2)}#podpill .mbtn{padding:3px 9px;font-size:12px;border-radius:999px}
 #podpill[data-state=pod] i{background:#2e9d5b}#podpill[data-state=busy] i{background:#d9a400}#podpill[data-state=fallback]{border-color:#d0453a}#podpill[data-state=fallback] i,#podpill[data-state=signed-out] i{background:#d0453a}#podpill[data-state=empty] i,#podpill[data-state=setup] i{background:#d9a400}
 .podchg{outline:2px solid #2e9d5b;outline-offset:2px;transition:outline-color 4s}
+.podwel{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,var(--acc-s),var(--card) 70%);border:1px solid color-mix(in srgb,var(--acc) 30%,var(--bd));border-radius:16px;padding:18px 20px;margin:0 0 18px;box-shadow:var(--sh)}
+.podwel .pwi{flex:none;width:40px;height:40px;border-radius:12px;background:var(--acc);color:#fff;display:grid;place-items:center;font-size:22px}
+.podwel h2{margin:2px 0 8px;font-size:18px;letter-spacing:-.01em}.podwel ul{margin:0 0 12px;padding-left:18px;color:var(--fg2);font-size:13.5px}.podwel li{margin:3px 0}
+.pwa{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}.pwa a,.pwn a,.podwhy a,.pfa a,.pfs a,.pfprov a{color:var(--acc);font-size:13px}.pwn{margin:10px 0 0;font-size:12px;color:var(--mut)}.pwn a{font-size:12px;color:var(--mut)}
+.podnudge{display:inline-flex;align-items:center;margin-right:8px;border:1px solid var(--bd);border-radius:999px;background:var(--acc-s);font-size:12px;max-width:300px}
+.podnudge button{font:inherit;border:0;background:transparent;color:var(--fg2);cursor:pointer;padding:6px 4px 6px 12px;text-align:left;line-height:1.25}.podnudge .pnx{padding:6px 10px 6px 4px;color:var(--mut);font-size:15px}.podnudge button:hover{color:var(--fg)}
+@media(max-width:760px){.podnudge{display:none}}
+.podwhy{font-size:12.5px;color:var(--fg2);margin:8px 0 0}
+.pfm{width:min(560px,100%)}.pfm p{margin:0 0 10px}.pfl{font-weight:600;color:var(--fg)!important}.pfben{margin:0 0 6px!important}.pfa{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-top:16px}
+.pfch{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.pfc{font:inherit;text-align:left;border:1px solid var(--bd);border-radius:12px;background:var(--bg2);color:var(--fg);padding:14px;cursor:pointer;display:flex;flex-direction:column;gap:4px}.pfc:hover,.pfc:focus-visible{border-color:var(--acc);outline:none}.pfc span{font-size:12.5px;color:var(--mut)}
+.pfprov{list-style:none;padding:0!important;margin:6px 0 12px!important}.pfprov li{padding:8px 0;border-top:1px solid var(--bd)}.pfprov span{color:var(--mut);font-size:12.5px;margin-left:6px}.pfs{font-size:12.5px;color:var(--mut)!important}
+.pfm label{display:block;font-size:12px;color:var(--mut);margin:12px 0 4px;text-transform:uppercase;letter-spacing:.06em}.pfm input{width:100%;box-sizing:border-box;font:inherit;padding:9px 11px;border-radius:9px;border:1px solid var(--bd);background:var(--bg2);color:var(--fg);margin-bottom:10px}.pfe{color:#c0392b;font-size:12.5px;min-height:1em}
+@media(max-width:560px){.pfch{grid-template-columns:1fr}.podwel{flex-direction:column}}
 </style></head><body><div class="wrap">
 <header><div><div class="dbrand"><img class="dtile" alt="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjMmY2ZmVkIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvc3ZnPg=="><img class="dlogo lt" alt="Desk" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIwIDQwIDI5NiAxMTAiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwIDU1LjApIHNjYWxlKDAuNykiPjxkZWZzPjxjbGlwUGF0aCBpZD0ieGsiPjxyZWN0IHg9IjI4MyIgeT0iMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiLz48L2NsaXBQYXRoPjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTQxNzFjIiBzdHJva2Utd2lkdGg9IjIyIj4KPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkiLz48cGF0aCBkPSJNODkgLTUwVjEwMCIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAgMCkiPjxwYXRoIGQ9Ik04OSA1MEEzOSAzOSAwIDEgMCA4MC42IDc0LjQiLz48cGF0aCBkPSJNMTEgNTBIODkiIC8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMjIgMCkiPjxwYXRoIGQ9Ik01MS41IDIwLjVBMTkgMTkgMCAxIDAgMzUgNDlBMjEgMjEgMCAxIDEgMTYuOCA4MC41Ii8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAgMCkiPjxwYXRoIGQ9Ik0xMSAtNTBWMTAwIi8+PC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjeGspIj48cGF0aCBkPSJNMzk1IC0yMEwzMTYgNjYiLz48cGF0aCBkPSJNMzQwIDQyTDM5OCAxMjAiLz48L2c+CjwvZz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODguMCAxNDcuMCkgc2NhbGUoMS42KSI+PHBhdGggZmlsbD0iIzJmNmZlZCIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iIzJmNmZlZCIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvZz48L3N2Zz4="><img class="dlogo dk" alt="Desk" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIwIDQwIDI5NiAxMTAiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwIDU1LjApIHNjYWxlKDAuNykiPjxkZWZzPjxjbGlwUGF0aCBpZD0ieGsiPjxyZWN0IHg9IjI4MyIgeT0iMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiLz48L2NsaXBQYXRoPjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTllY2YxIiBzdHJva2Utd2lkdGg9IjIyIj4KPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkiLz48cGF0aCBkPSJNODkgLTUwVjEwMCIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAgMCkiPjxwYXRoIGQ9Ik04OSA1MEEzOSAzOSAwIDEgMCA4MC42IDc0LjQiLz48cGF0aCBkPSJNMTEgNTBIODkiIC8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMjIgMCkiPjxwYXRoIGQ9Ik01MS41IDIwLjVBMTkgMTkgMCAxIDAgMzUgNDlBMjEgMjEgMCAxIDEgMTYuOCA4MC41Ii8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAgMCkiPjxwYXRoIGQ9Ik0xMSAtNTBWMTAwIi8+PC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjeGspIj48cGF0aCBkPSJNMzk1IC0yMEwzMTYgNjYiLz48cGF0aCBkPSJNMzQwIDQyTDM5OCAxMjAiLz48L2c+CjwvZz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODguMCAxNDcuMCkgc2NhbGUoMS42KSI+PHBhdGggZmlsbD0iIzZhOWJmZiIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iIzZhOWJmZiIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvZz48L3N2Zz4="></div><h1 id="greet">Hello</h1></div>
 <div class="hr"><div class="time"><div id="clock"></div><div id="date"></div></div>
@@ -257,7 +270,7 @@ body.dn-roomy .board{gap:32px 26px}body.dn-roomy .row{padding-top:14px;padding-b
 <label for="ha">Authorization header value</label><input id="ha" type="password" autocomplete="off" spellcheck="false" placeholder="Bearer …">
 <div class="ca"><button type="button" class="mbtn" id="hdc">Disconnect</button><span class="sp"></span><button type="button" class="mbtn" id="htx">Send test</button><button type="button" class="mbtn" id="hcl">Close</button><button type="button" class="mbtn pri" id="hsv">Save</button></div>
 <div class="nt">Stored only in this browser (localStorage). Never included in Desk's build files.</div>
-<div class="stg" id="stg"><h3>Storage</h3><div class="stm" role="radiogroup" aria-label="Storage"><label><input type="radio" name="stm" value="local" checked> This computer</label><label><input type="radio" name="stm" value="pod"> Solid pod</label></div>
+<div class="stg" id="stg"><h3>Storage</h3><div class="stm" role="radiogroup" aria-label="Storage"><label><input type="radio" name="stm" value="local" checked> This computer</label><label><input type="radio" name="stm" value="pod"> Solid pod</label></div><p class="podwhy" id="podwhy">Desk works best if you have a SOLID Pod. <a href="#" data-pf="why">Why a pod?</a> · <a href="#" data-pf="start">Set up my pod</a></p>
 <div id="stpod" hidden><label for="spu">Pod URL</label><input id="spu" type="url" autocomplete="off" spellcheck="false" placeholder="https://pod.example.org/you/">
 <label for="spr">Desk folder in the pod</label><input id="spr" type="text" autocomplete="off" spellcheck="false" placeholder="grokbot/">
 <label for="spi">Sign-in server (optional)</label><input id="spi" type="url" autocomplete="off" spellcheck="false" placeholder="defaults to the pod's server">
@@ -1051,7 +1064,7 @@ async function autoAreas(st){  // areas added later on this computer get their o
 S.refresh=refresh;S.connect=connect;S.signIn=signIn;
 
 /* ---- settings: Storage ---- */
-function stUI(){const c=conf();for(const r of document.querySelectorAll('input[name="stm"]'))r.checked=r.value===c.mode;$("stpod").hidden=c.mode!=="pod";$("spu").value=c.pod;$("spr").value=c.root;$("spi").value=c.issuer;
+function stUI(){const c=conf();for(const r of document.querySelectorAll('input[name="stm"]'))r.checked=r.value===c.mode;$("stpod").hidden=c.mode!=="pod";$("podwhy").hidden=c.mode==="pod";$("spu").value=c.pod;$("spr").value=c.root;$("spi").value=c.issuer;
  const li=S.pod&&S.webId;$("spin").hidden=!!li;$("spout").hidden=!li;$("spscan").disabled=!li;$("spex").disabled=!li;
  $("spst").textContent=c.mode!=="pod"?"":location.protocol==="file:"?"Pod mode needs Desk opened over http(s), e.g. http://127.0.0.1:8765/app/ (served by the Desk helper).":li?"Signed in as "+S.webId:"Not signed in."}
 function msg(t,err){const m=$("spmsg");m.textContent=t;m.classList.toggle("err",!!err)}
@@ -1085,9 +1098,67 @@ function wire(){if(!$("stg"))return;stUI();
   if(r.value==="local"){S.pod=null;S.backend=local;if(S.applied){apply(prepare(LOCAL,[]));S.applied=false;S.sig=null}pill("local","")}else refresh(true).then(stUI)};
  for(const [id,k] of [["spu","pod"],["spr","root"],["spi","issuer"]])$(id).onchange=()=>{let v=$(id).value.trim();if(k==="root")v=(v||"grokbot/").replace(/^\/+/,"").replace(/\/*$/,"/");setConf({[k]:v});if(S.pod){S.pod=null;S.sig=null}stUI();if(conf().mode==="pod")refresh(true).then(stUI)};
  $("spin").onclick=signIn;$("spout").onclick=async()=>{try{await (await loadAuth()).logout()}catch(e){}S.pod=null;S.webId=null;stUI();fallback("signed out")};
- $("spscan").onclick=scanUI;$("spex").onclick=exportUI;document.getElementById("gear").addEventListener("click",()=>setTimeout(stUI,0))}
-wire();
-if(S.mode==="pod"){refresh(true).then(()=>{try{stUI()}catch(e){}});setInterval(()=>{if(conf().mode==="pod"&&!document.hidden)refresh(false)},60000);
+ $("podwhy").onclick=e=>{const l=e.target.closest("[data-pf]");if(!l)return;e.preventDefault();podFlow(l.dataset.pf)};$("spscan").onclick=scanUI;$("spex").onclick=exportUI;document.getElementById("gear").addEventListener("click",()=>setTimeout(stUI,0))}
+
+/* ---- encourage a pod (never in pod mode, never blocking; "Don't ask again" is forever) ---- */
+const NK="desk-pod-nudge",HEAD="Desk works best if you have a SOLID Pod.",DAY=864e5;
+function nGet(){try{return JSON.parse(localStorage.getItem(NK)||"null")}catch(e){return null}}
+function nSet(o){const n=Object.assign(nGet()||{},o);try{localStorage.setItem(NK,JSON.stringify(n))}catch(e){}return n}
+const BEN=["<b>You own your data.</b> Your projects live in a pod you control, not inside one browser or one app.","<b>Open Desk on any computer</b> just by signing in. No copying files around.","<b>Give each AI agent access to only the areas it works on</b>, and take it back any time."];
+const PROV=[["solidcommunity.net","https://solidcommunity.net/","free, run by the Solid project"],["Inrupt Pod Spaces","https://start.inrupt.com/profile","free"],["solidweb.org","https://solidweb.org/","free"]];
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function nudgeOff(){const n=nGet()||{};return conf().mode==="pod"||!!n.never}
+function hideNudges(){for(const id of ["podwel","podnudge"]){const e=$(id);if(e)e.remove()}}
+function neverAsk(){nSet({never:true,welcomed:true});hideNudges()}
+function welcomeCard(kind){if(nudgeOff()||$("podwel"))return;const sec=$("board")||document.querySelector(".sec");if(!sec)return;const w=document.createElement("section");w.id="podwel";w.className="podwel";w.dataset.kind=kind;w.setAttribute("aria-label","Solid pod");
+ w.innerHTML=`<div class="pwi" aria-hidden="true">◎</div><div class="pwb"><h2>${HEAD}</h2><ul>${BEN.map(b=>`<li>${b}</li>`).join("")}</ul>
+ <div class="pwa"><button type="button" class="mbtn pri" data-a="setup">Set up my pod</button><button type="button" class="mbtn" data-a="later">Maybe later</button><a href="#" data-a="why">Why a pod?</a>${kind==="remind"?`<a href="#" data-a="never">Don't ask again</a>`:""}</div>
+ <p class="pwn">Desk keeps working on this computer either way.${kind==="welcome"?` <a href="#" data-a="never">Don't ask again</a>`:""}</p></div>`;
+ w.onclick=e=>{const a=e.target.closest("[data-a]");if(!a)return;e.preventDefault();const k=a.dataset.a;
+  if(k==="setup"){podFlow("start")}else if(k==="why"){podFlow("why")}else if(k==="later"){nSet({welcomed:true,laterAt:Date.now()});w.remove()}else if(k==="never")neverAsk()};
+ sec.parentNode.insertBefore(w,sec)}
+function headerNudge(){if(nudgeOff()||(nGet()||{}).pillOff||$("podnudge"))return;const g=$("gear");if(!g)return;const b=document.createElement("span");b.id="podnudge";b.className="podnudge";
+ b.innerHTML=`<button type="button" class="pnm" title="Why a pod?">${HEAD}</button><button type="button" class="pnx" aria-label="Hide this">×</button>`;
+ b.querySelector(".pnm").onclick=()=>podFlow("why");b.querySelector(".pnx").onclick=()=>{nSet({pillOff:true});b.remove()};g.parentNode.insertBefore(b,g)}
+/* the flow: start -> have a pod (URL + sign in) | no pod yet (providers) ; why */
+let PF=null;
+function podFlow(step){let mb=$("podfl");if(!mb){mb=document.createElement("div");mb.id="podfl";mb.className="mb";mb.innerHTML=`<div class="md pfm" role="dialog" aria-modal="true" aria-labelledby="pfh"><button class="mx" type="button" aria-label="Close">×</button><div id="pfb"></div></div>`;document.body.appendChild(mb);
+  mb.addEventListener("click",e=>{if(e.target===mb||e.target.closest(".mx"))closeFlow()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&mb.classList.contains("open")){e.preventDefault();e.stopImmediatePropagation();closeFlow()}},true)}
+ const sb=$("sb");if(sb&&sb.classList.contains("open")&&$("hcl"))$("hcl").click();   // one dialog at a time: close Settings first
+ if(!mb.classList.contains("open"))PF=document.activeElement;const b=$("pfb"),c=conf();
+ const V={
+  why:`<h2 id="pfh">Why a pod?</h2><p class="pfl">${HEAD}</p><ul class="pfben">${BEN.map(x=>`<li>${x}</li>`).join("")}</ul>
+   <h4>What is it?</h4><p>A <b>Solid pod</b> is your own small, private online storage space. You choose who runs it (a free provider, or your own computer), and you decide which apps and agents can see what.</p>
+   <h4>What changes in Desk?</h4><p>Nothing about how Desk looks or works. Desk just reads your projects from your pod instead of this one computer, and your agents can write their progress there. You can switch back, or export everything, any time.</p>
+   <h4>Is it required?</h4><p>No. Desk works fully on this computer without one.</p>
+   <div class="pfa"><button type="button" class="mbtn pri" data-s="start">Set up my pod</button><a href="https://github.com/TeebooTed/desk/blob/main/docs/solid-pod.md" target="_blank" rel="noopener">Read the full guide</a></div>`,
+  start:`<h2 id="pfh">Set up your pod</h2><p class="pfl">${HEAD}</p><div class="pfch"><button type="button" class="pfc" data-s="have"><b>I have a pod</b><span>Connect it and sign in.</span></button><button type="button" class="pfc" data-s="none"><b>I don't have a pod yet</b><span>Get a free one in a couple of minutes.</span></button></div>
+   <div class="pfa"><a href="#" data-s="why">Why a pod?</a></div>`,
+  none:`<h2 id="pfh">Get a pod</h2><p>Pick a free provider, sign up, and copy your <b>pod URL</b> (it usually looks like <code>https://name.provider.org/</code>). Then come back here.</p>
+   <ul class="pfprov">${PROV.map(p=>`<li><a href="${p[1]}" target="_blank" rel="noopener">${esc(p[0])}</a> <span>${esc(p[2])}</span></li>`).join("")}</ul>
+   <p class="pfs">More providers: <a href="https://solidproject.org/users/get-a-pod" target="_blank" rel="noopener">solidproject.org/users/get-a-pod</a>. Prefer to run it yourself? <a href="https://github.com/TeebooTed/desk/blob/main/docs/solid-pod.md#1-get-a-pod" target="_blank" rel="noopener">Host your own pod</a> with one command.</p>
+   <div class="pfa"><button type="button" class="mbtn pri" data-s="have">I have my pod now</button><button type="button" class="mbtn" data-s="start">Back</button></div>`,
+  have:`<h2 id="pfh">Connect your pod</h2><label for="pfu">Your pod URL</label><input id="pfu" type="url" autocomplete="off" spellcheck="false" placeholder="https://name.provider.org/" value="${esc(c.pod||"")}">
+   <p class="pfs">Desk will keep its data in a <code>${esc(c.root||"grokbot/")}</code> folder in your pod, with one folder per area. It never overwrites or deletes anything that's already there.</p>
+   <p class="pfe" id="pfe" role="alert"></p>
+   <div class="pfa"><button type="button" class="mbtn pri" data-s="signin">Sign in to my pod</button><button type="button" class="mbtn" data-s="start">Back</button></div>`};
+ b.innerHTML=V[step]||V.start;b.onclick=e=>{const a=e.target.closest("[data-s]");if(!a)return;e.preventDefault();a.dataset.s==="signin"?flowSignIn():podFlow(a.dataset.s)};
+ mb.classList.add("open");const f=b.querySelector("input,button.pri,.pfc");if(f)f.focus()}
+function closeFlow(){const mb=$("podfl");if(mb)mb.classList.remove("open");if(PF&&PF.focus)PF.focus()}
+async function flowSignIn(){const u=($("pfu").value||"").trim(),e=$("pfe");let url;try{url=new URL(u);if(!/^https?:$/.test(url.protocol))throw 0}catch(_){e.textContent="Please enter your pod's address, starting with https://";return}
+ if(location.protocol==="file:"){e.innerHTML=`Signing in needs Desk opened through its helper: <a href="http://127.0.0.1:8765/app/">http://127.0.0.1:8765/app/</a>. Open that, then click <b>Set up my pod</b> again.`;return}
+ setConf({mode:"pod",pod:url.href.replace(/\/*$/,"/")});try{sessionStorage.setItem("desk-pod-setup","1")}catch(_){}S.mode="pod";S.pod=null;hideNudges();e.textContent="Opening your pod's sign-in page…";await signIn();
+ if(S.state==="fallback"){e.textContent="Couldn't start sign-in: "+(S.err||"unknown error")+". Desk is still showing this computer's data."}}
+async function afterSetup(){let f=null;try{f=sessionStorage.getItem("desk-pod-setup")}catch(_){}if(!f||!S.pod)return;try{sessionStorage.removeItem("desk-pod-setup")}catch(_){}
+ document.getElementById("gear").click();setTimeout(async()=>{stUI();const s=$("stg");if(s)s.scrollIntoView({block:"start"});await scanUI()},120)}
+function nudges(){if(nudgeOff())return;const now=Date.now(),n=nGet();
+ if(!n){nSet({first:now,welcomed:true,days:[new Date().toDateString()]});welcomeCard("welcome");headerNudge();return}   // fresh install: the welcome card, shown once
+ const d=new Date().toDateString(),days=(n.days||[]).includes(d)?n.days:[...(n.days||[]),d].slice(-10);nSet({days});
+ if(!n.reminded&&now-(n.first||now)>=7*DAY&&days.length>=3){nSet({reminded:now});welcomeCard("remind")}   // one soft reminder after a week of real use
+ headerNudge()}
+S.nudge={get:nGet,set:nSet,flow:podFlow,never:neverAsk};
+wire();nudges();
+if(S.mode==="pod"){refresh(true).then(()=>{try{stUI()}catch(e){}afterSetup()});setInterval(()=>{if(conf().mode==="pod"&&!document.hidden)refresh(false)},60000);
  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&conf().mode==="pod")refresh(false)})}
 })();
 </script>
