@@ -232,7 +232,7 @@ body.dn-roomy .board{gap:32px 26px}body.dn-roomy .row{padding-top:14px;padding-b
 #podpill[data-state=pod] i{background:#2e9d5b}#podpill[data-state=busy] i{background:#d9a400}#podpill[data-state=fallback]{border-color:#d0453a}#podpill[data-state=fallback] i,#podpill[data-state=signed-out] i{background:#d0453a}#podpill[data-state=empty] i,#podpill[data-state=setup] i{background:#d9a400}
 .podchg{outline:2px solid #2e9d5b;outline-offset:2px;transition:outline-color 4s}
 .podwel{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,var(--acc-s),var(--card) 70%);border:1px solid color-mix(in srgb,var(--acc) 30%,var(--bd));border-radius:16px;padding:18px 20px;margin:0 0 18px;box-shadow:var(--sh)}
-.podwel .pwi{flex:none;width:40px;height:40px;border-radius:12px;background:var(--acc);color:#fff;display:grid;place-items:center;font-size:22px}
+.podwel .pwi{flex:none;width:40px;height:40px;border-radius:12px;overflow:hidden;display:grid;place-items:center}.podwel .pwi img{width:40px;height:40px}
 .podwel h2{margin:2px 0 8px;font-size:18px;letter-spacing:-.01em}.podwel ul{margin:0 0 12px;padding-left:18px;color:var(--fg2);font-size:13.5px}.podwel li{margin:3px 0}
 .pwa{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}.pwa a,.pwn a,.podwhy a,.pfa a,.pfs a,.pfprov a{color:var(--acc);font-size:13px}.pwn{margin:10px 0 0;font-size:12px;color:var(--mut)}.pwn a{font-size:12px;color:var(--mut)}
 .podnudge{display:inline-flex;align-items:center;margin-right:8px;border:1px solid var(--bd);border-radius:999px;background:var(--acc-s);font-size:12px;max-width:300px}
@@ -250,6 +250,21 @@ body.dn-roomy .board{gap:32px 26px}body.dn-roomy .row{padding-top:14px;padding-b
 .pfareas input{width:auto!important;margin:0!important}.pfareas label{text-transform:none!important;letter-spacing:0!important;font-size:13.5px!important;color:var(--fg)!important}.pfrow input{margin-bottom:0!important}.pfown label{text-transform:none;letter-spacing:0}
 #pfacct ol{padding-left:20px;margin:6px 0}#pfacct li{margin:4px 0}.spmr{display:flex;align-items:center;gap:10px;font-size:13px}.spmr input{flex:1;min-width:0}
 @media(max-width:560px){.pfch,.pfprovs{grid-template-columns:1fr}.podwel{flex-direction:column}}
+.thd{display:none}:root[data-theme=dark] .thl{display:none}:root[data-theme=dark] .thd{display:inline-block}@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .thl{display:none}:root:not([data-theme=light]) .thd{display:inline-block}}
+.pz{background:var(--card);border:1px solid var(--bd);border-radius:14px;box-shadow:var(--sh);padding:12px 14px;margin-bottom:26px;color:var(--fg2);font-size:13px;position:relative;min-width:0}
+.pz .pzh{display:flex;align-items:center;gap:8px;margin:0 0 8px}.pz .pzh img{width:22px;height:22px;border-radius:6px;flex:none}.pz .pzh h4{margin:0;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);flex:1;min-width:0}
+.pzb{font:inherit;font-size:12px;line-height:1;padding:5px 8px;border-radius:8px;border:1px solid var(--bd);background:var(--bg2);color:var(--fg2);cursor:pointer}.pzb:hover{color:var(--fg)}.pzb:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.pzv{position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:var(--bg2)}.pzv.go{cursor:zoom-in}
+.pzv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}.pzv img.on{opacity:1}
+.pzbar{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:var(--mut)}.pzbar .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pzbar a{color:var(--acc);text-decoration:none;white-space:nowrap}
+.pze{text-align:center;padding:4px 4px 2px}.pze img{width:100%;max-width:240px;height:auto}.pze p{margin:8px 0 0;line-height:1.45}.pze .tg{color:var(--mut);font-size:12px}.pze .lead{color:var(--fg);font-weight:600}.pze .mbtn{margin-top:10px}.pze code{font-size:11px;word-break:break-all;color:var(--mut)}
+.pzset{display:grid;gap:8px;margin-top:6px;font-size:12.5px}.pzset label{display:flex;gap:8px;align-items:center}.pzset input[type=text],.pzset select{font:inherit;font-size:12.5px;padding:5px 8px;border-radius:8px;border:1px solid var(--bd);background:var(--bg2);color:var(--fg);min-width:0;flex:1}.pzset .row{display:flex;gap:8px;justify-content:flex-end}
+.pzp .who{display:flex;align-items:center;gap:8px;margin-bottom:8px;min-width:0}.pzp .av{width:28px;height:28px;border-radius:50%;flex:none;object-fit:cover;background:var(--acc-s);color:var(--acc);display:grid;place-items:center;font-weight:700;font-size:12px}
+.pzp .who b{color:var(--fg);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pzp .who time{color:var(--mut);font-size:11.5px;margin-left:auto;white-space:nowrap}.pzp .aud{font-size:10.5px;padding:1px 6px;border-radius:6px;border:1px solid var(--bd);color:var(--mut)}
+.pzp .tx{margin:8px 0 0;line-height:1.45;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}.pzp .tx b{color:var(--fg)}
+.pzst{margin:6px 0 0;font-size:11.5px;color:var(--mut)}
+#pzlb{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.86);display:grid;place-items:center;cursor:zoom-out}#pzlb img{max-width:96vw;max-height:92vh;object-fit:contain;border-radius:6px}#pzlb button{position:absolute;top:14px;right:16px}
+@media(prefers-reduced-motion:reduce){.pzv img{transition:none}}
 </style></head><body><div class="wrap">
 <header><div><div class="dbrand"><img class="dtile" alt="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjMmY2ZmVkIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvc3ZnPg=="><img class="dlogo lt" alt="Desk" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIwIDQwIDI5NiAxMTAiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwIDU1LjApIHNjYWxlKDAuNykiPjxkZWZzPjxjbGlwUGF0aCBpZD0ieGsiPjxyZWN0IHg9IjI4MyIgeT0iMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiLz48L2NsaXBQYXRoPjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTQxNzFjIiBzdHJva2Utd2lkdGg9IjIyIj4KPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkiLz48cGF0aCBkPSJNODkgLTUwVjEwMCIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAgMCkiPjxwYXRoIGQ9Ik04OSA1MEEzOSAzOSAwIDEgMCA4MC42IDc0LjQiLz48cGF0aCBkPSJNMTEgNTBIODkiIC8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMjIgMCkiPjxwYXRoIGQ9Ik01MS41IDIwLjVBMTkgMTkgMCAxIDAgMzUgNDlBMjEgMjEgMCAxIDEgMTYuOCA4MC41Ii8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAgMCkiPjxwYXRoIGQ9Ik0xMSAtNTBWMTAwIi8+PC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjeGspIj48cGF0aCBkPSJNMzk1IC0yMEwzMTYgNjYiLz48cGF0aCBkPSJNMzQwIDQyTDM5OCAxMjAiLz48L2c+CjwvZz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODguMCAxNDcuMCkgc2NhbGUoMS42KSI+PHBhdGggZmlsbD0iIzJmNmZlZCIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iIzJmNmZlZCIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvZz48L3N2Zz4="><img class="dlogo dk" alt="Desk" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIwIDQwIDI5NiAxMTAiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwIDU1LjApIHNjYWxlKDAuNykiPjxkZWZzPjxjbGlwUGF0aCBpZD0ieGsiPjxyZWN0IHg9IjI4MyIgeT0iMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiLz48L2NsaXBQYXRoPjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTllY2YxIiBzdHJva2Utd2lkdGg9IjIyIj4KPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkiLz48cGF0aCBkPSJNODkgLTUwVjEwMCIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAgMCkiPjxwYXRoIGQ9Ik04OSA1MEEzOSAzOSAwIDEgMCA4MC42IDc0LjQiLz48cGF0aCBkPSJNMTEgNTBIODkiIC8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMjIgMCkiPjxwYXRoIGQ9Ik01MS41IDIwLjVBMTkgMTkgMCAxIDAgMzUgNDlBMjEgMjEgMCAxIDEgMTYuOCA4MC41Ii8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAgMCkiPjxwYXRoIGQ9Ik0xMSAtNTBWMTAwIi8+PC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjeGspIj48cGF0aCBkPSJNMzk1IC0yMEwzMTYgNjYiLz48cGF0aCBkPSJNMzQwIDQyTDM5OCAxMjAiLz48L2c+CjwvZz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODguMCAxNDcuMCkgc2NhbGUoMS42KSI+PHBhdGggZmlsbD0iIzZhOWJmZiIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iIzZhOWJmZiIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvZz48L3N2Zz4="></div><h1 id="greet">Hello</h1></div>
 <div class="hr"><div class="time"><div id="clock"></div><div id="date"></div></div>
@@ -263,6 +278,8 @@ body.dn-roomy .board{gap:32px 26px}body.dn-roomy .row{padding-top:14px;padding-b
 <div class="sec" data-sec="ask"><section class="ask" id="ask" aria-label="Ask your bot"></section></div>
 <div class="sec" data-sec="tiles"><nav class="tiles" id="tiles" aria-label="Quick launch"></nav></div>
 <div class="sec" data-sec="widgets"><section class="widgets" id="widgets" aria-label="Widgets" hidden></section></div>
+<div class="sec" data-sec="frame"><section class="pz" id="pzframe" aria-label="Picture Frame" hidden></section></div>
+<div class="sec" data-sec="podsta"><section class="pz" id="pzpodsta" aria-label="Podsta" hidden></section></div>
 <div class="sec" data-sec="projects"><div class="bar"><h2 id="ph">Projects</h2><div class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search projects…  (/)" aria-label="Search projects" autocomplete="off"></div><div class="filters" id="filters" role="group" aria-label="Filter by status"></div></div>
 <section class="areas" id="areas"></section></div>
 <div class="sec" data-sec="teammates"><details class="rtn" id="tmv"><summary><h2>Teammates</h2><span id="tms"></span></summary><div class="tmg" id="tml"></div></details></div>
@@ -297,8 +314,8 @@ body.dn-roomy .board{gap:32px 26px}body.dn-roomy .row{padding-top:14px;padding-b
 <script id="layout-default" type="application/json">__LAYOUT_DEFAULT_JSON__</script>
 <script>
 // ===== customize: layout core (load, validate, defaults) =====
-const SECIDS=["setup","today","waiting","ask","tiles","widgets","projects","teammates","activity","routsum","routines"],SIZES=["s","m","l","full"],SPAN={s:4,m:6,l:8,full:12};
-const SECN={setup:"First-run setup",today:"Today & tomorrow",waiting:"Waiting on you",ask:"Ask box",tiles:"Quick launch",widgets:"Widgets",projects:"Projects",teammates:"Teammates",activity:"Activity",routsum:"Routines summary",routines:"Routines"};
+const SECIDS=["setup","today","waiting","ask","tiles","widgets","frame","podsta","projects","teammates","activity","routsum","routines"],SIZES=["s","m","l","full"],SPAN={s:4,m:6,l:8,full:12};
+const SECN={setup:"First-run setup",today:"Today & tomorrow",waiting:"Waiting on you",ask:"Ask box",tiles:"Quick launch",widgets:"Widgets",frame:"Picture Frame",podsta:"Podsta",projects:"Projects",teammates:"Teammates",activity:"Activity",routsum:"Routines summary",routines:"Routines"};
 const LYK="desk-layout";
 function pj(id){try{return JSON.parse(document.getElementById(id).textContent)}catch(e){return null}}
 const LDEF=pj("layout-default")||{version:1,updated:"2026-01-01T00:00:00Z",sections:SECIDS.map(id=>({id,visible:true,size:id=="today"||id=="waiting"?"m":"full"})),phone:{order:[]},appearance:{accent:"",density:"cozy",font_scale:100,radius:14,columns:0},theme:"auto"};
@@ -1055,8 +1072,9 @@ function podBackend(c,A){
 const S={mode:conf().mode,state:"local",backend:local,pod:null,sig:null,busy:false,err:null};window.DeskStore=S;
 S.local=local;S.prepare=prepare;S.conf=conf;S.setConf=setConf;
 function pill(state,text,btn){let p=$("podpill");if(!p){p=document.createElement("div");p.id="podpill";p.setAttribute("role","status");document.body.appendChild(p)}
- S.state=state;p.dataset.state=state;p.hidden=state==="local";p.innerHTML=`<i></i><b>Solid pod</b><span></span>`+(btn?`<button type="button" class="mbtn">${btn}</button>`:"")+`<button type="button" class="mbtn" data-a="cfg" title="Storage settings">⚙︎</button>`;
- p.querySelector("span").textContent=text;const b=p.querySelector("button:not([data-a])");if(b)b.onclick=()=>btn==="Sign in"?signIn():refresh(true);p.querySelector("[data-a=cfg]").onclick=()=>{document.getElementById("gear").click();setTimeout(()=>$("stg")&&$("stg").scrollIntoView({block:"nearest"}),50)}}
+ const was=S.state;S.state=state;p.dataset.state=state;p.hidden=state==="local";p.innerHTML=`<i></i><b>Solid pod</b><span></span>`+(btn?`<button type="button" class="mbtn">${btn}</button>`:"")+`<button type="button" class="mbtn" data-a="cfg" title="Storage settings">⚙︎</button>`;
+ p.querySelector("span").textContent=text;const b=p.querySelector("button:not([data-a])");if(b)b.onclick=()=>btn==="Sign in"?signIn():refresh(true);p.querySelector("[data-a=cfg]").onclick=()=>{document.getElementById("gear").click();setTimeout(()=>$("stg")&&$("stg").scrollIntoView({block:"nearest"}),50)};
+ try{document.dispatchEvent(new CustomEvent("deskpod",{detail:{state,was}}))}catch(e){}}
 function apply(d){DATA.areas=d.areas;DATA.area_order=d.area_order;DATA.area_labels=d.area_labels;DATA.generated=d.generated;DATA.proposed_projects=d.proposed_projects||[];
  for(const k of Object.keys(AREAS))if(!(k in d.area_labels))delete AREAS[k];Object.assign(AREAS,d.area_labels);ALL.splice(0,ALL.length,...Object.values(DATA.areas).flat());
  statuses.splice(1,statuses.length-1,...new Set(ALL.map(p=>p.status)));const su=$("setup");if(su&&ALL.length)su.hidden=true;render();
@@ -1075,7 +1093,7 @@ async function connect(){const c=conf();S.mode=c.mode;if(c.mode!=="pod"){S.backe
   else{const iss=await findIssuer(c);if(!await reachable(iss.replace(/\/*$/,"/")+".well-known/openid-configuration")){fallback("your pod's server isn't reachable");return false}
    await withTimeout(A.handleIncomingRedirect({url:location.href,restorePreviousSession:true}),20000,"sign-in")}}catch(e){fallback("sign-in failed: "+e.message);return false}
  if(!A.getDefaultSession().info.isLoggedIn){pill("signed-out","not signed in — showing this computer's data","Sign in");return false}
- S.webId=A.getDefaultSession().info.webId;let cc=c;
+ S.webId=A.getDefaultSession().info.webId;S.fetch=(u,o)=>A.fetch(u,o);let cc=c;
  if(!c.pod){pill("busy","finding your pod…");try{const st=await findStorage(A,S.webId);cc=setConf({pod:st[0],storages:st})}catch(e){fallback("couldn't find your pod ("+e.message+")");return false}}
  S.pod=podBackend(cc,A);S.backend=S.pod;return true}
 async function refresh(force){if(S.busy)return;if(!S.pod){if(await connect())return refresh(force);return}S.busy=true;
@@ -1134,7 +1152,7 @@ function wire(){if(!$("stg"))return;stUI();
   if(r.value==="local"){S.pod=null;S.backend=local;if(S.applied){apply(prepare(LOCAL,[]));S.applied=false;S.sig=null}pill("local","")}else refresh(true).then(stUI)};
  for(const [id,k] of [["spu","pod"],["spr","root"],["spi","issuer"]])$(id).onchange=()=>{let v=$(id).value.trim();if(k==="root")v=(v||"grokbot/").replace(/^\/+/,"").replace(/\/*$/,"/");setConf({[k]:v});if(S.pod){S.pod=null;S.sig=null}stUI();if(conf().mode==="pod")refresh(true).then(stUI)};
  $("spin").onclick=()=>{const c=conf();(c.pod||c.issuer)?signIn():podFlow("have")};$("spchg").onclick=()=>podFlow("have");$("spano").onclick=()=>podFlow("another");$("spag").onclick=openAgent;
- $("sps").onchange=()=>{setConf({pod:$("sps").value});S.pod=null;S.sig=null;stUI();refresh(true).then(stUI)};$("spout").onclick=async()=>{try{await (await loadAuth()).logout()}catch(e){}S.pod=null;S.webId=null;stUI();fallback("signed out")};
+ $("sps").onchange=()=>{setConf({pod:$("sps").value});S.pod=null;S.sig=null;stUI();refresh(true).then(stUI)};$("spout").onclick=async()=>{try{await (await loadAuth()).logout()}catch(e){}S.pod=null;S.webId=null;S.fetch=null;stUI();fallback("signed out")};
  $("podwhy").onclick=e=>{const l=e.target.closest("[data-pf]");if(!l)return;e.preventDefault();podFlow(l.dataset.pf)};$("spscan").onclick=scanUI;$("spex").onclick=exportUI;document.getElementById("gear").addEventListener("click",()=>setTimeout(stUI,0))}
 
 /* ---- encourage a pod (never in pod mode, never blocking; "Don't ask again" is forever) ---- */
@@ -1146,9 +1164,9 @@ const PROV=[["solidcommunity.net","https://solidcommunity.net/","free, run by th
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function nudgeOff(){const n=nGet()||{};return conf().mode==="pod"||!!n.never}
 function hideNudges(){for(const id of ["podwel","podnudge"]){const e=$(id);if(e)e.remove()}}
-function neverAsk(){nSet({never:true,welcomed:true});hideNudges()}
+function neverAsk(){nSet({never:true,welcomed:true});hideNudges();try{document.dispatchEvent(new CustomEvent("deskpod",{detail:{state:S.state,never:true}}))}catch(e){}}
 function welcomeCard(kind){if(nudgeOff()||$("podwel"))return;const sec=$("board")||document.querySelector(".sec");if(!sec)return;const w=document.createElement("section");w.id="podwel";w.className="podwel";w.dataset.kind=kind;w.setAttribute("aria-label","Solid pod");
- w.innerHTML=`<div class="pwi" aria-hidden="true">◎</div><div class="pwb"><h2>${HEAD}</h2><ul>${BEN.map(b=>`<li>${b}</li>`).join("")}</ul>
+ w.innerHTML=`<div class="pwi" aria-hidden="true"><img class="thl" src="assets/widgets/pod-icon-light.svg" alt=""><img class="thd" src="assets/widgets/pod-icon-dark.svg" alt=""></div><div class="pwb"><h2>${HEAD}</h2><ul>${BEN.map(b=>`<li>${b}</li>`).join("")}</ul>
  <div class="pwa"><button type="button" class="mbtn pri" data-a="setup">Set up my pod</button><button type="button" class="mbtn" data-a="later">Maybe later</button><a href="#" data-a="why">Why a pod?</a>${kind==="remind"?`<a href="#" data-a="never">Don't ask again</a>`:""}</div>
  <p class="pwn">Desk keeps working on this computer either way.${kind==="welcome"?` <a href="#" data-a="never">Don't ask again</a>`:""}</p></div>`;
  w.onclick=e=>{const a=e.target.closest("[data-a]");if(!a)return;e.preventDefault();const k=a.dataset.a;
@@ -1294,6 +1312,198 @@ try{S.setupPending=S.mode==="pod"&&!!sessionStorage.getItem("desk-pod-setup")}ca
 wire();if(!joinFromLink())nudges();
 if(S.mode==="pod"){refresh(true).then(()=>{try{stUI()}catch(e){}afterSetup()});setInterval(()=>{if(conf().mode==="pod"&&!document.hidden)refresh(false)},60000);
  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&conf().mode==="pod")refresh(false)})}
+})();
+</script>
+<script>
+/* ---- Pod widgets: Picture Frame + Podsta. Built in (not sandboxed) because they read with the signed-in pod session.
+   Read-only: they only ever send GET requests. ---- */
+(function(){
+const S=window.DeskStore;if(!S)return;
+const $=id=>document.getElementById(id),HEAD="Desk works best if you have a SOLID Pod.";
+const RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#",LDP="http://www.w3.org/ns/ldp#",SCH="http://schema.org/",FOAF="http://xmlns.com/foaf/0.1/",PODSTA="https://podsta.app/vocab#";
+const APP="https://teebooted.github.io/Podsta/",IMG=/\.(jpe?g|png|webp|gif|heic|heif|avif)$/i;
+const COPY={
+ frame:{name:"Picture Frame",tag:"Your own photos, quietly on rotation.",
+  empty:"Your photos folder is empty for now. Add a few pictures to it in your pod, and they'll start showing up here.",
+  nopod:"A pod is your own private storage space online, and Picture Frame shows the photos you keep there. Connect a pod and your frame fills right up."},
+ podsta:{name:"Podsta",tag:"Recent posts from people you follow.",
+  empty:"Nothing new from the people you follow yet. Once they post, you'll see it here. Follow a few more people in Podsta to keep things lively.",
+  nopod:"Podsta posts live in people's pods, so you'll need one of your own to follow along. Get a pod, sign in to Podsta, and your friends' posts will show up here.",link:"Open in Podsta"}};
+const PK="desk-podw",DEF={frame:{folder:"photos/",sub:false,iv:30,shuffle:false},podsta:{iv:20}};
+const CAP_F=20,CAP_P=5,TO=8000,TTL=5*60000;
+function cfg(){let x={};try{x=JSON.parse(localStorage.getItem(PK))||{}}catch(e){}const c={frame:Object.assign({},DEF.frame,x.frame||{}),podsta:Object.assign({},DEF.podsta,x.podsta||{})};
+ c.frame.iv=clampIv(c.frame.iv,30);c.podsta.iv=clampIv(c.podsta.iv,20);return c}
+function clampIv(v,d){v=+v;return isFinite(v)&&v>0?Math.max(3,Math.min(3600,Math.round(v))):d}
+function save(k,v){let x={};try{x=JSON.parse(localStorage.getItem(PK))||{}}catch(e){}x[k]=Object.assign({},x[k]||{},v);try{localStorage.setItem(PK,JSON.stringify(x))}catch(e){}}
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const art=(n,cls)=>`<img class="thl ${cls||""}" src="assets/widgets/${n}-light.svg" alt=""><img class="thd ${cls||""}" src="assets/widgets/${n}-dark.svg" alt="">`;
+const podRoot=()=>{const c=S.conf&&S.conf();return c&&c.mode==="pod"&&c.pod?String(c.pod).replace(/\/*$/,"/"):""};
+const live=()=>S.mode==="pod"&&!!S.webId&&typeof S.fetch==="function"&&!!podRoot();
+function safeHttp(u,base){try{const x=new URL(u,base);if(x.protocol==="https:"||(x.protocol==="http:"&&/^(localhost|127\.0\.0\.1|\[::1\])$/.test(x.hostname)))return x.href}catch(e){}return""}
+const sameOrigin=(a,b)=>{try{return new URL(a).origin===new URL(b).origin}catch(e){return false}};
+// GET with a hard time limit. The signed-in fetch is only used on origins we trust (your pod, a followed friend's pod);
+// anything else is fetched anonymously so your access token never goes to a third-party server.
+function get(u,opt){opt=opt||{};const ms=opt.ms||15000,ac=new AbortController();let t;
+ const f=opt.auth===false?fetch:S.fetch,init={method:"GET",cache:"no-store",signal:ac.signal,credentials:opt.auth===false?"omit":undefined,headers:opt.accept?{accept:opt.accept}:undefined};
+ return Promise.race([f(u,init),new Promise((_,rej)=>{t=setTimeout(()=>{try{ac.abort()}catch(e){}rej(new Error("timed out"))},ms)})]).finally(()=>clearTimeout(t))}
+// Minimal Turtle reader: enough for containers and Podsta's flat documents (IRIs, prefixed names, literals, ; and , lists, [ ] nodes).
+function ttl(text,base){const P={},T=[];let i=0,n=text.length,bn=0;
+ const ws=()=>{while(i<n){const c=text[i];if(c==="#"){while(i<n&&text[i]!=="\n")i++}else if(c===" "||c==="\n"||c==="\r"||c==="\t")i++;else break}};
+ const iri=()=>{const j=text.indexOf(">",i);if(j<0)throw new Error("bad IRI");const raw=text.slice(i+1,j);i=j+1;return{t:"iri",v:new URL(raw,base).href}};
+ const name=()=>{let j=i;while(j<n&&!/[\s;,<>"'()\[\]{}]/.test(text[j]))j++;let w=text.slice(i,j);while(w.length>1&&w.endsWith(".")){w=w.slice(0,-1);j--}i=j;if(!w)throw new Error("bad Turtle at "+i);return w};
+ function str(){const q=text[i],long=text.startsWith(q+q+q,i);i+=long?3:1;let s="";
+  while(i<n){const c=text[i];if(c==="\\"){const e=text[i+1];if(e==="u"){s+=String.fromCharCode(parseInt(text.substr(i+2,4),16));i+=6}else if(e==="U"){s+=String.fromCodePoint(parseInt(text.substr(i+2,8),16));i+=10}else{s+=({n:"\n",t:"\t",r:"\r",b:"\b",f:"\f"})[e]??e;i+=2}continue}
+   if(long?text.startsWith(q+q+q,i):c===q){i+=long?3:1;break}s+=c;i++}
+  if(text[i]==="@"){i++;while(i<n&&/[A-Za-z0-9-]/.test(text[i]))i++}else if(text.startsWith("^^",i)){i+=2;term()}return{t:"lit",v:s}}
+ function term(){ws();const c=text[i];if(c==="<")return iri();if(c==='"'||c==="'")return str();
+  if(c==="["){i++;const b={t:"bn",v:"_:n"+(bn++)};pol(b);ws();if(text[i]!=="]")throw new Error("bad [ ]");i++;return b}
+  if(c==="("){let d=1;i++;while(i<n&&d){if(text[i]==="(")d++;else if(text[i]===")")d--;i++}return{t:"lit",v:""}}
+  const w=name();if(w==="a")return{t:"iri",v:RDF+"type"};if(w.startsWith("_:"))return{t:"bn",v:w};const k=w.indexOf(":");
+  if(k>=0&&Object.prototype.hasOwnProperty.call(P,w.slice(0,k)))return{t:"iri",v:P[w.slice(0,k)]+w.slice(k+1)};return{t:"lit",v:w}}
+ function pol(s){for(;;){ws();if(i>=n||text[i]==="]"||text[i]===".")return;const p=term();
+  for(;;){const o=term();T.push([s.v,p.v,o]);ws();if(text[i]===","){i++;continue}break}
+  ws();if(text[i]===";"){while(text[i]===";"){i++;ws()}continue}return}}
+ while(true){ws();if(i>=n)break;const at=i;
+  if(/^(@prefix|prefix)\s/i.test(text.slice(i,i+8))){i+=text[i]==="@"?7:6;ws();const w=name();ws();P[w.replace(/:$/,"")]=iri().v;ws();if(text[i]===".")i++;continue}
+  if(/^(@base|base)\s/i.test(text.slice(i,i+6))){i+=text[i]==="@"?5:4;ws();base=iri().v;ws();if(text[i]===".")i++;continue}
+  const s=term();pol(s);ws();if(text[i]===".")i++;if(i===at)throw new Error("bad Turtle")}
+ return T}
+function bySubject(T){const m=new Map();for(const[s,p,o]of T){if(!m.has(s))m.set(s,{});const x=m.get(s);(x[p]=x[p]||[]).push(o)}return m}
+const one=(x,p)=>x&&x[p]&&x[p][0]?x[p][0].v:"";
+async function readTtl(u,opt){const r=await get(u,Object.assign({accept:"text/turtle"},opt||{}));if(!r.ok){const e=new Error(r.status+" on "+u);e.status=r.status;throw e}return ttl(await r.text(),u)}
+// Object URLs: only the ones still on screen (or about to be) are kept; everything else is revoked.
+function blobs(){const m=new Map();return{
+ async get(u,auth){if(m.has(u))return m.get(u);const r=await get(u,{auth,ms:20000});if(!r.ok)throw new Error(String(r.status));const b=await r.blob();
+  if(b.type&&!/^image\//i.test(b.type)&&!IMG.test(new URL(u).pathname))throw new Error("not an image");const o=URL.createObjectURL(b);m.set(u,o);return o},
+ keep(list){const k=new Set(list.filter(Boolean));for(const[u,o]of[...m]){if(!k.has(u)){URL.revokeObjectURL(o);m.delete(u)}}},
+ drop(u){const o=m.get(u);if(o){URL.revokeObjectURL(o);m.delete(u)}},clear(){this.keep([])},size:()=>m.size}}
+function shell(el,k,body,gear){el.hidden=false;el.innerHTML=`<div class="pzh">${art(k+"-icon")}<h4>${esc(COPY[k].name)}</h4>${gear?`<button type="button" class="pzb" data-z="set" title="${esc(COPY[k].name)} settings" aria-label="${esc(COPY[k].name)} settings">⚙︎</button>`:""}</div><div class="pzc">${body}</div>`;return el.querySelector(".pzc")}
+function noPod(el,k){  // local mode (or not signed in): explain, and offer to set up / sign in, unless the person said "Don't ask again"
+ const st=S.state,n=(S.nudge&&S.nudge.get&&S.nudge.get())||{};
+ if(S.mode!=="pod"&&n.never){el.hidden=true;el.innerHTML="";return}
+ let act=`<button type="button" class="mbtn pri" data-z="setup">Set up my pod</button>`;
+ if(S.mode==="pod")act=st==="signed-out"?`<button type="button" class="mbtn pri" data-z="signin">Sign in</button>`:st==="busy"?`<p class="tg">Connecting to your pod…</p>`:`<p class="tg">Your pod isn't connected right now. Check the Solid pod note at the bottom of the page.</p>`;
+ const c=shell(el,k,`<div class="pze" data-empty="nopod">${art("pod-empty")}<p class="lead">${HEAD}</p><p>${esc(COPY[k].nopod)}</p>${act}</div>`);
+ c.onclick=e=>{const a=e.target.closest("[data-z]");if(!a)return;if(a.dataset.z==="setup"&&S.nudge)S.nudge.flow("start");if(a.dataset.z==="signin"&&S.signIn)S.signIn()}}
+function timer(fn,secs,isPaused){let h=null;const tick=()=>{h=setTimeout(()=>{if(!isPaused()&&!document.hidden)fn();tick()},secs*1000)};return{start(){this.stop();tick()},stop(){if(h)clearTimeout(h);h=null}}}
+function lightbox(src,alt){const old=$("pzlb");if(old)old.remove();const d=document.createElement("div");d.id="pzlb";d.setAttribute("role","dialog");d.setAttribute("aria-label",alt||"Photo");
+ d.innerHTML=`<img alt="${esc(alt||"")}"><button type="button" class="mbtn" aria-label="Close">✕</button>`;d.querySelector("img").src=src;document.body.appendChild(d);
+ const close=()=>{d.remove();document.removeEventListener("keydown",kd,true)},kd=e=>{if(e.key==="Escape"){e.preventDefault();e.stopImmediatePropagation();close()}};
+ d.onclick=close;document.addEventListener("keydown",kd,true);d.querySelector("button").focus();return d}
+const ago=d=>{const s=(Date.now()-d)/1000;if(s<60)return"just now";if(s<3600)return Math.floor(s/60)+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";if(s<7*86400)return Math.floor(s/86400)+"d ago";return new Date(d).toLocaleDateString([],{month:"short",day:"numeric"})};
+const IVS=[[10,"10 seconds"],[20,"20 seconds"],[30,"30 seconds"],[60,"1 minute"],[300,"5 minutes"],[900,"15 minutes"]];
+const ivSel=v=>`<select name="iv">${(IVS.some(x=>x[0]==v)?IVS:IVS.concat([[v,v+" seconds"]])).map(([s,l])=>`<option value="${s}"${s==v?" selected":""}>${l}</option>`).join("")}</select>`;
+
+/* ---------- Picture Frame ---------- */
+const F={el:null,list:[],i:0,B:blobs(),hover:false,setOpen:false,lb:null,key:"",bad:new Set(),t:null,tok:0};
+function cleanFolder(v,root){v=String(v||"").trim();if(root&&v.startsWith(root))v=v.slice(root.length);v=v.replace(/^\/+/,"");if(!v)v="photos/";if(!v.endsWith("/"))v+="/";
+ if(v.split("/").some(x=>x===".."||x==="."))return null;return v}
+async function listDir(u){const r=await get(u,{accept:"text/turtle"});if(r.status===404)return null;if(!r.ok){const e=new Error(String(r.status));e.status=r.status;throw e}
+ const T=ttl(await r.text(),u);return[...new Set(T.filter(t=>t[0]===u&&t[1]===LDP+"contains"&&t[2].t==="iri").map(t=>t[2].v))]}
+async function framePhotos(c){const root=podRoot(),rel=cleanFolder(c.folder,root);if(!rel)return{base:"",list:[],bad:true};
+ const base=new URL(rel,root).href;if(!base.startsWith(root))return{base,list:[],bad:true};
+ const out=[],q=[[base,0]];let dirs=0,missing=false;
+ while(q.length&&dirs<40&&out.length<1000){const[u,d]=q.shift();dirs++;let kids;try{kids=await listDir(u)}catch(e){if(u===base)throw e;continue}
+  if(kids===null){if(u===base)missing=true;continue}
+  for(const k of kids.sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}))){if(!k.startsWith(root))continue;if(k.endsWith("/")){if(c.sub&&d<3)q.push([k,d+1])}else if(IMG.test(new URL(k).pathname))out.push(k)}}
+ return{base,list:out,missing}}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fname(u){try{return decodeURIComponent(new URL(u).pathname.split("/").pop())}catch(e){return u}}
+async function frameLoad(force){const el=F.el=$("pzframe");if(!el)return;const c=cfg().frame,key=[S.webId,podRoot(),JSON.stringify(c)].join("|");
+ if(!live()){F.key="";stopFrame();noPod(el,"frame");return}
+ if(!force&&key===F.key)return;F.key=key;stopFrame();const tok=++F.tok;
+ if(!el.querySelector(".pzv"))shell(el,"frame",`<p class="pzst">Looking for photos…</p>`,true);
+ let r;try{r=await framePhotos(c)}catch(e){if(tok!==F.tok)return;F.key="";wireFrame(shell(el,"frame",`<p class="pzst">Couldn't read your photos folder (${esc(e.message)}).</p>`,true));return}
+ if(tok!==F.tok)return;F.list=c.shuffle?shuffle(r.list.slice()):r.list;F.i=0;F.bad=new Set();
+ if(!F.list.length){wireFrame(shell(el,"frame",`<div class="pze" data-empty="photos">${art("frame-empty")}<p>${esc(COPY.frame.empty)}</p><p><code>${esc(r.base)}</code></p></div>`,true));return}
+ const body=shell(el,"frame",`<div class="pzv go" tabindex="0" role="button" aria-label="Open this photo full size"><img alt=""><img alt=""></div>
+  <div class="pzbar"><button type="button" class="pzb" data-z="prev" aria-label="Previous photo">‹</button><span class="nm"></span><span class="ct"></span><button type="button" class="pzb" data-z="next" aria-label="Next photo">›</button></div>`,true);
+ wireFrame(body);const v=body.querySelector(".pzv");v.onmouseenter=()=>{F.hover=true};v.onmouseleave=()=>{F.hover=false};
+ v.onclick=()=>openFull();v.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openFull()}};
+ await show(0);F.t=timer(()=>show(F.i+1),c.iv,()=>F.hover||F.setOpen||!!$("pzlb"));F.t.start()}
+function stopFrame(){if(F.t)F.t.stop();F.t=null;F.tok++;F.B.clear()}
+async function show(n,tries){const L=F.list;if(!L.length||!F.el)return;tries=tries||0;if(tries>=L.length)return;n=((n%L.length)+L.length)%L.length;const u=L[n],tok=F.tok;
+ let src;try{src=await F.B.get(u)}catch(e){F.bad.add(u);return show(n+1,tries+1)}if(tok!==F.tok)return;
+ const v=F.el.querySelector(".pzv");if(!v)return;const imgs=v.querySelectorAll("img"),on=v.querySelector("img.on"),nx=on===imgs[0]?imgs[1]:imgs[0];
+ const ok=await new Promise(res=>{nx.onload=()=>res(true);nx.onerror=()=>res(false);nx.src=src});if(tok!==F.tok)return;
+ if(!ok){F.bad.add(u);return show(n+1,tries+1)}
+ nx.alt=fname(u);nx.classList.add("on");if(on)on.classList.remove("on");F.i=n;
+ F.el.querySelector(".nm").textContent=fname(u);F.el.querySelector(".ct").textContent=(n+1)+" / "+L.length;
+ // lazy: keep only the photo on screen and the next one (fetched now, quietly)
+ const nxt=L[(n+1)%L.length];F.B.keep([u,nxt]);if(nxt!==u&&!F.bad.has(nxt))F.B.get(nxt).then(()=>{if(tok!==F.tok)F.B.drop(nxt)}).catch(()=>F.bad.add(nxt))}
+function openFull(){const u=F.list[F.i];if(!u)return;F.B.get(u).then(src=>{lightbox(src,fname(u))}).catch(()=>{})}
+function wireFrame(body){const el=F.el;const g=el.querySelector("[data-z=set]");if(g)g.onclick=()=>frameSettings();
+ el.querySelectorAll("[data-z=prev],[data-z=next]").forEach(b=>b.onclick=()=>{if(F.t)F.t.start();show(F.i+(b.dataset.z==="next"?1:-1))})}
+function frameSettings(){const el=F.el,c=cfg().frame;if(el.querySelector(".pzset")){el.querySelector(".pzset").remove();F.setOpen=false;return}F.setOpen=true;
+ const f=document.createElement("form");f.className="pzset";f.innerHTML=`<label>Folder <input type="text" name="folder" value="${esc(c.folder)}" spellcheck="false" aria-label="Photos folder in your pod"></label>
+  <label><input type="checkbox" name="sub"${c.sub?" checked":""}> Include subfolders</label><label><input type="checkbox" name="shuffle"${c.shuffle?" checked":""}> Shuffle</label>
+  <label>Change every ${ivSel(c.iv)}</label><p class="pzst">Picture Frame only looks. It never changes, moves or deletes a thing.</p>
+  <div class="row"><button type="button" class="mbtn" data-z="cancel">Cancel</button><button type="submit" class="mbtn pri">Save</button></div>`;
+ el.querySelector(".pzh").after(f);f.folder.focus();
+ f.querySelector("[data-z=cancel]").onclick=()=>{f.remove();F.setOpen=false};
+ f.onsubmit=e=>{e.preventDefault();const fo=cleanFolder(f.folder.value,podRoot());let inPod=false;try{inPod=!!fo&&new URL(fo,podRoot()).href.startsWith(podRoot())}catch(e){}if(!inPod){f.folder.setCustomValidity("Use a folder inside your pod, like photos/");f.reportValidity();return}
+  save("frame",{folder:fo,sub:f.sub.checked,shuffle:f.shuffle.checked,iv:clampIv(f.iv.value,30)});F.setOpen=false;frameLoad(true)}}
+
+/* ---------- Podsta ---------- */
+const P={el:null,posts:[],i:0,B:blobs(),AV:new Map(),hover:false,setOpen:false,cache:null,key:"",t:null,tok:0,failed:[]};
+async function friendPod(f){if(f.pod){const u=safeHttp(f.pod);if(u)return u.replace(/\/*$/,"/")}
+ try{const T=await readTtl(f.webId.split("#")[0],{ms:TO}),me=bySubject(T).get(f.webId)||{};
+  const st=(me["http://www.w3.org/ns/pim/space#storage"]||me["http://www.w3.org/ns/solid/terms#storage"]||[]).map(o=>safeHttp(o.v)).filter(Boolean);if(st[0])return st[0].replace(/\/*$/,"/")}catch(e){}
+ try{return new URL(f.webId).origin+"/"}catch(e){return""}}
+async function readIndex(u){try{return bySubject(await readTtl(u,{ms:TO}))}catch(e){if([401,403,404].includes(e.status))return new Map();throw e}}
+async function friendPosts(f){const pod=await friendPod(f);if(!pod)return[];
+ const[pub,con]=await Promise.all([readIndex(pod+"podsta/public-index.ttl"),readIndex(pod+"podsta/contacts-index.ttl")]);const seen=new Map();
+ for(const[m,aud]of[[pub,"public"],[con,"contacts"]])for(const x of m.values()){const url=safeHttp(one(x,SCH+"url"));if(!url||seen.has(url))continue;
+  const at=Date.parse(one(x,SCH+"dateCreated"));if(!isFinite(at))continue;const pic=(x[SCH+"thumbnail"]||x[SCH+"image"]||[]).map(o=>safeHttp(o.v)).find(Boolean)||"";
+  seen.set(url,{url,at,aud,pod,type:one(x,PODSTA+"PostType")||"photo",title:one(x,SCH+"name"),caption:one(x,SCH+"caption"),pic,alt:(one(x,PODSTA+"imageAlt")||"").split("\n")[0],who:f})}
+ return[...seen.values()].sort((a,b)=>b.at-a.at).slice(0,CAP_P)}
+async function podstaData(force){const me=S.webId,root=podRoot();if(!force&&P.cache&&P.cache.who===me&&Date.now()-P.cache.at<TTL)return P.cache;
+ let F2;try{F2=bySubject(await readTtl(root+"podsta/contacts/friends.ttl",{ms:TO}))}catch(e){if(e.status===404||e.status===403||e.status===401)return(P.cache={who:me,at:Date.now(),posts:[],friends:0,failed:[]});throw e}
+ const fr=[],ids=new Set();for(const x of F2.values()){const w=safeHttp(one(x,FOAF+"knows"));if(!w||ids.has(w))continue;ids.add(w);
+  fr.push({webId:w,name:one(x,FOAF+"name")||one(x,SCH+"name")||w.replace(/^https?:\/\//,"").split("/")[0],avatar:safeHttp(one(x,SCH+"image")),pod:one(x,SCH+"url")})}
+ const use=fr.slice(0,CAP_F),failed=[];
+ const res=await Promise.all(use.map(f=>friendPosts(f).catch(()=>{failed.push(f.name);return[]})));
+ return(P.cache={who:me,at:Date.now(),posts:res.flat().sort((a,b)=>b.at-a.at),friends:fr.length,failed})}
+const trusted=(u,p)=>sameOrigin(u,p.pod)||sameOrigin(u,podRoot());
+async function avatar(p){const f=p.who;if(!f.avatar)return"";if(P.AV.has(f.webId))return P.AV.get(f.webId);
+ let o="";try{const r=await get(f.avatar,{auth:trusted(f.avatar,p)?undefined:false,ms:TO});if(r.ok){const b=await r.blob();if(/^image\//.test(b.type||"image/"))o=URL.createObjectURL(b)}}catch(e){}P.AV.set(f.webId,o);return o}
+async function podstaLoad(force){const el=P.el=$("pzpodsta");if(!el)return;const key=[S.webId,podRoot()].join("|");
+ if(!live()){P.key="";stopPodsta();P.cache=null;noPod(el,"podsta");return}
+ if(!force&&key===P.key)return;P.key=key;stopPodsta();const tok=++P.tok;
+ if(!el.querySelector(".pzp"))shell(el,"podsta",`<p class="pzst">Checking on the people you follow…</p>`,true);
+ let d;el.setAttribute("aria-busy","true");try{d=await podstaData(force)}catch(e){if(tok!==P.tok)return;el.removeAttribute("aria-busy");P.key="";wirePodsta(shell(el,"podsta",`<p class="pzst">Couldn't read your Podsta follows (${esc(e.message)}).</p>`,true));return}
+ if(tok!==P.tok)return;el.removeAttribute("aria-busy");P.posts=d.posts;P.failed=d.failed;P.i=Math.min(P.i,Math.max(0,P.posts.length-1));
+ const note=d.failed.length?`<p class="pzst" data-z="slow">${d.failed.length===1?esc(d.failed[0])+"'s pod":d.failed.length+" pods"} didn't answer in time. Showing everyone else.</p>`:"";
+ if(!P.posts.length){wirePodsta(shell(el,"podsta",`<div class="pze" data-empty="posts">${art("podsta-empty")}<p>${esc(COPY.podsta.empty)}</p><p><a href="${APP}" target="_blank" rel="noopener noreferrer">${esc(COPY.podsta.link)} ↗</a></p></div>${note}`,true));return}
+ const body=shell(el,"podsta",`<div class="pzp"></div><div class="pzbar"><button type="button" class="pzb" data-z="prev" aria-label="Previous post">‹</button><span class="nm"></span><a class="op" target="_blank" rel="noopener noreferrer">${esc(COPY.podsta.link)} ↗</a><button type="button" class="pzb" data-z="next" aria-label="Next post">›</button></div>${note}`,true);
+ wirePodsta(body);const card=body.querySelector(".pzp");card.onmouseenter=()=>{P.hover=true};card.onmouseleave=()=>{P.hover=false};
+ await post(P.i);P.t=timer(()=>post(P.i+1),cfg().podsta.iv,()=>P.hover||P.setOpen);P.t.start()}
+function stopPodsta(){if(P.t)P.t.stop();P.t=null;P.tok++;P.B.clear();for(const o of P.AV.values())if(o)URL.revokeObjectURL(o);P.AV.clear()}
+async function post(n){const L=P.posts;if(!L.length||!P.el)return;n=((n%L.length)+L.length)%L.length;P.i=n;const p=L[n],tok=P.tok,card=P.el.querySelector(".pzp");if(!card)return;
+ const nm=p.who.name,txt=(p.title?`<b>${esc(p.title)}</b> `:"")+esc(p.caption);
+ card.innerHTML=`<div class="who"><span class="av">${esc((nm||"?").trim().charAt(0).toUpperCase())}</span><b></b>${p.aud==="contacts"?`<span class="aud" title="Shared with their contacts">Contacts</span>`:""}<time datetime="${new Date(p.at).toISOString()}" title="${esc(new Date(p.at).toLocaleString())}">${ago(p.at)}</time></div>`+
+  (p.pic?`<div class="pzv"><img alt="${esc(p.alt||"Photo by "+nm)}"></div>`:"")+(txt.trim()?`<p class="tx">${txt}</p>`:"");
+ card.querySelector(".who b").textContent=nm;card.dataset.url=p.url;
+ P.el.querySelector(".nm").textContent=(n+1)+" / "+L.length;const a=P.el.querySelector("a.op");a.href=APP+"post?url="+encodeURIComponent(p.url);a.title="Open this post in Podsta";
+ avatar(p).then(o=>{if(!o||tok!==P.tok||P.i!==n)return;const s=card.querySelector(".av");if(!s)return;const im=document.createElement("img");im.className="av";im.alt="";im.src=o;s.replaceWith(im)});
+ const nxt=L[(n+1)%L.length],keep=[p.pic,nxt&&nxt.pic&&trusted(nxt.pic,nxt)?nxt.pic:""];P.B.keep(keep);
+ if(p.pic){const im=card.querySelector(".pzv img");try{const src=trusted(p.pic,p)?await P.B.get(p.pic):await P.B.get(p.pic,false);if(tok!==P.tok||P.i!==n)return;im.onload=()=>im.classList.add("on");im.onerror=()=>{const v=card.querySelector(".pzv");if(v)v.remove()};im.src=src}catch(e){const v=card.querySelector(".pzv");if(v)v.remove()}}
+ if(nxt&&nxt.pic&&nxt!==p&&trusted(nxt.pic,nxt))P.B.get(nxt.pic).then(()=>{if(tok!==P.tok)P.B.drop(nxt.pic)}).catch(()=>{})}
+function wirePodsta(body){const el=P.el;const g=el.querySelector("[data-z=set]");if(g)g.onclick=()=>podstaSettings();
+ el.querySelectorAll("[data-z=prev],[data-z=next]").forEach(b=>b.onclick=()=>{if(P.t)P.t.start();post(P.i+(b.dataset.z==="next"?1:-1))})}
+function podstaSettings(){const el=P.el,c=cfg().podsta;if(el.querySelector(".pzset")){el.querySelector(".pzset").remove();P.setOpen=false;return}P.setOpen=true;
+ const f=document.createElement("form");f.className="pzset";f.innerHTML=`<label>Next post every ${ivSel(c.iv)}</label><p class="pzst">${esc(COPY.podsta.tag)} Desk only reads. To like, comment or post, use ${esc(COPY.podsta.link)}.</p>
+  <div class="row"><button type="button" class="mbtn" data-z="reload">Check for new posts</button><button type="button" class="mbtn" data-z="cancel">Cancel</button><button type="submit" class="mbtn pri">Save</button></div>`;
+ el.querySelector(".pzh").after(f);
+ f.querySelector("[data-z=cancel]").onclick=()=>{f.remove();P.setOpen=false};f.querySelector("[data-z=reload]").onclick=()=>{P.setOpen=false;P.cache=null;podstaLoad(true)};
+ f.onsubmit=e=>{e.preventDefault();save("podsta",{iv:clampIv(f.iv.value,20)});P.setOpen=false;podstaLoad(true)}}
+
+function boot(){try{frameLoad(false)}catch(e){console.warn("Picture Frame:",e.message)}try{podstaLoad(false)}catch(e){console.warn("Podsta:",e.message)}}
+document.addEventListener("deskpod",boot);
+setInterval(()=>{if(live()&&!document.hidden&&!P.setOpen&&!P.hover){P.cache=null;podstaLoad(true)}},TTL);
+window.addEventListener("beforeunload",()=>{stopFrame();stopPodsta()});
+S.podWidgets={reload(which,force){if(!which||which==="frame"){F.key="";frameLoad(true)}if(!which||which==="podsta"){if(force)P.cache=null;P.key="";podstaLoad(!!force)}},_ttl:ttl};
+boot();
 })();
 </script>
 </body></html>

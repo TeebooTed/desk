@@ -1,6 +1,6 @@
 """Validate/clamp a Desk layout.json (mirrors vL() in template.html)."""
 import json, re, copy, pathlib
-IDS = ["setup", "today", "waiting", "ask", "tiles", "widgets", "projects", "teammates", "activity", "routsum", "routines"]
+IDS = ["setup", "today", "waiting", "ask", "tiles", "widgets", "frame", "podsta", "projects", "teammates", "activity", "routsum", "routines"]
 SIZES = ["s", "m", "l", "full"]
 def clamp(v, lo, hi, d):
     try: return max(lo, min(hi, int(v)))

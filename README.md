@@ -58,7 +58,17 @@ Click the pencil (or press **E**) to drag sections around, resize them, hide the
 
 ## Widgets
 
-Add your own cards (links, counters, lists, metrics) via `live.json` `widgets` or a `tiles/` folder. See [docs/widgets.md](docs/widgets.md).
+Widgets are the small panels that sit beside your project cards. Each one does one job, takes a minute to set up, and stays out of the way. Desk works best if you have a SOLID Pod, so the widgets that show your photos and posts read them straight from your pod, and nothing gets copied anywhere else.
+
+| Widget | What it does |
+|---|---|
+| <img src="assets/widgets/quotes-icon-light.svg" width="20" alt=""> **Famous Quotes**: *Real quotes, real sources, one a day.* | Ask for quotes in plain words: a topic, a person like Marcus Aurelius or Thomas Sowell, Bible verses, or a whole field. Your agent brings back 8 to 10 quotes, each checked against a real source and shown with its citation. Tick the ones you like, and Desk shows a new one each day. |
+| <img src="assets/widgets/frame-icon-light.svg" width="20" alt=""> **Picture Frame**: *Your own photos, quietly on rotation.* | Picture Frame turns a corner of Desk into a digital photo frame. It cycles through the photos folder in your pod, one at a time. It only looks and never changes, moves or deletes a thing. |
+| <img src="assets/widgets/podsta-icon-light.svg" width="20" alt=""> **Podsta**: *Recent posts from people you follow.* | See what friends are sharing on [Podsta](https://teebooted.github.io/Podsta/), the photo app where everyone's posts live in their own pod. The widget cycles through recent posts from people you follow and only shows what each person has chosen to share with you. Tap Open in Podsta to like, comment or see more. |
+
+Picture Frame and Podsta are built in and need a pod; without one they explain what a pod is and offer **Set up my pod** (or stay hidden if you chose *Don't ask again*). Move, resize or hide them like any other section. Famous Quotes is not in this repo yet. Details, settings and limits: [docs/widgets.md](docs/widgets.md#built-in-pod-widgets).
+
+You can also add your own cards (links, counters, lists, metrics) via `live.json` `widgets` or a `tiles/` folder. See [docs/widgets.md](docs/widgets.md).
 
 ## Files
 
@@ -72,6 +82,7 @@ Add your own cards (links, counters, lists, metrics) via `live.json` `widgets` o
 | `docs/` | Screenshots, [data format](docs/data-format.md), [routine prompts](docs/routines.md) |
 | `deploy/` | Example macOS LaunchAgent and Linux systemd user unit |
 | `assets/` | Logo, icons, `favicon.svg/.ico`, `apple-touch-icon.png`, `build_logo.py` |
+| `assets/widgets/` | Widget icons and empty-state art (light and dark) for Picture Frame, Podsta, Famous Quotes and the pod welcome card. `install.sh` copies the whole `assets/` folder |
 | `assets/qrcode.js` | Small local QR generator (`qrcode-generator`, MIT) for **Connect another computer**; built by `tools/solid/` |
 | `assets/solid-auth.js`, `tools/solid/` | Optional Solid pod sign-in (bundled Inrupt library, loaded only in pod mode) and how to rebuild it. See [docs/solid-pod.md](docs/solid-pod.md) |
 
@@ -99,7 +110,7 @@ The status file format is documented in [docs/data-format.md](docs/data-format.m
 
 - The webhook URL and key are kept **only** by the local relay, in `~/.config/desk-relay/config.json` (directory `0700`, file `0600`). The browser never sees or stores the key; after saving, the key field is cleared.
 - The relay listens on `127.0.0.1` only, never logs requests, and caps request bodies at 100 KB.
-- For optional Solid pod mode, the relay also serves Desk itself read-only at `/app/`. It serves only `index.html` and `assets/*.js|svg|png|ico`, checks the `Host` header (against DNS rebinding), and only lets the page's own origin call it.
+- For optional Solid pod mode, the relay also serves Desk itself read-only at `/app/`. It serves only `index.html`, `assets/*.js|svg|png|ico` and `assets/widgets/*.svg|png`, checks the `Host` header (against DNS rebinding), and only lets the page's own origin call it.
 - It accepts only requests with **`Origin: null`** (what a `file://` page sends) or no Origin at all. Any website trying to reach it gets HTTP 403.
 - Endpoints: `GET /health`, `POST /config` (`{url, auth}`, https only), `POST /send` (`{message, ...}` forwarded to the webhook).
 - Never commit `config.json` or your real status file (both are in `.gitignore`).

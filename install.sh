@@ -34,7 +34,7 @@ cp "$SRC/relay/desk-relay.py" "$DEST/relay/"
 cp "$SRC/registry.json" "$DEST/" 2>/dev/null || true
 mkdir -p "$DEST/examples/widgets" "$DEST/tools" && cp -R "$SRC/examples/widgets/." "$DEST/examples/widgets/" 2>/dev/null || true
 cp "$SRC/tools/"*.py "$DEST/tools/" 2>/dev/null || true
-cp "$SRC/assets/"* "$DEST/assets/"
+cp -R "$SRC/assets/." "$DEST/assets/"
 OS="$(uname -s)"
 if [ "$OS" = "Darwin" ]; then
   PL="$HOME/Library/LaunchAgents/$LABEL.plist"; mkdir -p "$(dirname "$PL")"

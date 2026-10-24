@@ -54,6 +54,16 @@
    "size": "full"
   },
   {
+   "id": "frame",
+   "visible": true,
+   "size": "s"
+  },
+  {
+   "id": "podsta",
+   "visible": true,
+   "size": "s"
+  },
+  {
    "id": "projects",
    "visible": true,
    "size": "full",

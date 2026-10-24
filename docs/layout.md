@@ -33,7 +33,7 @@ People edit it from the page (pencil button or **E**); bots can edit the file di
  "theme": "auto"
 }
 ```
-- Section ids: `setup, today, waiting, ask, tiles, widgets, projects, teammates, activity, routines`. Array order = screen order. Missing sections are appended with defaults; unknown ids are dropped.
+- Section ids: `setup, today, waiting, ask, tiles, widgets, frame, podsta, projects, teammates, activity, routsum, routines`. `frame` is Picture Frame and `podsta` is Podsta (both built in, size `s` by default; see [widgets.md](widgets.md#built-in-pod-widgets)). Array order = screen order. Missing sections are appended with defaults; unknown ids are dropped.
 - `size`: `s` (1/3), `m` (1/2), `l` (2/3), `full`, on a 12-column grid. On phones every section is full width.
 - `phone.order`: separate order for screens under 700 px (empty = same as desktop).
 - `today.days` 1–3; `routines.show` `all|failed`; `projects.sort` `priority|name|progress|status`; `projects.default_filter` `all` or a status.

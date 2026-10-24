@@ -5,7 +5,7 @@ Sync: GET/POST /state keeps page state (pins, collapsed panels, widget storage, 
 {key: {v, t, d}} merged last-writer-wins per key (t = ms timestamp, d = device; v null = deleted). Other devices sync by
 POSTing their keys here (box job), or, if ~/.config/desk-relay/sync.json has {"token": "...", "peers": ["https://host/"]},
 this helper pulls each peer's /sync/state every 30 s (peer requests must carry X-Desk-Sync: <token>).
-GET /app/ serves $DESK_DIR/index.html (and assets/*.js|svg|png|ico) so Desk can be opened at http://127.0.0.1:8765/app/; that origin
+GET /app/ serves $DESK_DIR/index.html (and assets/*.js|svg|png|ico, assets/widgets/*) so Desk can be opened at http://127.0.0.1:8765/app/; that origin
 (and only it) is allowed alongside file:// pages. Only needed for the optional Solid pod mode (docs/solid-pod.md)."""
 import json, os, re, shutil, socket, threading, time, hmac, urllib.request, urllib.error
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -127,7 +127,7 @@ def peer_loop():
 PORT = int(os.environ.get("DESK_RELAY_PORT", "8765"))
 SELF = {"http://127.0.0.1:%d" % PORT, "http://localhost:%d" % PORT}  # the page served at /app/ (same origin as this helper)
 HOSTS = {"127.0.0.1:%d" % PORT, "localhost:%d" % PORT}
-APPF = re.compile(r"^assets/[A-Za-z0-9_-][A-Za-z0-9._-]{0,63}\.(js|svg|png|ico)$")
+APPF = re.compile(r"^assets/(?:widgets/)?[A-Za-z0-9_-][A-Za-z0-9._-]{0,63}\.(js|svg|png|ico)$")
 def read_layout():
     try:
         with open(LAYOUT) as f: return json.load(f)
