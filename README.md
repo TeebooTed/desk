@@ -40,8 +40,10 @@ Paste this to your Grok Bot:
 
 By default Desk keeps everything on **this computer**, exactly as described above. On a fresh install Desk shows a short welcome card once, offering to set up a pod (**Set up my pod** / **Maybe later** / **Don't ask again**), plus a small dismissible note in the header. At most one gentle reminder follows after a week of use, and **Don't ask again** turns all of it off for good. You can also switch **⚙︎ Settings → Storage** to **Solid pod** instead. Desk then reads your projects from a [Solid](https://solidproject.org/) pod you control, self-hosted or from any provider, under `<pod>/grokbot/<area>/`. Each area folder holds its own `status.json` and `updates/`.
 
-- **Setup scans your pod.** It connects to area folders that already exist and offers a checkbox list to create the missing ones. It never overwrites or deletes anything, and every area folder gets an owner-only access rule.
-- **Agents can log straight to the pod.** Run `desk-log --pod agent.env` with client credentials. Each agent can be granted just the areas it works on.
+- **No pod address to type.** Pick your provider (solidcommunity.net, Inrupt Pod Spaces, solidweb.org, or your own server), sign in, and Desk finds your pod from your profile. Folder and server details live under **Advanced**.
+- **One question to finish.** Existing area folders connect silently; if some are missing Desk asks once, *"Set up N areas in your pod and copy your current Desk there?"* (or **Choose areas**). It never overwrites or deletes anything, and every area folder gets an owner-only access rule.
+- **Connect another computer** with a short link or QR code that fills in your pod (no passwords or keys in it), so the other computer just signs in.
+- **Agents can log straight to the pod.** **Add an agent** creates its own sign-in (automatically on Community Solid Server, step-by-step elsewhere), grants it only the areas you pick, and hands you a one-time key file for `desk-log --pod agent.env`. The secret is never shown on screen and Desk keeps no copy.
 - **It always falls back to your local data.** If sign-in fails or the pod can't be reached, Desk shows this computer's data with a notice, never a blank page. **Export from pod** gives you `status.json` + `updates.jsonl` back.
 
 Pod mode needs Desk opened over http: the relay serves it at `http://127.0.0.1:8765/app/`. See [docs/solid-pod.md](docs/solid-pod.md).
@@ -70,6 +72,7 @@ Add your own cards (links, counters, lists, metrics) via `live.json` `widgets` o
 | `docs/` | Screenshots, [data format](docs/data-format.md), [routine prompts](docs/routines.md) |
 | `deploy/` | Example macOS LaunchAgent and Linux systemd user unit |
 | `assets/` | Logo, icons, `favicon.svg/.ico`, `apple-touch-icon.png`, `build_logo.py` |
+| `assets/qrcode.js` | Small local QR generator (`qrcode-generator`, MIT) for **Connect another computer**; built by `tools/solid/` |
 | `assets/solid-auth.js`, `tools/solid/` | Optional Solid pod sign-in (bundled Inrupt library, loaded only in pod mode) and how to rebuild it. See [docs/solid-pod.md](docs/solid-pod.md) |
 
 ## Quick install (Mac and Linux)

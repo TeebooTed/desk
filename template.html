@@ -243,7 +243,13 @@ body.dn-roomy .board{gap:32px 26px}body.dn-roomy .row{padding-top:14px;padding-b
 .pfch{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.pfc{font:inherit;text-align:left;border:1px solid var(--bd);border-radius:12px;background:var(--bg2);color:var(--fg);padding:14px;cursor:pointer;display:flex;flex-direction:column;gap:4px}.pfc:hover,.pfc:focus-visible{border-color:var(--acc);outline:none}.pfc span{font-size:12.5px;color:var(--mut)}
 .pfprov{list-style:none;padding:0!important;margin:6px 0 12px!important}.pfprov li{padding:8px 0;border-top:1px solid var(--bd)}.pfprov span{color:var(--mut);font-size:12.5px;margin-left:6px}.pfs{font-size:12.5px;color:var(--mut)!important}
 .pfm label{display:block;font-size:12px;color:var(--mut);margin:12px 0 4px;text-transform:uppercase;letter-spacing:.06em}.pfm input{width:100%;box-sizing:border-box;font:inherit;padding:9px 11px;border-radius:9px;border:1px solid var(--bd);background:var(--bg2);color:var(--fg);margin-bottom:10px}.pfe{color:#c0392b;font-size:12.5px;min-height:1em}
-@media(max-width:560px){.pfch{grid-template-columns:1fr}.podwel{flex-direction:column}}
+.pfprovs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.pfown{grid-column:1/-1;cursor:default}.pfown label{font-size:12.5px;color:var(--mut);margin:2px 0 0}.pfrow{display:flex;gap:8px;align-items:center}.pfrow input{flex:1;min-width:0}
+.pfadv,#spadv{margin-top:12px}.pfadv summary,#spadv summary{cursor:pointer;color:var(--mut);font-size:13px}.pfadv[open],#spadv[open]{border-top:1px solid var(--bd);padding-top:6px}
+.pfqr{width:184px;height:184px;margin:10px auto;background:#fff;border-radius:10px;padding:6px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;color:#333;font-size:12px}.pfqr svg{width:100%;height:100%}
+.pfareas{border:1px solid var(--bd);border-radius:10px;margin:10px 0;padding:8px 12px}.pfareas legend{font-size:12.5px;color:var(--mut);padding:0 4px}.pfareas label{display:flex;gap:8px;align-items:center;padding:3px 0;margin:0}.pfareas code{color:var(--mut);font-size:12px}
+.pfareas input{width:auto!important;margin:0!important}.pfareas label{text-transform:none!important;letter-spacing:0!important;font-size:13.5px!important;color:var(--fg)!important}.pfrow input{margin-bottom:0!important}.pfown label{text-transform:none;letter-spacing:0}
+#pfacct ol{padding-left:20px;margin:6px 0}#pfacct li{margin:4px 0}.spmr{display:flex;align-items:center;gap:10px;font-size:13px}.spmr input{flex:1;min-width:0}
+@media(max-width:560px){.pfch,.pfprovs{grid-template-columns:1fr}.podwel{flex-direction:column}}
 </style></head><body><div class="wrap">
 <header><div><div class="dbrand"><img class="dtile" alt="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjMmY2ZmVkIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvc3ZnPg=="><img class="dlogo lt" alt="Desk" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIwIDQwIDI5NiAxMTAiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwIDU1LjApIHNjYWxlKDAuNykiPjxkZWZzPjxjbGlwUGF0aCBpZD0ieGsiPjxyZWN0IHg9IjI4MyIgeT0iMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiLz48L2NsaXBQYXRoPjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTQxNzFjIiBzdHJva2Utd2lkdGg9IjIyIj4KPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkiLz48cGF0aCBkPSJNODkgLTUwVjEwMCIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAgMCkiPjxwYXRoIGQ9Ik04OSA1MEEzOSAzOSAwIDEgMCA4MC42IDc0LjQiLz48cGF0aCBkPSJNMTEgNTBIODkiIC8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMjIgMCkiPjxwYXRoIGQ9Ik01MS41IDIwLjVBMTkgMTkgMCAxIDAgMzUgNDlBMjEgMjEgMCAxIDEgMTYuOCA4MC41Ii8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAgMCkiPjxwYXRoIGQ9Ik0xMSAtNTBWMTAwIi8+PC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjeGspIj48cGF0aCBkPSJNMzk1IC0yMEwzMTYgNjYiLz48cGF0aCBkPSJNMzQwIDQyTDM5OCAxMjAiLz48L2c+CjwvZz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODguMCAxNDcuMCkgc2NhbGUoMS42KSI+PHBhdGggZmlsbD0iIzJmNmZlZCIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iIzJmNmZlZCIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvZz48L3N2Zz4="><img class="dlogo dk" alt="Desk" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIwIDQwIDI5NiAxMTAiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwIDU1LjApIHNjYWxlKDAuNykiPjxkZWZzPjxjbGlwUGF0aCBpZD0ieGsiPjxyZWN0IHg9IjI4MyIgeT0iMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiLz48L2NsaXBQYXRoPjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTllY2YxIiBzdHJva2Utd2lkdGg9IjIyIj4KPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkiLz48cGF0aCBkPSJNODkgLTUwVjEwMCIvPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAgMCkiPjxwYXRoIGQ9Ik04OSA1MEEzOSAzOSAwIDEgMCA4MC42IDc0LjQiLz48cGF0aCBkPSJNMTEgNTBIODkiIC8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMjIgMCkiPjxwYXRoIGQ9Ik01MS41IDIwLjVBMTkgMTkgMCAxIDAgMzUgNDlBMjEgMjEgMCAxIDEgMTYuOCA4MC41Ii8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAgMCkiPjxwYXRoIGQ9Ik0xMSAtNTBWMTAwIi8+PC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjeGspIj48cGF0aCBkPSJNMzk1IC0yMEwzMTYgNjYiLz48cGF0aCBkPSJNMzQwIDQyTDM5OCAxMjAiLz48L2c+CjwvZz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODguMCAxNDcuMCkgc2NhbGUoMS42KSI+PHBhdGggZmlsbD0iIzZhOWJmZiIgZD0iTTg0IDE2VjY0TDM2IDE2WiBNMTYgODRWMzZMNjQgODRaIi8+PGxpbmUgeDE9IjM1LjIiIHkxPSI2NC44IiB4Mj0iNjQuOCIgeTI9IjM1LjIiIHN0cm9rZT0iIzZhOWJmZiIgc3Ryb2tlLXdpZHRoPSIyMCIvPjwvZz48L3N2Zz4="></div><h1 id="greet">Hello</h1></div>
 <div class="hr"><div class="time"><div id="clock"></div><div id="date"></div></div>
@@ -271,12 +277,16 @@ body.dn-roomy .board{gap:32px 26px}body.dn-roomy .row{padding-top:14px;padding-b
 <div class="ca"><button type="button" class="mbtn" id="hdc">Disconnect</button><span class="sp"></span><button type="button" class="mbtn" id="htx">Send test</button><button type="button" class="mbtn" id="hcl">Close</button><button type="button" class="mbtn pri" id="hsv">Save</button></div>
 <div class="nt">Stored only in this browser (localStorage). Never included in Desk's build files.</div>
 <div class="stg" id="stg"><h3>Storage</h3><div class="stm" role="radiogroup" aria-label="Storage"><label><input type="radio" name="stm" value="local" checked> This computer</label><label><input type="radio" name="stm" value="pod"> Solid pod</label></div><p class="podwhy" id="podwhy">Desk works best if you have a SOLID Pod. <a href="#" data-pf="why">Why a pod?</a> · <a href="#" data-pf="start">Set up my pod</a></p>
-<div id="stpod" hidden><label for="spu">Pod URL</label><input id="spu" type="url" autocomplete="off" spellcheck="false" placeholder="https://pod.example.org/you/">
+<div id="stpod" hidden><div class="nt" id="spst"></div>
+<div class="ca"><button type="button" class="mbtn pri" id="spin">Sign in</button><button type="button" class="mbtn" id="spout" hidden>Sign out</button><button type="button" class="mbtn" id="spchg">Change pod</button><span class="sp"></span><button type="button" class="mbtn" id="spscan">Check my pod</button><button type="button" class="mbtn" id="spex">Export from pod</button></div>
+<div class="ca" id="spmore" hidden><button type="button" class="mbtn" id="spano">Connect another computer</button><button type="button" class="mbtn" id="spag">Add an agent</button></div>
+<div id="spfound"></div><div class="nt" id="spmsg" role="status"></div>
+<details id="spadv"><summary>Advanced</summary>
+<label for="spu">Pod address</label><input id="spu" type="url" autocomplete="off" spellcheck="false" placeholder="found when you sign in, e.g. https://pod.example.org/you/">
+<div id="spsw" hidden><label for="sps">Your account has more than one pod. Use:</label><select id="sps"></select></div>
 <label for="spr">Desk folder in the pod</label><input id="spr" type="text" autocomplete="off" spellcheck="false" placeholder="grokbot/">
-<label for="spi">Sign-in server (optional)</label><input id="spi" type="url" autocomplete="off" spellcheck="false" placeholder="defaults to the pod's server">
-<div class="nt" id="spst"></div>
-<div class="ca"><button type="button" class="mbtn pri" id="spin">Sign in</button><button type="button" class="mbtn" id="spout" hidden>Sign out</button><span class="sp"></span><button type="button" class="mbtn" id="spscan">Scan pod</button><button type="button" class="mbtn" id="spex">Export from pod</button></div>
-<div id="spfound"></div><div class="nt" id="spmsg" role="status"></div></div>
+<label for="spi">Sign-in server</label><input id="spi" type="url" autocomplete="off" spellcheck="false" placeholder="set by your provider">
+<div id="spmap"></div></details></div>
 <div class="nt">Optional. "This computer" uses the data build.py writes into this page. "Solid pod" reads the same data from your own pod, one folder per area (docs/solid-pod.md).</div></div></div></div>
 <div class="mb" id="mb" aria-hidden="true"><div class="md" id="md" role="dialog" aria-modal="true" aria-labelledby="mt" tabindex="-1"></div></div>
 <script>/* SortableJS 1.15.6, MIT, inlined */
@@ -922,7 +932,8 @@ loadAll().then(mountAll);
    Interface (both backends): loadStatus() -> status.json shape, loadUpdates() -> [update entries], appendUpdate(entry), saveStatus(status). */
 (()=>{
 const SK="desk-storage",$=id=>document.getElementById(id);
-const conf=()=>{let c={};try{c=JSON.parse(localStorage.getItem(SK)||"{}")||{}}catch(e){}return{mode:c.mode==="pod"?"pod":"local",pod:String(c.pod||""),root:String(c.root||"grokbot/"),issuer:String(c.issuer||"")}};
+const conf=()=>{let c={};try{c=JSON.parse(localStorage.getItem(SK)||"{}")||{}}catch(e){}const map={};if(c.map&&typeof c.map==="object")for(const k in c.map)if(/^[A-Za-z0-9._-]{1,64}$/.test(String(c.map[k])))map[k]=String(c.map[k]);
+ return{mode:c.mode==="pod"?"pod":"local",pod:String(c.pod||""),root:String(c.root||"grokbot/"),issuer:String(c.issuer||""),prov:String(c.prov||""),storages:Array.isArray(c.storages)?c.storages.filter(x=>typeof x==="string").slice(0,8):[],map}};
 const setConf=p=>{const c=Object.assign(conf(),p);try{localStorage.setItem(SK,JSON.stringify(c))}catch(e){}return c};
 const slug=(n,d)=>String(n||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,48)||d||"area";
 const clone=o=>JSON.parse(JSON.stringify(o));
@@ -979,6 +990,17 @@ const withTimeout=(p,ms,what)=>Promise.race([p,new Promise((_,no)=>setTimeout(()
 async function reachable(u){try{const r=await withTimeout(fetch(u,{cache:"no-store",credentials:"omit"}),5000,"pod");return r.ok}catch(e){return false}}
 async function findIssuer(c){if(c.issuer)return c.issuer;const o=new URL(c.pod);if(await reachable(o.origin+"/.well-known/openid-configuration"))return o.origin+"/";
  const h=o.hostname.split(".");if(h.length>2){const p=o.protocol+"//"+h.slice(1).join(".")+"/";if(await reachable(p+".well-known/openid-configuration"))return p}return o.origin+"/"}
+function parseStorage(t,base){const out=[],add=v=>{try{const h=new URL(v,base).href.replace(/\/*$/,"/");if(/^https?:/.test(h)&&!out.includes(h))out.push(h)}catch(e){}};
+ const NS=["http://www.w3.org/ns/pim/space#","http://www.w3.org/ns/solid/terms#"];
+ if(/^\s*[\[{]/.test(t)){try{const walk=o=>{if(Array.isArray(o))return o.forEach(walk);if(!o||typeof o!=="object")return;for(const k in o){if(NS.some(n=>k===n+"storage")||k==="storage"||/^(pim|space|solid):storage$/.test(k))[].concat(o[k]).forEach(v=>add(typeof v==="string"?v:v&&v["@id"]));else walk(o[k])}};walk(JSON.parse(t))}catch(e){}return out}
+ const names=NS.map(n=>"<"+n+"storage>");for(const m of t.matchAll(/@prefix\s+([\w-]*):\s*<([^>]*)>/gi))if(NS.includes(m[2]))names.push(m[1]+":storage");
+ for(const n of names){const re=new RegExp("(?:^|[\\s;\\[])"+n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"\\s+((?:<[^>]*>\\s*,?\\s*)+)","g");for(const m of t.matchAll(re))for(const u of m[1].matchAll(/<([^>]*)>/g))add(u[1])}return out}
+async function findStorage(A,webId){const doc=webId.split("#")[0];  // 1) storage named in the signed-in profile, 2) nearest container typed pim:Storage, 3) the WebID's origin root
+ try{const r=await withTimeout(A.fetch(doc,{headers:{accept:"text/turtle, application/ld+json;q=0.8"},cache:"no-store"}),15000,"profile");if(r.ok){const st=parseStorage(await r.text(),doc);if(st.length)return st}}catch(e){}
+ const u=new URL(doc),segs=u.pathname.split("/").slice(1,-1);
+ for(let i=segs.length;i>=0;i--){const cu=u.origin+"/"+segs.slice(0,i).map(x=>x+"/").join("");try{const r=await withTimeout(A.fetch(cu,{method:"HEAD",cache:"no-store"}),8000,"pod");
+  if(/<http:\/\/www\.w3\.org\/ns\/pim\/space#Storage>\s*;\s*rel="?type"?/.test(r.headers.get("link")||""))return[cu]}catch(e){}}
+ return[u.origin+"/"]}
 function rootUrl(c){return new URL(c.root.replace(/^\/+/,"").replace(/\/*$/,"/"),c.pod.replace(/\/*$/,"/")).href}
 function podBackend(c,A){
  const root=rootUrl(c),f=(u,o)=>withTimeout(A.fetch(u,Object.assign({cache:"no-store"},o||{})),15000,"pod request");
@@ -994,7 +1016,14 @@ function podBackend(c,A){
  async function ownerOnly(u){  // WAC servers: write an owner-only .acl if the folder has none. ACP servers (.acr): new resources inherit the pod's private default.
   const r=await f(u,{method:"HEAD"});const lk=(r.headers.get("link")||"").match(/<([^>]+)>\s*;\s*rel="?acl"?/);if(!lk)return"no-acl-link";
   const au=new URL(lk[1],u).href;if(!/\.acl$/.test(au))return"acp";return create(au,aclTtl(webId()),"text/turtle")}
- const B={kind:"pod",label:"Solid pod",root,
+ async function grant(folder,who,label){  // add one rule to an area folder's .acl naming the agent's WebID (Read + Append: it can read and add updates)
+  const u=root+encodeURIComponent(folder)+"/",r=await f(u,{method:"HEAD"}),lk=(r.headers.get("link")||"").match(/<([^>]+)>\s*;\s*rel="?acl"?/);if(!lk)return"no-acl-link";
+  const au=new URL(lk[1],u).href;if(!/\.acl$/.test(au))return"acp";await create(au,aclTtl(webId()),"text/turtle");
+  const g=await f(au,{headers:{accept:"text/turtle"}});if(!g.ok)throw fail(g,au);const t=await g.text(),et=g.headers.get("etag"),w=new URL(who).href;if(t.includes("<"+w+">"))return"already";
+  const A="http://www.w3.org/ns/auth/acl#",lb=String(label||"agent").replace(/[\r\n]+/g," ").slice(0,40);
+  const add=`\n# Desk: agent "${lb}" may read and add updates here (Add an agent). Delete this block to take access back.\n<#desk-agent-${slug(lb,"agent")}-${Math.random().toString(36).slice(2,6)}> a <${A}Authorization>; <${A}agent> <${w}>;\n <${A}accessTo> <./>; <${A}default> <./>; <${A}mode> <${A}Read>, <${A}Append>.\n`;
+  const p=await put(au,t.replace(/\s*$/,"\n")+add,"text/turtle",et?{"if-match":et}:{});if(p.status===412)throw new Error(folder+"/.acl changed meanwhile; try again");if(!p.ok)throw fail(p,au);return"granted"}
+ const B={kind:"pod",label:"Solid pod",root,grant,
   async scan(){const kids=await list(root);if(kids==null)return{exists:false,folders:[],meta:null};let meta=null;if(kids.includes(root+"meta.json"))try{meta=(await getJ(root+"meta.json")).j}catch(e){if(e.status!==404)throw e}
    const folders=await Promise.all(kids.filter(u=>u.endsWith("/")).map(async u=>{let st=null,etag=null,hasUpd=false;try{const ks=await list(u)||[];hasUpd=ks.includes(u+"updates/");if(ks.includes(u+"status.json")){const x=await getJ(u+"status.json");st=x.j;etag=x.etag}}catch(e){}  // list first: no 404 probes
     return{folder:decodeURIComponent(u.slice(root.length,-1)),url:u,status:st,etag,hasUpd}}));return{exists:true,folders,meta}},
@@ -1034,22 +1063,24 @@ function apply(d){DATA.areas=d.areas;DATA.area_order=d.area_order;DATA.area_labe
  const ft=document.querySelector("#foot span");if(ft&&d.generated)ft.textContent=(S.state==="pod"?"Status data: ":"Status data: ")+d.generated}
 function fallback(why){S.err=why;if(S.applied){apply(prepare(LOCAL,[]));S.applied=false;S.sig=null}pill("fallback","Showing this computer's data — "+why,"Retry");if(typeof toast==="function")toast("Solid pod: "+why+". Showing this computer's data.",1)}
 async function signIn(){const c=conf();try{if(location.protocol==="file:")throw new Error("pod sign-in needs Desk opened over http(s), e.g. http://127.0.0.1:8765/app/");
- if(!c.pod)throw new Error("enter your pod URL in ⚙︎ settings first");const A=await loadAuth();const iss=await findIssuer(c);
+ if(!c.pod&&!c.issuer)throw new Error("choose your pod provider first (⚙︎ Settings → Storage)");const A=await loadAuth();const iss=await findIssuer(c);
  if(!await reachable(iss.replace(/\/*$/,"/")+".well-known/openid-configuration"))throw new Error("can't reach the sign-in server "+iss);
  await A.login({oidcIssuer:iss,redirectUrl:location.href.split(/[?#]/)[0],clientName:"Desk"})}catch(e){fallback(e.message)}}
 async function connect(){const c=conf();S.mode=c.mode;if(c.mode!=="pod"){S.backend=local;pill("local","");return false}
  if(location.protocol==="file:"){fallback("pod mode needs Desk opened over http(s) (e.g. http://127.0.0.1:8765/app/)");return false}
- if(!c.pod){pill("setup","enter your pod URL in ⚙︎ settings — showing this computer's data");return false}
+ if(!c.pod&&!c.issuer){pill("setup","choose your pod in ⚙︎ Settings — showing this computer's data");return false}
  pill("busy","connecting…");let A;try{A=await loadAuth()}catch(e){fallback(e.message);return false}
  const back=/[?&](code|state)=/.test(location.search);
  try{if(back)await withTimeout(A.handleIncomingRedirect(location.href),20000,"sign-in");
   else{const iss=await findIssuer(c);if(!await reachable(iss.replace(/\/*$/,"/")+".well-known/openid-configuration")){fallback("your pod's server isn't reachable");return false}
    await withTimeout(A.handleIncomingRedirect({url:location.href,restorePreviousSession:true}),20000,"sign-in")}}catch(e){fallback("sign-in failed: "+e.message);return false}
  if(!A.getDefaultSession().info.isLoggedIn){pill("signed-out","not signed in — showing this computer's data","Sign in");return false}
- S.pod=podBackend(c,A);S.backend=S.pod;S.webId=A.getDefaultSession().info.webId;return true}
+ S.webId=A.getDefaultSession().info.webId;let cc=c;
+ if(!c.pod){pill("busy","finding your pod…");try{const st=await findStorage(A,S.webId);cc=setConf({pod:st[0],storages:st})}catch(e){fallback("couldn't find your pod ("+e.message+")");return false}}
+ S.pod=podBackend(cc,A);S.backend=S.pod;return true}
 async function refresh(force){if(S.busy)return;if(!S.pod){if(await connect())return refresh(force);return}S.busy=true;
  try{const st=await S.pod.loadStatus();
-  if(!Object.keys(st.areas).length){pill("empty",`signed in · no Desk folders in ${conf().root} yet — open ⚙︎ to connect or create them`);return}
+  if(!Object.keys(st.areas).length){pill("empty",S.setupPending?"signed in · setting up your pod…":"signed in · your pod has no Desk folders yet — open ⚙︎ Settings to set them up");return}
   await autoAreas(st);
   const ups=await S.pod.loadUpdates(),d=prepare(st,ups),sig=JSON.stringify(d.areas);
   if(force||sig!==S.sig){const prev=S.sig&&JSON.parse(S.sig);apply(d);S.applied=true;
@@ -1057,8 +1088,8 @@ async function refresh(force){if(S.busy)return;if(!S.pod){if(await connect())ret
   S.err=null;S.read=new Date();pill("pod",`${d.area_order.length} area${d.area_order.length==1?"":"s"} · ${ups.length} update${ups.length==1?"":"s"} · read ${S.read.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})}`,"Refresh")}
  catch(e){console.warn("Desk pod:",e.message);fallback("couldn't read your pod ("+e.message+")")}finally{S.busy=false}}
 async function autoAreas(st){  // areas added later on this computer get their own pod folder (created only if missing; nothing is overwritten)
- const m=(S.pod.last&&S.pod.last.meta)||null;if(!m)return;const have=new Set(Object.keys(st.areas));let n=0;
- for(const k of LOCAL.area_order||Object.keys(LOCAL.areas||{})){if(have.has(k))continue;const folder=folderOf(k,[m.area_folders,LOCAL.area_folders]);if((S.pod.last.folders||[]).some(x=>x.folder===folder))continue;
+ const m=(S.pod.last&&S.pod.last.meta)||null;if(!m||S.setupPending)return;const have=new Set(Object.keys(st.areas));let n=0;
+ for(const k of LOCAL.area_order||Object.keys(LOCAL.areas||{})){if(have.has(k))continue;const folder=folderOf(k,[conf().map,m.area_folders,LOCAL.area_folders]);if((S.pod.last.folders||[]).some(x=>x.folder===folder))continue;
   try{await S.pod.ensureArea(k,(LOCAL.area_labels||{})[k],folder,LOCAL.areas[k]);n++}catch(e){console.warn("Desk pod: couldn't create",folder,e.message)}}
  if(n){const s2=await S.pod.loadStatus();Object.assign(st,s2)}}
 S.refresh=refresh;S.connect=connect;S.signIn=signIn;
@@ -1066,12 +1097,17 @@ S.refresh=refresh;S.connect=connect;S.signIn=signIn;
 /* ---- settings: Storage ---- */
 function stUI(){const c=conf();for(const r of document.querySelectorAll('input[name="stm"]'))r.checked=r.value===c.mode;$("stpod").hidden=c.mode!=="pod";$("podwhy").hidden=c.mode==="pod";$("spu").value=c.pod;$("spr").value=c.root;$("spi").value=c.issuer;
  const li=S.pod&&S.webId;$("spin").hidden=!!li;$("spout").hidden=!li;$("spscan").disabled=!li;$("spex").disabled=!li;
- $("spst").textContent=c.mode!=="pod"?"":location.protocol==="file:"?"Pod mode needs Desk opened over http(s), e.g. http://127.0.0.1:8765/app/ (served by the Desk helper).":li?"Signed in as "+S.webId:"Not signed in."}
+ $("spst").textContent=c.mode!=="pod"?"":location.protocol==="file:"?"Pod mode needs Desk opened over http(s), e.g. http://127.0.0.1:8765/app/ (served by the Desk helper).":li?`Signed in${c.prov?" with "+c.prov:""}. Your pod: ${c.pod}`:(c.pod||c.issuer)?"Not signed in.":"Pick your pod provider to start.";
+ $("spin").textContent=(c.pod||c.issuer)?"Sign in":"Choose my pod";$("spmore").hidden=!li;
+ const sw=$("spsw"),ss=$("sps");sw.hidden=c.storages.length<2;ss.innerHTML="";for(const u of c.storages){const o=document.createElement("option");o.value=o.textContent=u;o.selected=u===c.pod;ss.appendChild(o)}
+ const mp=$("spmap"),ks=LOCAL.area_order||Object.keys(LOCAL.areas||{});mp.innerHTML=ks.length?`<div class="spl">Folder for each area</div>`:"";
+ for(const k of ks){const l=document.createElement("label"),i=document.createElement("input");l.className="spmr";l.textContent=(LOCAL.area_labels||{})[k]||k;i.type="text";i.spellcheck=false;i.dataset.mk=k;i.placeholder=folderOf(k,[LOCAL.area_folders]);i.value=c.map[k]||"";
+  i.onchange=()=>{const v=i.value.trim().replace(/^\/+|\/+$/g,""),m=Object.assign({},conf().map);if(!v)delete m[k];else if(/^[A-Za-z0-9._-]{1,64}$/.test(v))m[k]=v;else{msg("Folder names can use letters, numbers, - _ and . only.",1);return}setConf({map:m});msg("Saved. Click Check my pod to see what changes.")};l.appendChild(i);mp.appendChild(l)}}
 function msg(t,err){const m=$("spmsg");m.textContent=t;m.classList.toggle("err",!!err)}
 function dl(name,text,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
 async function scanUI(){if(!S.pod){msg("Sign in first.",1);return}msg("Scanning "+conf().root+" …");const box=$("spfound");box.innerHTML="";
  try{const s=await S.pod.scan(),m=s.meta||{},lo=LOCAL.area_order||Object.keys(LOCAL.areas||{}),rows=[],used=new Set();
-  for(const k of lo){const folder=folderOf(k,[m.area_folders,LOCAL.area_folders]);const x=s.folders.find(y=>y.folder===folder||(y.status&&y.status.area===k));if(x)used.add(x.folder);
+  for(const k of lo){const folder=folderOf(k,[conf().map,m.area_folders,LOCAL.area_folders]);const x=s.folders.find(y=>y.folder===folder||(y.status&&y.status.area===k));if(x)used.add(x.folder);
    rows.push(x&&x.status?`<li class="ok"><span>✓</span><b></b> → <code></code>/ <em>connected · ${(x.status.projects||[]).length} projects</em></li>`:`<li><label><input type="checkbox" checked data-k=""> <b></b> → <code></code>/ <em>${x?"folder exists, no status.json — will add one":"missing — create"}</em></label></li>`);
    rows[rows.length-1]=[rows[rows.length-1],k,x?x.folder:folder]}
   const extra=s.folders.filter(x=>!used.has(x.folder)&&x.status);
@@ -1097,7 +1133,8 @@ function wire(){if(!$("stg"))return;stUI();
  for(const r of document.querySelectorAll('input[name="stm"]'))r.onchange=async()=>{setConf({mode:r.value});S.mode=r.value;stUI();
   if(r.value==="local"){S.pod=null;S.backend=local;if(S.applied){apply(prepare(LOCAL,[]));S.applied=false;S.sig=null}pill("local","")}else refresh(true).then(stUI)};
  for(const [id,k] of [["spu","pod"],["spr","root"],["spi","issuer"]])$(id).onchange=()=>{let v=$(id).value.trim();if(k==="root")v=(v||"grokbot/").replace(/^\/+/,"").replace(/\/*$/,"/");setConf({[k]:v});if(S.pod){S.pod=null;S.sig=null}stUI();if(conf().mode==="pod")refresh(true).then(stUI)};
- $("spin").onclick=signIn;$("spout").onclick=async()=>{try{await (await loadAuth()).logout()}catch(e){}S.pod=null;S.webId=null;stUI();fallback("signed out")};
+ $("spin").onclick=()=>{const c=conf();(c.pod||c.issuer)?signIn():podFlow("have")};$("spchg").onclick=()=>podFlow("have");$("spano").onclick=()=>podFlow("another");$("spag").onclick=openAgent;
+ $("sps").onchange=()=>{setConf({pod:$("sps").value});S.pod=null;S.sig=null;stUI();refresh(true).then(stUI)};$("spout").onclick=async()=>{try{await (await loadAuth()).logout()}catch(e){}S.pod=null;S.webId=null;stUI();fallback("signed out")};
  $("podwhy").onclick=e=>{const l=e.target.closest("[data-pf]");if(!l)return;e.preventDefault();podFlow(l.dataset.pf)};$("spscan").onclick=scanUI;$("spex").onclick=exportUI;document.getElementById("gear").addEventListener("click",()=>setTimeout(stUI,0))}
 
 /* ---- encourage a pod (never in pod mode, never blocking; "Don't ask again" is forever) ---- */
@@ -1120,44 +1157,141 @@ function welcomeCard(kind){if(nudgeOff()||$("podwel"))return;const sec=$("board"
 function headerNudge(){if(nudgeOff()||(nGet()||{}).pillOff||$("podnudge"))return;const g=$("gear");if(!g)return;const b=document.createElement("span");b.id="podnudge";b.className="podnudge";
  b.innerHTML=`<button type="button" class="pnm" title="Why a pod?">${HEAD}</button><button type="button" class="pnx" aria-label="Hide this">×</button>`;
  b.querySelector(".pnm").onclick=()=>podFlow("why");b.querySelector(".pnx").onclick=()=>{nSet({pillOff:true});b.remove()};g.parentNode.insertBefore(b,g)}
-/* the flow: start -> have a pod (URL + sign in) | no pod yet (providers) ; why */
-let PF=null;
-function podFlow(step){let mb=$("podfl");if(!mb){mb=document.createElement("div");mb.id="podfl";mb.className="mb";mb.innerHTML=`<div class="md pfm" role="dialog" aria-modal="true" aria-labelledby="pfh"><button class="mx" type="button" aria-label="Close">×</button><div id="pfb"></div></div>`;document.body.appendChild(mb);
-  mb.addEventListener("click",e=>{if(e.target===mb||e.target.closest(".mx"))closeFlow()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&mb.classList.contains("open")){e.preventDefault();e.stopImmediatePropagation();closeFlow()}},true)}
+/* the flow: start -> have a pod (pick provider, sign in) | no pod yet (providers) ; why ; after sign-in: confirm -> done -> another computer / add an agent */
+const PROVS=[{id:"solidcommunity",name:"solidcommunity.net",iss:"https://solidcommunity.net/",note:"Free, run by the Solid community"},{id:"inrupt",name:"Inrupt Pod Spaces",iss:"https://login.inrupt.com/",note:"Free"},{id:"solidweb",name:"solidweb.org",iss:"https://solidweb.org/",note:"Free"}];
+let PF=null,FX={},AGENV=null,QR=null;
+function loadQR(){if(QR)return QR;QR=new Promise((ok,no)=>{if(window.DeskQR)return ok(window.DeskQR);const s=document.createElement("script");s.src="assets/qrcode.js";
+ s.onload=()=>window.DeskQR?ok(window.DeskQR):no(new Error("assets/qrcode.js did not load"));s.onerror=()=>{QR=null;no(new Error("couldn't load assets/qrcode.js"))};document.head.appendChild(s)});return QR}
+const oneLine=s=>String(s||"").replace(/[\r\n]+/g," ").trim().slice(0,40);
+function shareLink(){const c=conf(),enc=v=>encodeURI(v).replace(/[&#+]/g,encodeURIComponent);let di="";try{di=new URL(c.pod).origin+"/"}catch(e){}
+ const q=["pod="+enc(c.pod)];if(c.issuer&&c.issuer!==di)q.push("iss="+enc(c.issuer));if(c.root!=="grokbot/")q.push("root="+encodeURIComponent(c.root));return location.origin+location.pathname+"#"+q.join("&")}
+function joinFromLink(){if(!/^#pod=/.test(location.hash))return false;const p=new URLSearchParams(location.hash.slice(1));try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}
+ let pod,iss="",root="grokbot/";const hu=v=>{const u=new URL(v);if(!/^https?:$/.test(u.protocol))throw 0;return u.href.replace(/\/*$/,"/")};
+ try{pod=hu(p.get("pod"));if(p.get("iss"))iss=hu(p.get("iss"));const r=p.get("root");if(r){if(!/^[A-Za-z0-9._\/-]{1,80}$/.test(r)||r.includes(".."))throw 0;root=r.replace(/^\/+/,"").replace(/\/*$/,"/")}}catch(e){return false}
+ podFlow("join",{pod,iss,root});return true}
+function flowShell(){let mb=$("podfl");if(!mb){mb=document.createElement("div");mb.id="podfl";mb.className="mb";mb.innerHTML=`<div class="md pfm" role="dialog" aria-modal="true" aria-labelledby="pfh"><button class="mx" type="button" aria-label="Close">×</button><div id="pfb"></div></div>`;document.body.appendChild(mb);
+  mb.addEventListener("click",e=>{if(e.target===mb||e.target.closest(".mx"))closeFlow()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&mb.classList.contains("open")){e.preventDefault();e.stopImmediatePropagation();closeFlow()}},true)}return mb}
+function podFlow(step,ctx){const mb=flowShell();
  const sb=$("sb");if(sb&&sb.classList.contains("open")&&$("hcl"))$("hcl").click();   // one dialog at a time: close Settings first
- if(!mb.classList.contains("open"))PF=document.activeElement;const b=$("pfb"),c=conf();
+ if(!mb.classList.contains("open"))PF=document.activeElement;if(ctx)FX=ctx;const b=$("pfb"),c=conf(),n=x=>x===1?"":"s";
  const V={
-  why:`<h2 id="pfh">Why a pod?</h2><p class="pfl">${HEAD}</p><ul class="pfben">${BEN.map(x=>`<li>${x}</li>`).join("")}</ul>
+  why:()=>`<h2 id="pfh">Why a pod?</h2><p class="pfl">${HEAD}</p><ul class="pfben">${BEN.map(x=>`<li>${x}</li>`).join("")}</ul>
    <h4>What is it?</h4><p>A <b>Solid pod</b> is your own small, private online storage space. You choose who runs it (a free provider, or your own computer), and you decide which apps and agents can see what.</p>
    <h4>What changes in Desk?</h4><p>Nothing about how Desk looks or works. Desk just reads your projects from your pod instead of this one computer, and your agents can write their progress there. You can switch back, or export everything, any time.</p>
    <h4>Is it required?</h4><p>No. Desk works fully on this computer without one.</p>
    <div class="pfa"><button type="button" class="mbtn pri" data-s="start">Set up my pod</button><a href="https://github.com/TeebooTed/desk/blob/main/docs/solid-pod.md" target="_blank" rel="noopener">Read the full guide</a></div>`,
-  start:`<h2 id="pfh">Set up your pod</h2><p class="pfl">${HEAD}</p><div class="pfch"><button type="button" class="pfc" data-s="have"><b>I have a pod</b><span>Connect it and sign in.</span></button><button type="button" class="pfc" data-s="none"><b>I don't have a pod yet</b><span>Get a free one in a couple of minutes.</span></button></div>
+  start:()=>`<h2 id="pfh">Set up your pod</h2><p class="pfl">${HEAD}</p><div class="pfch"><button type="button" class="pfc" data-s="have"><b>I have a pod</b><span>Pick your provider and sign in.</span></button><button type="button" class="pfc" data-s="none"><b>I don't have a pod yet</b><span>Get a free one in a couple of minutes.</span></button></div>
    <div class="pfa"><a href="#" data-s="why">Why a pod?</a></div>`,
-  none:`<h2 id="pfh">Get a pod</h2><p>Pick a free provider, sign up, and copy your <b>pod URL</b> (it usually looks like <code>https://name.provider.org/</code>). Then come back here.</p>
+  none:()=>`<h2 id="pfh">Get a pod</h2><p>Pick a free provider and sign up. Then come back here and choose the same provider. That's all Desk needs.</p>
    <ul class="pfprov">${PROV.map(p=>`<li><a href="${p[1]}" target="_blank" rel="noopener">${esc(p[0])}</a> <span>${esc(p[2])}</span></li>`).join("")}</ul>
    <p class="pfs">More providers: <a href="https://solidproject.org/users/get-a-pod" target="_blank" rel="noopener">solidproject.org/users/get-a-pod</a>. Prefer to run it yourself? <a href="https://github.com/TeebooTed/desk/blob/main/docs/solid-pod.md#1-get-a-pod" target="_blank" rel="noopener">Host your own pod</a> with one command.</p>
    <div class="pfa"><button type="button" class="mbtn pri" data-s="have">I have my pod now</button><button type="button" class="mbtn" data-s="start">Back</button></div>`,
-  have:`<h2 id="pfh">Connect your pod</h2><label for="pfu">Your pod URL</label><input id="pfu" type="url" autocomplete="off" spellcheck="false" placeholder="https://name.provider.org/" value="${esc(c.pod||"")}">
-   <p class="pfs">Desk will keep its data in a <code>${esc(c.root||"grokbot/")}</code> folder in your pod, with one folder per area. It never overwrites or deletes anything that's already there.</p>
+  have:()=>{const own=c.prov==="My own server"?(c.pod||c.issuer):"";return `<h2 id="pfh">Where is your pod?</h2><p>Pick your provider and sign in. Desk finds your pod by itself.</p>
+   <div class="pfprovs">${PROVS.map(p=>`<button type="button" class="pfc" data-s="prov" data-p="${p.id}"><b>${esc(p.name)}</b><span>${esc(p.note)}</span></button>`).join("")}
+   <div class="pfc pfown"><b>My own server</b><label for="pfu">Its address</label><div class="pfrow"><input id="pfu" type="url" autocomplete="off" spellcheck="false" placeholder="https://pod.example.org/" value="${esc(own)}"><button type="button" class="mbtn" data-s="signin">Sign in</button></div></div></div>
    <p class="pfe" id="pfe" role="alert"></p>
-   <div class="pfa"><button type="button" class="mbtn pri" data-s="signin">Sign in to my pod</button><button type="button" class="mbtn" data-s="start">Back</button></div>`};
- b.innerHTML=V[step]||V.start;b.onclick=e=>{const a=e.target.closest("[data-s]");if(!a)return;e.preventDefault();a.dataset.s==="signin"?flowSignIn():podFlow(a.dataset.s)};
- mb.classList.add("open");const f=b.querySelector("input,button.pri,.pfc");if(f)f.focus()}
-function closeFlow(){const mb=$("podfl");if(mb)mb.classList.remove("open");if(PF&&PF.focus)PF.focus()}
-async function flowSignIn(){const u=($("pfu").value||"").trim(),e=$("pfe");let url;try{url=new URL(u);if(!/^https?:$/.test(url.protocol))throw 0}catch(_){e.textContent="Please enter your pod's address, starting with https://";return}
- if(location.protocol==="file:"){e.innerHTML=`Signing in needs Desk opened through its helper: <a href="http://127.0.0.1:8765/app/">http://127.0.0.1:8765/app/</a>. Open that, then click <b>Set up my pod</b> again.`;return}
- setConf({mode:"pod",pod:url.href.replace(/\/*$/,"/")});try{sessionStorage.setItem("desk-pod-setup","1")}catch(_){}S.mode="pod";S.pod=null;hideNudges();e.textContent="Opening your pod's sign-in page…";await signIn();
- if(S.state==="fallback"){e.textContent="Couldn't start sign-in: "+(S.err||"unknown error")+". Desk is still showing this computer's data."}}
-async function afterSetup(){let f=null;try{f=sessionStorage.getItem("desk-pod-setup")}catch(_){}if(!f||!S.pod)return;try{sessionStorage.removeItem("desk-pod-setup")}catch(_){}
- document.getElementById("gear").click();setTimeout(async()=>{stUI();const s=$("stg");if(s)s.scrollIntoView({block:"start"});await scanUI()},120)}
+   <details class="pfadv"><summary>Advanced</summary><label for="pfr">Desk folder in your pod</label><input id="pfr" type="text" autocomplete="off" spellcheck="false" value="${esc(c.root)}"><p class="pfs">Desk keeps one folder per area inside it. More options (pod address, sign-in server, folder names) are in ⚙︎ Settings → Storage → Advanced.</p></details>
+   <div class="pfa"><a href="#" data-s="none">I don't have a pod yet</a></div>`},
+  confirm:()=>{const m=FX.missing||[],k=m.length;return `<h2 id="pfh">Set up ${k} area${n(k)} in your pod and copy your current Desk there?</h2>
+   ${(FX.found||[]).length?`<p>Already in your pod and connected: <b>${FX.found.map(esc).join(", ")}</b>.</p>`:""}<p>New: <b>${m.map(x=>esc(x.label)).join(", ")}</b>.</p>
+   <p class="pfs">Nothing in your pod is overwritten or deleted. Each new folder is private to you.</p><p class="pfe" id="pfe" role="alert"></p>
+   <div class="pfa"><button type="button" class="mbtn pri" data-s="yes">Yes</button><button type="button" class="mbtn" data-s="close">Not now</button><a href="#" data-s="choose">Choose areas</a></div>`},
+  done:()=>`<h2 id="pfh">Your Desk is in your pod</h2><p>${FX.made?`Set up ${FX.made} area${n(FX.made)} and copied your projects.`:`Connected to the ${FX.found||0} area${n(FX.found||0)} already in your pod.`} From now on Desk reads your projects from your pod.</p>
+   <div class="pfch"><button type="button" class="pfc" data-s="another"><b>Connect another computer</b><span>Get a link or QR code. The other computer just signs in.</span></button><button type="button" class="pfc" data-s="agent"><b>Add an agent</b><span>Let one AI agent update only the areas you pick.</span></button></div>
+   <div class="pfa"><button type="button" class="mbtn pri" data-s="close">Done</button></div>`,
+  another:()=>`<h2 id="pfh">Connect another computer</h2><p>Open this link on your other computer (Desk needs to be installed there), or scan the code with its camera. It fills in your pod, so you only need to sign in.</p>
+   <div class="pfqr" id="pfqr" role="img" aria-label="QR code of the link below"></div>
+   <label for="pfl">Link</label><div class="pfrow"><input id="pfl" type="text" readonly value="${esc(shareLink())}"><button type="button" class="mbtn" data-s="copy">Copy</button></div>
+   <p class="pfs">The link only holds your pod's address. No passwords, keys or sign-in tokens.</p>
+   <div class="pfa"><button type="button" class="mbtn pri" data-s="close">Done</button></div>`,
+  join:()=>`<h2 id="pfh">Connect this Desk to your pod?</h2><p>Your other computer shared this pod:</p><p><code>${esc(FX.pod)}</code></p>
+   <p class="pfs">After you sign in, Desk shows your projects from it. This computer's own data stays where it is, and you can switch back any time in ⚙︎ Settings.</p><p class="pfe" id="pfe" role="alert"></p>
+   <div class="pfa"><button type="button" class="mbtn pri" data-s="joingo">Sign in to my pod</button><button type="button" class="mbtn" data-s="close">Not now</button></div>`,
+  agent:()=>{const fs=((S.pod&&S.pod.last&&S.pod.last.folders)||[]).filter(x=>x.status);return `<h2 id="pfh">Add an agent</h2><p>Give one AI agent its own sign-in that can update only the areas you choose. You get a small key file for it. Desk doesn't keep a copy.</p>
+   <label for="pan">Agent name</label><input id="pan" type="text" maxlength="40" autocomplete="off" placeholder="e.g. Writer">
+   <fieldset class="pfareas"><legend>Areas it can update</legend>${fs.length?fs.map(x=>`<label><input type="checkbox" data-af="${esc(x.folder)}"> ${esc(x.status.label||x.status.area||x.folder)} <code>${esc(x.folder)}/</code></label>`).join(""):`<p class="pfs">No area folders in your pod yet.</p>`}</fieldset>
+   <div id="pfacct" class="pfs">Checking what your pod server supports…</div><p class="pfe" id="pfe" role="alert"></p>
+   <div class="pfa"><button type="button" class="mbtn pri" data-s="agentgo" disabled>Create the agent</button><button type="button" class="mbtn" data-s="close">Cancel</button></div>`},
+  agentready:()=>{const fn=FX.file,acp=(FX.res||[]).some(r=>r!=="granted"&&r!=="already");return `<h2 id="pfh">${esc(FX.name)} is ready</h2><p><b>${esc(FX.name)}</b> can now read and add progress to: <b>${FX.areas.map(esc).join(", ")}</b>. It can't see your other areas.</p>
+   ${acp?`<p class="pfe">Your pod uses a different access system, so Desk couldn't add the permission itself. Give this agent access to those folders in your provider's app.</p>`:""}
+   <p>Download its key file <b>once</b> and put it on the computer where the agent runs, e.g. <code>~/.config/desk/${esc(fn)}</code>. Keep it private and never put it in a git repo.</p>
+   <div class="pfa"><button type="button" class="mbtn pri" data-s="agentdl" id="pfdl">Download ${esc(fn)}</button></div>
+   ${FX.manual?`<p class="pfs">Open the file and paste the client ID and secret from your provider where it says so.</p>`:""}
+   <p class="pfs">Then the agent logs progress with <code>desk-log --pod ~/.config/desk/${esc(fn)}</code>. Closing this without downloading means you'd add the agent again.</p>
+   <div class="pfa"><button type="button" class="mbtn" data-s="close">Done</button></div>`}};
+ b.innerHTML=(V[step]||V.start)();b.dataset.step=V[step]?step:"start";
+ b.onclick=e=>{const a=e.target.closest("[data-s]");if(!a)return;e.preventDefault();const s=a.dataset.s;
+  if(s==="signin")flowSignIn();else if(s==="prov")flowSignIn(a.dataset.p);else if(s==="close")closeFlow();else if(s==="yes")setupMissing(a);else if(s==="choose")chooseAreas();
+  else if(s==="copy")copyLink(a);else if(s==="joingo")joinGo();else if(s==="agentgo")agentGo(a);else if(s==="agentdl")agentDl(a);else if(s==="agent")openAgent();else podFlow(s)};
+ mb.classList.add("open");const f=b.querySelector("button.pri:not([disabled]),input:not([readonly]),.pfc");if(f)f.focus();
+ if(step==="another")loadQR().then(Q=>{const q=$("pfqr");if(q)q.innerHTML=Q(shareLink())}).catch(e=>{const q=$("pfqr");if(q)q.textContent="Couldn't draw the QR code ("+e.message+"). The link works the same."});
+ if(step==="agent")agentProbe()}
+function closeFlow(){const mb=$("podfl");if(mb)mb.classList.remove("open");AGENV=null;if(PF&&PF.focus&&document.contains(PF))PF.focus()}
+function startSignIn(p){const e=$("pfe");if(location.protocol==="file:"){if(e)e.innerHTML=`Signing in needs Desk opened through its helper: <a href="http://127.0.0.1:8765/app/">http://127.0.0.1:8765/app/</a>. Open that, then click <b>Set up my pod</b> again.`;return false}
+ setConf(Object.assign({mode:"pod",storages:[]},p));try{sessionStorage.setItem("desk-pod-setup","1")}catch(_){}S.mode="pod";S.pod=null;S.setupPending=true;hideNudges();if(e)e.textContent="Opening the sign-in page…";return true}
+async function flowSignIn(pid){const e=$("pfe");let p;
+ if(pid){const v=PROVS.find(x=>x.id===pid);if(!v)return;p={pod:"",issuer:v.iss,prov:v.name}}
+ else{let url;try{url=new URL(($("pfu").value||"").trim());if(!/^https?:$/.test(url.protocol))throw 0}catch(_){e.textContent="Please type your server's address, starting with https://";return}
+  p=url.pathname.length>1?{pod:url.href.replace(/\/*$/,"/"),issuer:"",prov:"My own server"}:{pod:"",issuer:url.origin+"/",prov:"My own server"}}
+ const r=$("pfr");if(r&&r.value.trim()){const v=r.value.trim().replace(/^\/+/,"").replace(/\/*$/,"/");if(!/^[A-Za-z0-9._\/-]{1,80}$/.test(v)||v.includes("..")){e.textContent="The Desk folder name can only use letters, numbers, - _ . and /";return}p.root=v}
+ if(!startSignIn(p))return;await signIn();
+ if(S.state==="fallback"&&e)e.textContent="Couldn't start sign-in: "+(S.err||"unknown error")+". Desk is still showing this computer's data."}
+async function joinGo(){if(!startSignIn({pod:FX.pod,issuer:FX.iss||"",root:FX.root||"grokbot/",prov:""}))return;await signIn();const e=$("pfe");if(S.state==="fallback"&&e)e.textContent="Couldn't start sign-in: "+(S.err||"unknown error")+"."}
+async function copyLink(a){const v=shareLink();let ok=false;try{await navigator.clipboard.writeText(v);ok=true}catch(e){const i=$("pfl");if(i){i.select();try{ok=document.execCommand("copy")}catch(_){}}}a.textContent=ok?"Copied":"Select and copy";setTimeout(()=>{a.textContent="Copy"},2500)}
+async function afterSetup(){let f=null;try{f=sessionStorage.getItem("desk-pod-setup");sessionStorage.removeItem("desk-pod-setup")}catch(_){}S.setupPending=false;if(!f||!S.pod)return;
+ try{const s=await S.pod.scan(),m=s.meta||{},c=conf(),miss=[],found=[];
+  for(const k of LOCAL.area_order||Object.keys(LOCAL.areas||{})){const folder=folderOf(k,[c.map,m.area_folders,LOCAL.area_folders]);const x=s.folders.find(y=>y.folder===folder||(y.status&&y.status.area===k));const label=(LOCAL.area_labels||{})[k]||k;
+   if(x&&x.status)found.push(label);else miss.push({k,label,folder:x?x.folder:folder})}
+  if(!miss.length){podFlow("done",{made:0,found:s.folders.filter(x=>x.status).length});return}
+  S.setupPending=true;podFlow("confirm",{missing:miss,found,meta:m})}catch(e){if(typeof toast==="function")toast("Couldn't look inside your pod: "+e.message,1)}}
+async function setupMissing(btn){const e=$("pfe"),bs=[...$("pfb").querySelectorAll("button")];bs.forEach(x=>x.disabled=true);e.textContent="Setting up your pod…";
+ try{const m=FX.meta||{},af=Object.assign({},LOCAL.area_folders||{},m.area_folders||{});for(const x of FX.missing)af[x.k]=x.folder;
+  await S.pod.ensureRoot({area_order:LOCAL.area_order,area_labels:LOCAL.area_labels,area_folders:af,tz:LOCAL.tz,areas:LOCAL.areas});
+  for(const x of FX.missing)await S.pod.ensureArea(x.k,x.label,x.folder,LOCAL.areas[x.k]);
+  S.pod.last=null;S.setupPending=false;await refresh(true);podFlow("done",{made:FX.missing.length})}
+ catch(err){bs.forEach(x=>x.disabled=false);e.textContent="Couldn't set up your pod: "+err.message+". Nothing was deleted, and you can try again."}}
+function chooseAreas(){S.setupPending=false;closeFlow();document.getElementById("gear").click();setTimeout(async()=>{stUI();const s=$("stg");if(s)s.scrollIntoView({block:"start"});await scanUI()},120)}
+async function openAgent(){if(!S.pod){podFlow("have");return}try{if(!S.pod.last)await S.pod.scan().then(s=>{S.pod.last=s})}catch(e){}podFlow("agent",{})}
+async function agentProbe(){const box=$("pfacct"),go=$("pfb").querySelector("[data-s=agentgo]");const c=conf();let iss=c.issuer;try{if(!iss)iss=await findIssuer(c)}catch(e){}FX.iss=iss;FX.css=null;
+ try{const r=await withTimeout(fetch(iss.replace(/\/*$/,"/")+".account/",{headers:{accept:"application/json"},credentials:"omit",cache:"no-store"}),8000,"server");const j=r.ok?await r.json():null;
+  if(j&&j.controls&&j.controls.account&&j.controls.account.create)FX.css=j.controls}catch(e){}
+ if(!box||$("pfb").dataset.step!=="agent")return;const host=(()=>{try{return new URL(iss).host}catch(e){return iss}})();
+ box.innerHTML=FX.css?`<p>Your pod server (<b>${esc(host)}</b>) can make a separate sign-in just for this agent, so it never uses yours and can only touch the areas you pick.</p>`
+  :`<p>Your provider doesn't let Desk create agent sign-ins for you, so here's how to do it yourself:</p><ol><li>Make a separate account for the agent at your provider, so it has its own WebID.</li>
+   <li>In that account, create <b>client credentials</b> (an ID and a secret). Inrupt calls this registering an app: <a href="https://login.inrupt.com/registration.html" target="_blank" rel="noopener">login.inrupt.com/registration.html</a>.</li>
+   <li>Paste the agent's WebID here. Desk gives it access to the areas you picked and gives you a key file to finish.</li></ol><label for="paw">Agent's WebID</label><input id="paw" type="url" autocomplete="off" spellcheck="false" placeholder="https://…/profile/card#me">`;
+ if(go){go.disabled=false;go.textContent=FX.css?"Create the agent":"Give it access"}}
+async function agentGo(btn){const e=$("pfe"),name=oneLine($("pan").value),areas=[...$("pfb").querySelectorAll("[data-af]:checked")].map(x=>x.dataset.af);
+ if(!name){e.textContent="Give the agent a name.";return}if(!areas.length){e.textContent="Pick at least one area.";return}
+ const c=conf(),iss=FX.iss||c.issuer||await findIssuer(c);let who="",id="",secret="",aEm="",aPw="";btn.disabled=true;
+ try{if(FX.css){e.textContent="Creating the agent's sign-in…";
+   const J=async(u,o)=>{const r=await withTimeout(fetch(u,Object.assign({credentials:"omit",cache:"no-store"},o)),15000,"server");let j={};try{j=await r.json()}catch(_){}if(!r.ok){const x=new Error(j.message||"HTTP "+r.status);x.status=r.status;throw x}return j};
+   const rnd=n=>[...crypto.getRandomValues(new Uint8Array(n))].map(b=>b.toString(16).padStart(2,"0")).join("");
+   // The agent gets its OWN account on the pod server (not a second WebID in yours, which would change your sign-in screen).
+   const na=await J(FX.css.account.create,{method:"POST",headers:{"content-type":"application/json"},body:"{}"});
+   const G={authorization:"CSS-Account-Token "+na.authorization},H=Object.assign({"content-type":"application/json"},G);let ac=null;   // no content-type on GET: CSS tries to parse an empty body
+   try{const A=(await J(iss.replace(/\/*$/,"/")+".account/",{headers:G})).controls;ac=A.account;if(!ac||!ac.pod||!ac.clientCredentials||!A.password||!A.password.create)throw new Error("this server doesn't offer client credentials");
+    aEm="desk-agent-"+rnd(6)+"@agents.invalid";aPw=rnd(18);await J(A.password.create,{method:"POST",headers:H,body:JSON.stringify({email:aEm,password:aPw})});
+    let pod=null;for(let i=0;i<3&&!pod;i++){try{pod=await J(ac.pod,{method:"POST",headers:H,body:JSON.stringify({name:(slug(name,"agent")+"-agent-"+rnd(3)).slice(0,48)})})}catch(x){if(x.status!==400&&x.status!==409)throw x}}
+    if(!pod||!pod.webId)throw new Error("the server didn't create an identity for the agent");who=pod.webId;
+    const cc=await J(ac.clientCredentials,{method:"POST",headers:H,body:JSON.stringify({name:"Desk agent: "+name,webId:who})});id=cc.id;secret=cc.secret;if(!id||!secret)throw new Error("the server didn't return client credentials")}
+   finally{if(ac&&ac.logout)fetch(ac.logout,{method:"POST",headers:H,body:"{}",credentials:"omit"}).catch(()=>{})}}
+  else{try{const u=new URL(($("paw").value||"").trim());if(!/^https?:$/.test(u.protocol))throw 0;who=u.href}catch(_){throw new Error("paste the agent's WebID, starting with https://")}}
+  e.textContent="Giving it access to "+areas.join(", ")+"…";const res=[];for(const f of areas)res.push(await S.pod.grant(f,who,name));
+  const file=slug(name,"agent")+".env";
+  AGENV=[`# Desk agent "${name}": desk-log --pod can read and add updates in: ${areas.join(", ")}`,"# Keep this file private (chmod 600) and out of any git repo. Desk didn't keep a copy.",`# Agent WebID: ${who}`,
+   `DESK_POD_URL=${c.pod}`,`DESK_POD_ROOT=${c.root}`,`DESK_POD_ISSUER=${iss}`,`DESK_POD_CLIENT_ID=${id||"paste-the-client-id-here"}`,`DESK_POD_CLIENT_SECRET=${secret||"paste-the-client-secret-here"}`,`DESK_POD_AREAS=${areas.join(",")}`,...(aEm?["# The agent's own account on the pod server (sign in there to delete its credentials):",`DESK_AGENT_ACCOUNT_EMAIL=${aEm}`,`DESK_AGENT_ACCOUNT_PASSWORD=${aPw}`]:[]),""].join("\n");
+  secret="";aPw="";podFlow("agentready",{name,areas,res,file,manual:!FX.css})}
+ catch(x){btn.disabled=false;e.textContent="Couldn't add the agent: "+x.message+"."}}
+function agentDl(btn){if(!AGENV)return;dl(FX.file,AGENV,"text/plain");AGENV=null;btn.disabled=true;btn.textContent="Downloaded. Desk didn't keep a copy."}
 function nudges(){if(nudgeOff())return;const now=Date.now(),n=nGet();
  if(!n){nSet({first:now,welcomed:true,days:[new Date().toDateString()]});welcomeCard("welcome");headerNudge();return}   // fresh install: the welcome card, shown once
  const d=new Date().toDateString(),days=(n.days||[]).includes(d)?n.days:[...(n.days||[]),d].slice(-10);nSet({days});
  if(!n.reminded&&now-(n.first||now)>=7*DAY&&days.length>=3){nSet({reminded:now});welcomeCard("remind")}   // one soft reminder after a week of real use
  headerNudge()}
-S.nudge={get:nGet,set:nSet,flow:podFlow,never:neverAsk};
-wire();nudges();
+S.nudge={get:nGet,set:nSet,flow:podFlow,never:neverAsk};S.shareLink=shareLink;S._parseStorage=parseStorage;
+try{S.setupPending=S.mode==="pod"&&!!sessionStorage.getItem("desk-pod-setup")}catch(e){}
+wire();if(!joinFromLink())nudges();
 if(S.mode==="pod"){refresh(true).then(()=>{try{stUI()}catch(e){}afterSetup()});setInterval(()=>{if(conf().mode==="pod"&&!document.hidden)refresh(false)},60000);
  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&conf().mode==="pod")refresh(false)})}
 })();

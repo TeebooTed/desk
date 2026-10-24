@@ -66,7 +66,7 @@ npx @solid/community-server@7 -p 3000 -c @css:config/file.json -f ~/solid-data
 
 Open `http://localhost:3000/`, create an account, and create a pod (for example `you`). Your pod URL will be `http://localhost:3000/you/`.
 
-**Any provider.** Any Solid server that supports WAC or ACP works. Use the pod URL it gives you. If its sign-in (OIDC issuer) is on a different host than the pod, enter that host under **Sign-in server**.
+**Any provider.** Any Solid server that supports WAC or ACP works. Use the pod URL it gives you. If its sign-in (OIDC issuer) is on a different host than the pod, enter that host under **Advanced → Sign-in server**.
 
 ### 2. Open Desk over http
 
@@ -78,26 +78,29 @@ http://127.0.0.1:8765/app/
 
 The relay only serves `index.html` and `assets/`, and it checks the `Host` and `Origin` headers. If you open `index.html` as a file while in pod mode, Desk shows your local data with a notice telling you to use the address above.
 
-### 3. Turn on pod mode
+### 3. Choose your pod (no address to type)
 
-Open ⚙︎ settings and find **Storage**:
+Click **Set up my pod** (welcome card, header note, or ⚙︎ Settings → Storage → **Choose my pod**), then **I have a pod**. Pick your provider:
 
-1. Choose **Solid pod**.
-2. Enter your **Pod URL**. The **Desk folder in the pod** defaults to `grokbot/`.
-3. Click **Sign in** and approve Desk at your pod's sign-in page.
+- **solidcommunity.net**, **Inrupt Pod Spaces**, **solidweb.org**: one click, then sign in there.
+- **My own server**: one field, the server's address (e.g. `http://localhost:3000/`). If you paste a full pod address (with a path), Desk uses it as the pod.
+
+After you sign in, Desk finds your pod by itself: it reads your profile's storage (`pim:storage` / `solid:storage`), then looks for the pod root, and falls back to your server's root. If your profile lists more than one pod, Desk uses the first; you can change it under **Advanced**.
+
+**Advanced** (in the flow and in ⚙︎ Settings → Storage) holds the things most people never need: the pod address, which pod to use when there are several, the **Desk folder in the pod** (default `grokbot/`), the sign-in server, and the folder each area maps to.
 
 These settings are kept in this browser's localStorage (`desk-storage`). They never go into build files.
 
-### 4. Connect existing folders and create missing ones
+### 4. One question: set up your areas
 
-Click **Scan pod**. Desk lists the chosen folder and shows:
+Right after sign-in Desk checks your pod:
 
-- **✓ connected**: area folders that already exist, matched by folder name or slug. Desk uses them as they are.
-- **missing — create**: a checkbox for each area on this computer that has no folder yet.
+- Area folders that already exist connect silently. Desk uses them as they are.
+- If any are missing, you get **one** question: *"Set up N areas in your pod and copy your current Desk there?"* **Yes** is the default. **Choose areas** opens the checkbox list (**✓ connected** / **missing — create**) if you only want some of them.
 
 ![Connect/create step](img/solid-pod-connect.png)
 
-Check the ones you want and click **Copy my Desk into my pod**. With **Copy this computer's projects into the new folders** checked, each new folder's `status.json` is filled with that area's projects from this computer. Otherwise it starts empty.
+You can run the same check later with ⚙︎ Settings → **Check my pod**.
 
 Desk **only creates what's missing**:
 
@@ -105,6 +108,12 @@ Desk **only creates what's missing**:
 - Nothing is ever deleted.
 - Each new folder gets an **owner-only** `.acl` (only your WebID can read, write, or control it).
 - On ACP servers, which use `.acr`, folders inherit the pod's private default instead.
+
+### 5. Connect another computer
+
+Once connected, choose **Connect another computer** (at the end of setup or in ⚙︎ Settings). Desk shows a short link and a QR code. Open it on the other computer: the provider, pod and folder are filled in, so that computer only has to sign in.
+
+The link carries only public addresses (`#pod=…`, plus the sign-in server and folder if they're not the defaults). It never contains passwords, tokens or keys, and Desk removes it from the address bar after reading it. The QR code is drawn locally by `assets/qrcode.js`; nothing is sent to a QR service.
 
 **New areas later.** Once `meta.json` exists, any area you add on this computer automatically gets its own folder, created the next time Desk reads the pod.
 
@@ -124,9 +133,23 @@ If sign-in fails, the pod server is unreachable, a request times out, or the pod
 
 ## Agents: client credentials and per-area access
 
-Agents don't sign in through a browser. They use **client credentials** (an ID and secret tied to a WebID).
+Agents don't sign in through a browser. They use **client credentials** (an ID and secret tied to the agent's own WebID).
 
-**On CSS:** sign in at `<server>/.account/`, open **Client credentials**, pick the WebID the agent should act as, and create a token. Give the agent its own WebID (a separate account or pod) so you can grant it only certain areas. Other providers have a similar page.
+### Add an agent (the easy way)
+
+⚙︎ Settings → **Add an agent** (or at the end of setup):
+
+1. Name the agent and tick the areas it may update.
+2. **On Community Solid Server** Desk does the rest: it creates a separate account and identity just for the agent on your pod server (your own account and password are never asked for or changed), creates its client credentials, and gives it **Read + Append** on only the folders you ticked.
+3. **Download its key file once** (`<name>.env`). Desk never shows the secret on screen and doesn't keep a copy; closing the dialog without downloading discards it. Put it on the computer where the agent runs, e.g. `~/.config/desk/`, `chmod 600` it, and keep it out of any git repo. The file also holds the agent account's generated login, so you can sign in there later to delete its credentials.
+
+**Other providers** (no account API Desk can use): Desk shows plain steps instead: make a separate account for the agent, create client credentials there (Inrupt: register an app at `login.inrupt.com/registration.html`), and paste the agent's WebID. Desk then grants the areas you ticked and gives you a key file to fill in the ID and secret.
+
+To take access away, remove the agent's rule from the area folder's `.acl` (see below) or delete its credentials.
+
+### Doing it by hand
+
+**On CSS:** sign in at `<server>/.account/`, open **Client credentials**, pick the WebID the agent should act as, and create a token. Give the agent its own WebID (a separate account) so you can grant it only certain areas. Other providers have a similar page.
 
 Put the credentials in an env file that never goes in any repo, and `chmod 600` it:
 
@@ -180,7 +203,7 @@ An agent without a grant on an area gets "403" from the pod and simply doesn't s
 
 ## Moving data between modes
 
-- **Into the pod:** use **Scan pod** → **Copy my Desk into my pod** (above).
+- **Into the pod:** answer **Yes** to the set-up question, or use ⚙︎ Settings → **Check my pod** → **Copy my Desk into my pod** (above).
 - **Out of the pod:** click **Export from pod** in settings. Desk downloads `status.json` and `updates.jsonl` in the normal local format. Put them next to `build.py` and run:
   ```bash
   python3 build.py status.json
@@ -193,4 +216,5 @@ An agent without a grant on an area gets "403" from the pod and simply doesn't s
   ```bash
   cd tools/solid && npm install && node build.mjs
   ```
+  The same build writes `assets/qrcode.js` (Kazuhiko Arase's `qrcode-generator`, MIT), the small local QR generator used by **Connect another computer**. It is loaded only when that dialog opens.
 - Storage lives in one small layer in `template.html`, `window.DeskStore`, with two backends that share the same interface: load status and areas, load updates, append an update, and save status. The `local` backend is the data baked in by `build.py`. The `pod` backend implements the same interface on top of the pod's area folders.
