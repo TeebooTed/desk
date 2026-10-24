@@ -4,7 +4,7 @@ Paste the README's "Set up Desk" prompt into your bot, or follow these steps you
 
 ## 1. Install (on the user's computer)
 - Public repo: `curl -fsSL https://raw.githubusercontent.com/TeebooTed/desk/main/install.sh | bash`
-- Private repo/fork: `gh repo clone OWNER/desk && cd desk && ./install.sh` (curl install only works when the repo is public).
+- Private fork: `gh repo clone OWNER/desk && cd desk && ./install.sh` (the curl install only works for public repos).
 - This creates `~/Desk`, installs the local relay (`relay/desk-relay.py`, 127.0.0.1:8765) with autostart (LaunchAgent `local.desk-relay` on macOS, systemd user unit `desk-relay.service` on Linux), builds `index.html` and opens it.
 
 ## 2. Connect the page to the bot

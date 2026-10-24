@@ -2,7 +2,6 @@
 # Desk installer for macOS and Linux. Safe to re-run.
 # Usage (from a checkout):  ./install.sh [install-dir]          (default: ~/Desk)
 # Usage (one line):         curl -fsSL https://raw.githubusercontent.com/TeebooTed/desk/main/install.sh | bash
-#   (the one-line form needs the repo to be public; for a private repo clone it and run ./install.sh)
 # Env: DESK_DIR (install dir), DESK_REPO (owner/name), DESK_REF (branch/tag), DESK_NO_OPEN=1
 # Never reads, writes or prints the webhook key. Configure it in the Desk page.
 # Re-running upgrades the code but never touches your status.json, live.json, layout.json or tiles/.
@@ -16,7 +15,7 @@ else
   TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
   echo "Downloading $REPO@$REF…"
   if ! curl -fsSL "https://codeload.github.com/$REPO/tar.gz/$REF" | tar -xz -C "$TMP"; then
-    echo "Download failed. If the repo is private, clone it (gh repo clone $REPO) and run ./install.sh instead." >&2; exit 1
+    echo "Download failed. Check your connection, or clone it (git clone https://github.com/$REPO) and run ./install.sh instead." >&2; exit 1
   fi
   SRC="$(find "$TMP" -mindepth 1 -maxdepth 1 -type d | head -1)"
 fi

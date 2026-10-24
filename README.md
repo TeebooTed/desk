@@ -28,7 +28,7 @@ _All data shown is fake example data._
 curl -fsSL https://raw.githubusercontent.com/TeebooTed/desk/main/install.sh | bash
 ```
 
-Works on macOS and Linux (needs `python3` and `curl`). It sets up `~/Desk`, the local relay and its autostart. **This repo is private right now, so the one-liner only works once it is public**; until then clone it and run `./install.sh`.
+Works on macOS and Linux (needs `python3` and `curl`). It sets up `~/Desk`, the local relay and its autostart. Prefer to look first? Clone the repo and run `./install.sh`.
 
 ## Set up Desk with your bot
 
