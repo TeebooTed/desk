@@ -39,6 +39,62 @@ for ps in data["areas"].values():
             b = _slug(p.get("name", "")); i = b; n = 2
             while i in _seen: i = "%s-%d" % (b, n); n += 1
             p["id"] = i; _seen.add(i)
+# Agent progress log (agentlog): updates.jsonl next to build.py (or $DESK_UPDATES), one JSON object per line, written by ./desk-log.
+# status.json stays the base. For each project the newest log entry newer than its last_update sets last_update/updated_by,
+# and the newest such entries carrying percent/status/next_step set those. Notes go to the top of "recent" (deduped,
+# newest first). priority (and any other field) is never touched. kind:new_project entries are proposals for your bot to review.
+import os as _os
+_UPD = pathlib.Path(_os.environ.get("DESK_UPDATES", here / "updates.jsonl"))
+_LOGST = {"active": "active", "blocked": "blocked", "on_hold": "on hold", "on hold": "on hold", "hold": "on hold", "done": "done"}
+def _when(s, end=False):
+    s = str(s or "").strip()
+    try:
+        if _re.fullmatch(r"\d{4}-\d{2}-\d{2}", s):
+            return datetime.datetime.fromisoformat(s + (" 23:59:59" if end else " 00:00:00")).replace(tzinfo=_TZ)
+        d = datetime.datetime.fromisoformat(s.replace("Z", "+00:00"))
+        return d if d.tzinfo else d.replace(tzinfo=_TZ)
+    except Exception: return None
+_log = {}; _props = []
+if _UPD.exists():
+    for _n, _l in enumerate(_UPD.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
+        if not _l.strip(): continue
+        try:
+            e = json.loads(_l); w = _when(e.get("at"))
+            if not isinstance(e, dict) or w is None or not e.get("agent"): raise ValueError("missing at/agent")
+        except Exception as ex:
+            print("updates.jsonl line %d skipped: %s" % (_n, ex)); continue
+        e["_w"] = w
+        if e.get("kind") == "new_project": _props.append(e); continue
+        if e.get("project_id") and e.get("note"): _log.setdefault(str(e["project_id"]), []).append(e)
+_known = {p["id"]: p for ps in data["areas"].values() for p in ps}
+for _pid in [k for k in _log if k not in _known]: print("updates.jsonl: unknown project id %r ignored" % _pid)
+for _pid, es in _log.items():
+    p = _known.get(_pid)
+    if not p: continue
+    es.sort(key=lambda e: e["_w"])
+    base = _when(p.get("last_update"), end=False)
+    new = [e for e in es if base is None or e["_w"] >= base]
+    if new:
+        top = new[-1]
+        p["last_update"] = top["_w"].isoformat(); p["updated_by"] = str(top["agent"])[:40]
+        for k in ("percent", "status", "next_step"):
+            v = next((e[k] for e in reversed(new) if e.get(k) not in (None, "")), None)
+            if v is None: continue
+            if k == "percent":
+                try: v = max(0, min(100, int(v)))
+                except Exception: continue
+            if k == "status":
+                v = _LOGST.get(str(v).strip().lower())
+                if not v: continue
+            p[k] = v
+    notes = ["%s: %s (%s)" % (e["_w"].astimezone(_TZ).strftime("%Y-%m-%d %H:%M %Z"), " ".join(str(e["note"]).split()), e["agent"]) for e in reversed(es)]
+    seen, rec = set(), []
+    for r in notes + list(p.get("recent") or []):
+        key = _re.sub(r"\W+", " ", str(r).lower()).strip()
+        if key in seen: continue
+        seen.add(key); rec.append(r)
+    p["recent"] = rec[:12]
+data["proposed_projects"] = [{"name": e.get("name"), "area": e.get("area"), "agent": e.get("agent"), "at": e["_w"].isoformat(), "note": e.get("note", "")} for e in _props]
 def _upd(p):
     """_upd = {at: ISO with offset, date_only}. A bare date takes the latest timed 'recent' entry on that day
     ("YYYY-MM-DD HH:MM", optional PT/MT/CT/ET/UTC); otherwise end of that day, so date-only cards are never flagged early."""

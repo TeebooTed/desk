@@ -6,3 +6,8 @@ live.json
 layout.json
 layout.prev.json
 __pycache__/
+updates.jsonl
+PENDING_DEPLOY
+PENDING_DEPLOY.tmp
+desk-watch.log
+.desk-watch.lock

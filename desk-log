@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+"""desk-log: append a progress note for a Desk project (append-only, file-locked).
+
+  desk-log --agent Scout --project website-refresh --note "Homepage draft approved" [--percent 80] [--status active] [--next-step "..."]
+  desk-log --list [--area Work]
+  desk-log --agent Scout --new "Project name" --area Work --note "Why it's needed"
+
+Env overrides (for testing): DESK_STATUS (status.json), DESK_UPDATES (updates.jsonl), DESK_TZ.
+"""
+import argparse, datetime, difflib, fcntl, json, os, re, sys, zoneinfo
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+STATUS = os.environ.get("DESK_STATUS") or next((p for p in (os.path.join(_HERE, "status.json"), os.path.join(_HERE, "example-status.json")) if os.path.exists(p)), os.path.join(_HERE, "status.json"))
+UPDATES = os.environ.get("DESK_UPDATES", os.path.join(_HERE, "updates.jsonl"))
+TZ = zoneinfo.ZoneInfo(os.environ["DESK_TZ"]) if os.environ.get("DESK_TZ") else datetime.datetime.now().astimezone().tzinfo
+STATUSES = {"active": "active", "blocked": "blocked", "on_hold": "on hold", "on-hold": "on hold", "on hold": "on hold", "hold": "on hold", "done": "done"}
+SECRETISH = [(re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+"), "an email address"),
+             (re.compile(r"\b(password|passwd|passcode|api[_ -]?key|secret|token|bearer|otp)\b", re.I), "a secret/credential word"),
+             (re.compile(r"\b[A-Za-z0-9_\-]{32,}\b"), "a long key-like string"),
+             (re.compile(r"\b(?:\d[ -]?){13,19}\b"), "a card-like number")]
+
+def die(msg, code=2):
+    print("desk-log: " + msg, file=sys.stderr); sys.exit(code)
+
+def slug(n): return re.sub(r"[^a-z0-9]+", "-", str(n).lower()).strip("-")[:48] or "project"
+
+def load_projects():
+    try: data = json.load(open(STATUS))
+    except Exception as e: die("can't read %s: %s" % (STATUS, e), 3)
+    areas = data.get("areas") or {}
+    rules = data.get("area_rules") or {}
+    out, seen = [], set()
+    for a, ps in areas.items():
+        for p in ps:
+            area = next((t for t, rx in rules.items() if t != a and re.search(rx, p.get("name", ""), re.I)), a)
+            pid = str(p.get("id") or "")
+            if not pid:  # same rule as build.py: slug of the name, made unique
+                b = slug(p.get("name", "")); pid = b; n = 2
+                while pid in seen: pid = "%s-%d" % (b, n); n += 1
+            seen.add(pid)
+            out.append({"id": pid, "name": p.get("name", ""), "area": area, "status": p.get("status", ""), "percent": p.get("percent")})
+    return out, list(dict.fromkeys(list(areas) + list(rules)))
+
+def check_note(s, what="--note"):
+    s = " ".join(str(s).split())
+    if not s: die(what + " is empty")
+    if len(s) > 300: die(what + " is too long (%d chars); keep it to one plain sentence" % len(s))
+    for rx, why in SECRETISH:
+        if rx.search(s): die(what + " looks like it contains %s; never log secrets, passwords, emails or private data" % why)
+    return s
+
+def append(entry):
+    line = json.dumps(entry, ensure_ascii=False) + "\n"
+    fd = os.open(UPDATES, os.O_WRONLY | os.O_APPEND | os.O_CREAT, 0o664)
+    try:
+        fcntl.flock(fd, fcntl.LOCK_EX)
+        os.write(fd, line.encode("utf-8")); os.fsync(fd)
+    finally:
+        fcntl.flock(fd, fcntl.LOCK_UN); os.close(fd)
+
+def main():
+    ap = argparse.ArgumentParser(prog="desk-log", description="Log progress on a Desk project.")
+    ap.add_argument("--agent", help="your name, e.g. Scout")
+    ap.add_argument("--project", help="project id (see --list)")
+    ap.add_argument("--note", help="one plain sentence: what happened")
+    ap.add_argument("--percent", type=int, help="0-100")
+    ap.add_argument("--status", help="active | blocked | on_hold | done")
+    ap.add_argument("--next-step", dest="next_step", help="what happens next (short)")
+    ap.add_argument("--list", action="store_true", help="print project ids and names")
+    ap.add_argument("--area", help="filter --list, or the area for --new")
+    ap.add_argument("--new", metavar="NAME", help="propose a new project for your bot to review")
+    ap.add_argument("--at", help=argparse.SUPPRESS)  # ISO override (testing/backfill)
+    a = ap.parse_args()
+    projects, areas = load_projects()
+
+    if a.list:
+        if a.area and a.area.lower() not in [x.lower() for x in areas]: die("unknown area %r; areas: %s" % (a.area, ", ".join(areas)))
+        rows = [p for p in projects if not a.area or p["area"].lower() == a.area.lower()]
+        w = max([len(p["id"]) for p in rows] + [2])
+        for p in rows:
+            print("%-*s  %-8s  %-8s  %s" % (w, p["id"], p["area"], p["status"], p["name"]))
+        return
+
+    if not a.agent: die("--agent is required (your name)")
+    agent = " ".join(a.agent.split())[:40]
+    now = datetime.datetime.now(TZ).replace(microsecond=0)
+    if a.at:
+        try:
+            d = datetime.datetime.fromisoformat(a.at.replace("Z", "+00:00")); now = d if d.tzinfo else d.replace(tzinfo=TZ)
+        except ValueError: die("--at must be ISO 8601")
+    entry = {"at": now.isoformat(), "agent": agent}
+
+    if a.new:
+        if a.project: die("use either --project or --new, not both")
+        if not a.area or a.area.lower() not in [x.lower() for x in areas]: die("--new needs --area, one of: " + ", ".join(areas))
+        name = check_note(a.new, "--new")
+        if len(name) > 80: die("--new name is too long")
+        area = next(x for x in areas if x.lower() == a.area.lower())
+        hit = [p for p in projects if p["name"].lower() == name.lower() or p["id"] == slug(name)]
+        if hit: die("a project like that already exists: %s (%s); log to it with --project" % (hit[0]["id"], hit[0]["name"]), 4)
+        entry.update({"kind": "new_project", "name": name, "area": area, "project_id": slug(name)})
+        if a.note: entry["note"] = check_note(a.note)
+        for k in ("percent", "status", "next_step"):
+            if getattr(a, k) is not None: die("--%s isn't used with --new" % k.replace("_", "-"))
+        append(entry); print("proposed new project %r in %s (for your bot to review; not added to Desk yet)" % (name, area)); return
+
+    if not a.project: die("--project is required (see desk-log --list)")
+    ids = {p["id"]: p for p in projects}
+    if a.project not in ids:
+        names = {p["name"].lower(): p["id"] for p in projects}
+        q = a.project.lower()
+        close = [i for i in ids if q in i or q in ids[i]["name"].lower()][:4]
+        close += [i for i in difflib.get_close_matches(q, list(ids), n=5, cutoff=0.4) if i not in close]
+        close += [names[n] for n in difflib.get_close_matches(q, list(names), n=3, cutoff=0.5) if names[n] not in close]
+        msg = "unknown project id %r." % a.project
+        if close: msg += " Closest: " + ", ".join("%s (%s)" % (i, ids[i]["name"]) for i in close[:6])
+        die(msg + "\nRun desk-log --list to see all ids.", 4)
+    if not a.note: die("--note is required: one plain sentence")
+    entry.update({"project_id": a.project, "note": check_note(a.note)})
+    if a.percent is not None:
+        if not 0 <= a.percent <= 100: die("--percent must be 0-100")
+        entry["percent"] = a.percent
+    if a.status is not None:
+        s = STATUSES.get(a.status.strip().lower())
+        if not s: die("--status must be one of: active, blocked, on_hold, done")
+        entry["status"] = "on_hold" if s == "on hold" else s
+    if a.next_step is not None: entry["next_step"] = check_note(a.next_step, "--next-step")
+    append(entry)
+    print("logged for %s (%s) at %s" % (a.project, ids[a.project]["name"], entry["at"]))
+
+if __name__ == "__main__":
+    main()

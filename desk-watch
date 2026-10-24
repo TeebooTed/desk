@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+"""desk-watch: rebuild Desk when updates.jsonl changes (debounced: at most one build per 2 minutes).
+
+After each build it writes PENDING_DEPLOY (md5 + time). If DESK_DEPLOY_CMD is set, it runs that shell command
+after the build (e.g. a cp to the folder you open Desk from) and removes the flag when it succeeds; otherwise your
+bot's refresh routine deploys and deletes the flag.
+
+  desk-watch            run in the foreground
+  desk-watch --ensure   start in the background if not already running (safe to call any time)
+  desk-watch --status   print whether it is running
+Env: DESK_DIR (default: this folder), DESK_UPDATES, DESK_WATCH_DEBOUNCE (seconds, default 120), DESK_WATCH_POLL (default 10).
+"""
+import datetime, fcntl, hashlib, json, os, subprocess, sys, time, zoneinfo
+D = os.environ.get("DESK_DIR", os.path.dirname(os.path.abspath(__file__)))
+UPD = os.environ.get("DESK_UPDATES", os.path.join(D, "updates.jsonl"))
+FLAG, LOCK, LOG = (os.path.join(D, n) for n in ("PENDING_DEPLOY", ".desk-watch.lock", "desk-watch.log"))
+DEB = float(os.environ.get("DESK_WATCH_DEBOUNCE", 120)); POLL = float(os.environ.get("DESK_WATCH_POLL", 10))
+TZ = datetime.datetime.now().astimezone().tzinfo
+now = lambda: datetime.datetime.now(TZ).replace(microsecond=0).isoformat()
+
+def log(m):
+    with open(LOG, "a") as f: f.write("%s %s\n" % (now(), m))
+
+def sig():
+    try: s = os.stat(UPD); return (s.st_mtime_ns, s.st_size)
+    except FileNotFoundError: return None
+
+def build():
+    env = dict(os.environ, DESK_UPDATES=UPD)
+    r = subprocess.run([sys.executable, os.path.join(D, "build.py")], cwd=D, env=env, capture_output=True, text=True, timeout=120)
+    if r.returncode: log("build FAILED: " + (r.stderr or r.stdout)[-500:]); return False
+    out = os.environ.get("DESK_OUT", os.path.join(D, "index.html"))
+    md5 = hashlib.md5(open(out, "rb").read()).hexdigest()
+    tmp = FLAG + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump({"built_at": now(), "index": out, "md5": md5, "reason": "updates.jsonl changed"}, f, indent=1)
+    os.replace(tmp, FLAG); log("built %s md5 %s; PENDING_DEPLOY written" % (out, md5))
+    cmd = os.environ.get("DESK_DEPLOY_CMD")
+    if cmd:
+        d = subprocess.run(cmd, shell=True, cwd=D, env=dict(env, DESK_INDEX=out), capture_output=True, text=True, timeout=300)
+        if d.returncode == 0: os.remove(FLAG); log("deployed via DESK_DEPLOY_CMD")
+        else: log("DESK_DEPLOY_CMD failed: " + (d.stderr or d.stdout)[-500:])
+    return True
+
+def running():
+    fd = os.open(LOCK, os.O_RDWR | os.O_CREAT, 0o664)
+    try: fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB); fcntl.flock(fd, fcntl.LOCK_UN); return False
+    except BlockingIOError: return True
+    finally: os.close(fd)
+
+def run():
+    fd = os.open(LOCK, os.O_RDWR | os.O_CREAT, 0o664)
+    try: fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError: print("desk-watch already running"); return
+    os.ftruncate(fd, 0); os.write(fd, str(os.getpid()).encode())
+    log("watching %s (debounce %ss, poll %ss) pid %d" % (UPD, DEB, POLL, os.getpid()))
+    last, dirty, last_build = sig(), False, 0.0
+    while True:
+        s = sig()
+        if s != last: last, dirty = s, True
+        if dirty and time.time() - last_build >= DEB:
+            try: build()
+            except Exception as e: log("build error: %r" % e)
+            last_build, dirty = time.time(), False
+        time.sleep(POLL)
+
+if __name__ == "__main__":
+    a = sys.argv[1:]
+    if "--status" in a:
+        print("running" if running() else "not running"); sys.exit(0 if running() else 1)
+    if "--ensure" in a:
+        if running(): print("desk-watch already running"); sys.exit(0)
+        subprocess.Popen([sys.executable, os.path.abspath(__file__)], cwd=D, stdin=subprocess.DEVNULL,
+                         stdout=open(LOG, "a"), stderr=subprocess.STDOUT, start_new_session=True, env=os.environ.copy())
+        time.sleep(1); print("desk-watch started" if running() else "desk-watch failed to start (see desk-watch.log)"); sys.exit(0)
+    run()

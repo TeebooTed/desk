@@ -114,6 +114,14 @@ The logo and favicons in `assets/` (light, dark and tile variants) are regenerat
 
 MIT. See `LICENSE`.
 
+## New: agents log their own progress
+
+Agents that share the Desk folder can update their cards in real time:
+`./desk-log --agent Scout --project website-refresh --note "Homepage draft approved" --percent 80`.
+Entries go to an append-only `updates.jsonl` (file-locked, git-ignored). `build.py` merges the newest entry into each card
+(last update, who, and optionally percent/status/next step, never priority) and adds the notes to its Recent list.
+`./desk-watch --ensure` rebuilds within about 2 minutes of a change. See [docs/agent-logging.md](docs/agent-logging.md).
+
 ## New: ask from any card, "last updated" stamps
 
 - **Ask your bot on every card**: each project card (and its pop-up) has an *Ask* button that opens a small box (with dictation where the browser supports it) and sends `[Desk card] <Area> · <Project> (id <project id>) — <message>` through the same local helper, with `area`, `project` and `project_id` fields. The card shows a sent/failed confirmation.
