@@ -114,6 +114,11 @@ The logo and favicons in `assets/` (light, dark and tile variants) are regenerat
 
 MIT. See `LICENSE`.
 
+## New: ask from any card, "last updated" stamps
+
+- **Ask your bot on every card**: each project card (and its pop-up) has an *Ask* button that opens a small box (with dictation where the browser supports it) and sends `[Desk card] <Area> · <Project> (id <project id>) — <message>` through the same local helper, with `area`, `project` and `project_id` fields. The card shows a sent/failed confirmation.
+- **Last updated**: each card shows "Updated 3h ago by …" from `last_update` + optional `updated_by` (exact time on hover). Cards that are not done and haven't been updated in 48 hours get a subtle amber **Stale** marker, and each column header shows "N stale". See [docs/data-format.md](docs/data-format.md).
+
 ## New: first-run setup, Ask box, routine panel
 
 - **First-run setup**: with no data, Desk shows a Welcome card that asks your bot to fill everything in (or copy the request into chat). See `docs/data-format.md` → *Sample prompt*.

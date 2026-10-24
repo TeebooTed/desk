@@ -21,6 +21,51 @@ _order = data.get("area_order") or list(data["areas"])
 data["areas"] = {**{k: data["areas"].get(k, []) for k in _order}, **{k: v for k, v in data["areas"].items() if k not in _order}}
 data["area_order"] = list(data["areas"])
 data["area_labels"] = {k: k for k in data["areas"]} | (data.get("area_labels") or {})
+if src.name == "example-status.json":  # demo: shift example dates so the stamps read as recent
+    _a = datetime.date.fromisoformat(str(data.get("generated", "2026-01-15"))[:10]); _s = datetime.date.today() - _a
+    data = json.loads(_re.sub(r"(?<![\d-])(\d{4}-\d{2}-\d{2})(?![\d-])", lambda m: (datetime.date.fromisoformat(m.group(1)) + _s).isoformat(), json.dumps(data)))
+# Project ids and "last updated" stamps. Each project gets a stable "id" (kept if present, else a slug of its name).
+# last_update may be an ISO date-time ("2026-10-23T14:44:00-07:00") or a bare date; optional "updated_by" names who did it.
+_TZ = zoneinfo.ZoneInfo(data["tz"]) if data.get("tz") else datetime.datetime.now().astimezone().tzinfo
+_ZN = {"PT": "America/Los_Angeles", "MT": "America/Denver", "CT": "America/Chicago", "ET": "America/New_York", "UTC": "UTC"}
+def _slug(n): return _re.sub(r"[^a-z0-9]+", "-", str(n).lower()).strip("-")[:48] or "project"
+_seen = set()
+for ps in data["areas"].values():
+    for p in ps:
+        if p.get("id"): _seen.add(str(p["id"]))
+for ps in data["areas"].values():
+    for p in ps:
+        if not p.get("id"):
+            b = _slug(p.get("name", "")); i = b; n = 2
+            while i in _seen: i = "%s-%d" % (b, n); n += 1
+            p["id"] = i; _seen.add(i)
+def _upd(p):
+    """_upd = {at: ISO with offset, date_only}. A bare date takes the latest timed 'recent' entry on that day
+    ("YYYY-MM-DD HH:MM", optional PT/MT/CT/ET/UTC); otherwise end of that day, so date-only cards are never flagged early."""
+    lu = str(p.get("last_update") or "").strip()
+    if not lu: return None
+    try:
+        if not _re.fullmatch(r"\d{4}-\d{2}-\d{2}", lu):
+            d = datetime.datetime.fromisoformat(lu.replace("Z", "+00:00"))
+            if d.tzinfo is None: d = d.replace(tzinfo=_TZ)
+            return {"at": d.isoformat(), "date_only": False}
+        best = None
+        for r in p.get("recent") or []:
+            m = _re.match(r"(\d{4}-\d{2}-\d{2})\s+~?(\d{1,2}):(\d{2})\s*(PT|MT|CT|ET|UTC)?\b", str(r))
+            if not m or m.group(1) != lu: continue
+            z = zoneinfo.ZoneInfo(_ZN[m.group(4)]) if m.group(4) else _TZ
+            d = datetime.datetime.fromisoformat("%s %02d:%s" % (m.group(1), int(m.group(2)), m.group(3))).replace(tzinfo=z)
+            best = d if best is None or d > best else best
+        if best: return {"at": best.isoformat(), "date_only": False}
+        d = datetime.datetime.fromisoformat(lu + " 23:59:59").replace(tzinfo=_TZ)
+        return {"at": d.isoformat(), "date_only": True}
+    except Exception as e:
+        print("bad last_update", p.get("name"), lu, e); return None
+for ps in data["areas"].values():
+    for p in ps:
+        u = _upd(p)
+        if u: p["_upd"] = u
+        else: p.pop("_upd", None)
 import re, difflib
 flag = []
 for md in src.parent.glob("*.md"):

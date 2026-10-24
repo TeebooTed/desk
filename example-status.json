@@ -11,13 +11,14 @@
   "areas": {
     "Work": [
       {
+        "id": "website-refresh",
         "name": "Website refresh",
         "status": "active",
         "percent": 60,
         "priority": "high",
         "next_step": "Review homepage draft",
         "owner": "Example Agent",
-        "last_update": "2026-01-15",
+        "last_update": "2026-01-15T14:30:00",
         "summary": "Example project: refresh the marketing site.",
         "in_progress": "Homepage and pricing page drafted.",
         "recent": [
@@ -29,9 +30,11 @@
             "label": "example.com",
             "url": "https://example.com/"
           }
-        ]
+        ],
+        "updated_by": "Example Agent"
       },
       {
+        "id": "quarterly-report",
         "name": "Quarterly report",
         "status": "blocked",
         "percent": 30,
@@ -46,6 +49,7 @@
     ],
     "Side": [
       {
+        "id": "podcast-backlog",
         "name": "Podcast backlog",
         "status": "active",
         "percent": 45,
@@ -59,6 +63,7 @@
     ],
     "Personal": [
       {
+        "id": "garden-plan",
         "name": "Garden plan",
         "status": "active",
         "percent": 35,
@@ -66,9 +71,11 @@
         "next_step": "Order seeds for spring",
         "owner": "You",
         "last_update": "2026-01-14",
-        "summary": "Plan raised beds and planting calendar."
+        "summary": "Plan raised beds and planting calendar.",
+        "updated_by": "You"
       },
       {
+        "id": "plan-trip",
         "name": "Plan trip",
         "status": "done",
         "percent": 100,

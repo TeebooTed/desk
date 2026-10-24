@@ -27,13 +27,16 @@ new area is slotted in after its neighbor from `area_order`.
 
 | Field | Type | Req. | Notes |
 |---|---|---|---|
+| `id` | string | optional | Stable slug for the project, sent with "Ask your bot" messages as `project_id`. `build.py` makes one from the name when missing (deduplicated with `-2`, `-3`). Keep it once set. |
 | `name` | string | **required** | Unique within its area (used as the key for local priority pins). |
 | `status` | string | **required** | `active`, `blocked`, `hold` or `done`. Drives colour and the filter tabs. |
 | `percent` | number 0-100 | recommended | Progress bar and area average. |
 | `next_step` | string | recommended | Shown under the progress bar and in the pop-up. |
 | `priority` | string | optional | `high`, `medium` or `low` (P1/P2/P3). Clicking the pin overrides it locally in the browser. |
 | `owner` | string | optional | Who is doing it. |
-| `last_update` | string (YYYY-MM-DD) | optional | |
+| `last_update` | string (ISO 8601 date-time, or YYYY-MM-DD) | optional | Drives the card stamp "Updated 3h ago by …" (relative time computed in the browser; exact time on hover). Prefer a full date-time. For a bare date, `build.py` uses the latest timed `recent` entry on that day (`YYYY-MM-DD HH:MM`, optional `PT`/`MT`/`CT`/`ET`/`UTC`), else the end of that day. A card that is not `done` and older than 48 hours is marked **Stale**, and its column header counts it. |
+| `updated_by` | string | optional | Who made the last update; defaults to the bot name (`bot_name` in live.json). |
+| `tz` (top level) | string (IANA zone) | optional | Zone for bare dates/times; defaults to the computer running `build.py`. |
 | `summary` | string | optional | Pop-up: Summary. |
 | `in_progress` | string | optional | Pop-up: In progress. |
 | `waiting_on` | string | optional | Pop-up: highlighted "Waiting on" box. |
