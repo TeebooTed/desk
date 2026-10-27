@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Example only. Replace YOU with your macOS user name, copy to ~/Library/LaunchAgents/, then:
+     launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.example.desk-heartbeat.plist -->
+<plist version="1.0"><dict>
+ <key>Label</key><string>com.example.desk-heartbeat</string>
+ <key>ProgramArguments</key><array><string>/usr/bin/python3</string><string>/Users/YOU/Desk/heartbeat/desk-heartbeat.py</string></array>
+ <key>StartInterval</key><integer>300</integer>
+ <key>RunAtLoad</key><true/>
+ <key>Nice</key><integer>10</integer>
+ <key>LowPriorityIO</key><true/>
+ <key>StandardOutPath</key><string>/Users/YOU/Library/Logs/desk-heartbeat.log</string>
+ <key>StandardErrorPath</key><string>/Users/YOU/Library/Logs/desk-heartbeat.log</string>
+</dict></plist>

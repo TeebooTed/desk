@@ -1,0 +1,2 @@
+{"device": "my-mac", "disk_path": "/System/Volumes/Data", "ports": [8765],
+ "jobs": ["com.example.nightly-backup"], "logs": {"nightly-backup": "~/Library/Logs/example-nightly-backup.log"}}

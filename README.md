@@ -82,6 +82,13 @@ You can also add your own cards (links, counters, lists, metrics) via `live.json
 | `docs/` | Screenshots, [data format](docs/data-format.md), [routine prompts](docs/routines.md) |
 | `deploy/` | Example macOS LaunchAgent and Linux systemd user unit |
 | `assets/` | Logo, icons, `favicon.svg/.ico`, `apple-touch-icon.png`, `build_logo.py` |
+| `custom/` | Feature code inlined at build time: `features.*` (org filter, "as of" stamps, machines, ⌘K palette) and `alerts.*` (alerts, refresh history, teammate badges) |
+| `icons/` | SVG icons for the new panels (inlined at build time) |
+| `tools/desk_scan.py` | Safety scan run by every build; see [docs/safety-scan.md](docs/safety-scan.md) |
+| `tools/machines_health.py`, `examples/machines/` | Builds the Machines panel data; example config and output |
+| `heartbeat/` | Optional read-only heartbeat example for macOS; see [docs/heartbeat.md](docs/heartbeat.md) |
+| `tools/test_features.py`, `tools/test_scan.sh` | Browser test on example data; scan test |
+| `CHANGELOG.md`, `NOTICE` | What changed; credits for ideas and bundled code |
 | `assets/widgets/` | Widget icons and empty-state art (light and dark) for Picture Frame, Podsta, Famous Quotes and the pod welcome card. `install.sh` copies the whole `assets/` folder |
 | `assets/qrcode.js` | Small local QR generator (`qrcode-generator`, MIT) for **Connect another computer**; built by `tools/solid/` |
 | `assets/solid-auth.js`, `tools/solid/` | Optional Solid pod sign-in (bundled Inrupt library, loaded only in pod mode) and how to rebuild it. See [docs/solid-pod.md](docs/solid-pod.md) |
@@ -152,6 +159,21 @@ The logo and favicons in `assets/` (light, dark and tile variants) are regenerat
 ## License
 
 MIT. See `LICENSE`.
+
+## New: org filter, machines, ⌘K palette, alerts, approvals
+
+<p><img src="docs/img/features-top.png" alt="Alerts banner, as-of stamps and approval cards (example data)" width="720"></p>
+<p><img src="docs/img/features-machines.png" alt="Machines panel with heartbeat line (example data)" width="720"> <img src="docs/img/features-palette.png" alt="Command palette (example data)" width="420"></p>
+
+- **Org (area) filter**: chips for each area above Projects (Shift-click to combine). Also filters Today, Waiting, approvals and counts by each item's `area`.
+- **"As of" stamps** on every section, so old data is obvious; missing numbers show "—", not 0.
+- **Machines panel**: online/asleep/offline, last seen, disk, services. Data from `tools/machines_health.py`; optional read-only [heartbeat](docs/heartbeat.md) for live disk and service numbers.
+- **Command palette**: ⌘K / Ctrl+K to search projects, agents, machines and actions.
+- **Alerts banner** with snooze, **refresh history** in Routines, **teammate badges**.
+- **Approval cards**: Approve / Edit / Decline send `[Desk approval] <id> <answer>` to your bot. Desk itself never posts.
+- **Safety scan**: every build is scanned for secrets, emails, dollar amounts, IPs and cross-area leaks; if anything blocks, nothing is written. See [docs/safety-scan.md](docs/safety-scan.md).
+
+Details: [docs/features.md](docs/features.md). History: [CHANGELOG.md](CHANGELOG.md).
 
 ## New: agents log their own progress
 

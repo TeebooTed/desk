@@ -1,0 +1,37 @@
+Desk — third-party notices and credits
+=======================================
+
+Bundled code
+------------
+SortableJS 1.15.6 — MIT License, Copyright (c) 2019 All contributors to Sortable
+  https://github.com/SortableJS/Sortable  (inlined in template.html; full MIT text below)
+
+Ideas credited (Oct 27 2026 features). No code or assets were copied; features were
+re-implemented from scratch in vanilla JS/Python.
+  - Command palette / global search: daggerhashimoto/openclaw-nerve (MIT),
+    carlosazaustre/tenacitOS (MIT); MeisnerDan/mission-control (AGPL-3.0, ideas only).
+  - Machine health cards, "went quiet" state, disk thresholds: mehh/vm-vitals (MIT),
+    carlosazaustre/tenacitOS (MIT), xmanrui/OpenClaw-bot-review (MIT).
+  - "As of" honesty stamps and "—" instead of 0: Olivia295/grokbot-team-monitor-UI (MIT),
+    robsannaa/mission-control (MIT).
+  - Pre-deploy redaction / secret scan: devrecated/grokbot-management-console (MIT).
+  - Strict workspace separation (org filter): builderz-labs/mission-control (MIT).
+Icons in icons/ are original work made for Desk.
+
+MIT License (SortableJS)
+------------------------
+Permission is hereby granted, free of charge, to any person obtaining a copy of this
+software and associated documentation files (the "Software"), to deal in the Software
+without restriction, including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or
+substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.

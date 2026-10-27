@@ -13,3 +13,9 @@ desk-watch.log
 .desk-watch.lock
 tools/solid/node_modules/
 *.env
+data/
+LIVE_STALE
+heartbeat/config.json
+tools/scan_orgs.json
+status.pre-refresh-*.json
+live.pre-refresh-*.json

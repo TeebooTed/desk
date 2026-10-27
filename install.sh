@@ -34,6 +34,12 @@ cp "$SRC/registry.json" "$DEST/" 2>/dev/null || true
 mkdir -p "$DEST/examples/widgets" "$DEST/tools" && cp -R "$SRC/examples/widgets/." "$DEST/examples/widgets/" 2>/dev/null || true
 cp "$SRC/tools/"*.py "$DEST/tools/" 2>/dev/null || true
 cp -R "$SRC/assets/." "$DEST/assets/"
+mkdir -p "$DEST/custom" "$DEST/icons" "$DEST/examples/machines" "$DEST/heartbeat"
+cp "$SRC/custom/"*.js "$SRC/custom/"*.css "$DEST/custom/"
+cp "$SRC/icons/"*.svg "$DEST/icons/"
+cp "$SRC/examples/machines/"*.json "$DEST/examples/machines/" 2>/dev/null || true
+cp "$SRC/heartbeat/"* "$DEST/heartbeat/" 2>/dev/null || true   # optional example, not installed
+for f in "$SRC/tools/"*.json; do [ -e "$DEST/tools/$(basename "$f")" ] || cp "$f" "$DEST/tools/"; done
 OS="$(uname -s)"
 if [ "$OS" = "Darwin" ]; then
   PL="$HOME/Library/LaunchAgents/$LABEL.plist"; mkdir -p "$(dirname "$PL")"

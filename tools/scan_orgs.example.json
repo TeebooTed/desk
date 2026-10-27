@@ -1,0 +1,5 @@
+{
+ "_note": "Optional cross-org rules for tools/desk_scan.py. Copy to tools/scan_orgs.json. Keys are your Desk area names. 'hard' markers (domains, server names, mailboxes) block the build when they show up in another area's projects; 'soft' names only warn.",
+ "Work": {"hard": "work\\.example\\.com|mail\\.work\\.example", "soft": "\\bAcme\\b"},
+ "Side": {"hard": "side-project\\.example\\.org", "soft": "\\bSide project\\b"}
+}

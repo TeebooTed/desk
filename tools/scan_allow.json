@@ -1,0 +1,6 @@
+{
+ "_note": "Allowlist for tools/desk_scan.py. Only add values that are already public or already shown on your Desk. Keep it short.",
+ "emails": [],
+ "ips": [],
+ "phrases": []
+}

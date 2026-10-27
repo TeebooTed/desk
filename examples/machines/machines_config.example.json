@@ -1,0 +1,18 @@
+{
+ "_note": "Example machines config for tools/machines_health.py. Copy to data/machines_config.json and edit. Ids are your bot's machine ids (from its machine list); ports are local service ports to show as up/down.",
+ "thresholds": {"disk_yellow": 80, "disk_red": 90, "seen_yellow_min": 10, "seen_red_min": 30, "probe_fresh_min": 30, "debounce_polls": 2, "quiet_hours": 24, "panel_stale_min": 60},
+ "machines": [
+  {"id": "machine-id-1", "key": "server", "name": "Home server", "icon": "mini", "role": "Always on: runs Desk", "class": "always_on",
+   "heartbeat": "data/heartbeat_server.json",
+   "job_names": {"com.example.nightly-backup": "Nightly backup"}, "job_logs": {"com.example.nightly-backup": "nightly-backup"},
+   "services": [{"name": "desk-relay", "port": 8765, "expected": true}, {"name": "media server", "port": 8096, "expected": true, "down": "yellow"}],
+   "notes": []},
+  {"id": "machine-id-2", "key": "laptop", "name": "Laptop", "icon": "laptop", "role": "Daily driver", "class": "sleeper", "services": [], "notes": []},
+  {"id": "machine-id-3", "key": "olddesk", "name": "Old desktop", "icon": "server", "role": "Being retired", "class": "retiring",
+   "pinned": "Moving files off this one. Safe to ignore while it shows offline.", "services": [], "notes": []}
+ ],
+ "static": [
+  {"key": "hub", "name": "Home hub", "icon": "server", "role": "Smart-home hub (snapshot)", "as_of": "2026-01-15T09:00:00-07:00", "source": "manual snapshot",
+   "disk_pct": 41, "updates": ["1 update available"], "addons": [{"name": "Backups", "state": "started"}, {"name": "File share", "state": "stopped", "update": true}], "notes": []}
+ ]
+}

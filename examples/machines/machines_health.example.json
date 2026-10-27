@@ -1,0 +1,28 @@
+{
+ "generated_at": "2026-01-15T10:00:00-07:00",
+ "listed_at": "2026-01-15T10:00:00-07:00",
+ "thresholds": {"disk_yellow": 80, "disk_red": 90, "seen_yellow_min": 10, "seen_red_min": 30, "probe_fresh_min": 30, "debounce_polls": 2, "quiet_hours": 24, "panel_stale_min": 60},
+ "machines": [
+  {"key": "server", "name": "Home server", "icon": "mini", "role": "Always on: runs Desk", "class": "always_on", "state": "online", "connected": true,
+   "last_seen": "2026-01-15T09:58:00-07:00", "disk_pct": 84, "disk_level": "yellow", "disk_as_of": "2026-01-15T09:58:00-07:00",
+   "services": [{"name": "desk-relay", "port": 8765, "state": "up", "level": "green", "stale": false},
+                {"name": "media server", "port": 8096, "state": "up", "level": "green", "stale": false},
+                {"name": "Nightly backup", "port": null, "state": "ok", "level": "green", "note": "Last run exited 0", "runs": 12}],
+   "services_as_of": "2026-01-15T09:58:00-07:00", "pinned": null, "notes": [],
+   "heartbeat": {"at": "2026-01-15T09:58:00-07:00", "age_min": 2.0, "seq": 288, "uptime_s": 523800, "load": [1.21, 1.05, 0.98], "power": "AC Power", "free_gb": 79.4},
+   "level": "yellow"},
+  {"key": "laptop", "name": "Laptop", "icon": "laptop", "role": "Daily driver", "class": "sleeper", "state": "asleep", "connected": false,
+   "last_seen": "2026-01-15T07:40:00-07:00", "disk_pct": 62, "disk_level": "green", "disk_as_of": "2026-01-15T07:40:00-07:00",
+   "services": [], "services_as_of": null, "pinned": null, "notes": [], "heartbeat": null, "level": "grey"},
+  {"key": "olddesk", "name": "Old desktop", "icon": "server", "role": "Being retired", "class": "retiring", "state": "offline", "connected": false,
+   "last_seen": "2026-01-13T18:20:00-07:00", "disk_pct": null, "disk_level": "grey", "disk_as_of": null,
+   "services": [], "services_as_of": null, "pinned": "Moving files off this one. Safe to ignore while it shows offline.", "notes": [], "heartbeat": null, "level": "yellow"}
+ ],
+ "static": [
+  {"key": "hub", "name": "Home hub", "icon": "server", "role": "Smart-home hub (snapshot)", "as_of": "2026-01-15T09:00:00-07:00", "source": "manual snapshot",
+   "disk_pct": 41, "updates": ["1 update available"], "addons": [{"name": "Backups", "state": "started", "level": "green"}, {"name": "File share", "state": "stopped", "update": true, "level": "yellow"}],
+   "notes": [], "state": "snapshot", "level": "yellow"}
+ ],
+ "heartbeat": true,
+ "note": "Example data. Machines with a heartbeat report every 5 min (read-only); others show online state from your bot's machine list."
+}

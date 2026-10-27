@@ -151,6 +151,65 @@ if lv.name == "example-live.json":  # demo: shift example dates so "today" is al
     shift = datetime.date.today() - anchor
     def _mv(m): return (datetime.date.fromisoformat(m.group(1)) + shift).isoformat()
     live = json.loads(_re.sub(r"(\d{4}-\d{2}-\d{2})(?=T|\")", _mv, json.dumps(live)))
+# ---- Desk features (org filter, "as of" stamps, machines, routine history, teammate badges, stale guard) ----
+# Org filter tooltips: optional "org_tips" {"Work": "Day-job projects only."} in status.json. Areas not listed still show.
+data["org_tips"] = data.get("org_tips") or {}
+# Due items follow the same area_rules as projects, so the org filter can place them.
+for _d in live.get("due") or []:
+    if not isinstance(_d, dict): continue
+    for _tg, _rx in (data.get("area_rules") or {}).items():
+        if _d.get("area") != _tg and _re.search(_rx, str(_d.get("title", "")), _re.I): _d["area"] = _tg; break
+# Optional calendar -> area map for Today: "cal_org": {"Work calendar": "Work"} in status.json.
+data["cal_org"] = data.get("cal_org") or {}
+# "As of" stamps: when each input last changed. The page shows these per panel and in the header pill.
+def _mt(f):
+    try: return datetime.datetime.fromtimestamp(pathlib.Path(f).stat().st_mtime, _TZ).replace(microsecond=0).isoformat()
+    except Exception: return None
+_demo = src.name == "example-status.json"
+data["asof"] = {"status": _mt(src), "updates": _mt(_UPD), "live": _mt(lv), "built": datetime.datetime.now(_TZ).replace(microsecond=0).isoformat()}
+# Machines panel: data/machines_health.json, written by tools/machines_health.py ($DESK_MACHINES overrides).
+# Demo mode uses examples/machines/machines_health.example.json with its times moved up to now.
+_mh = pathlib.Path(os.environ.get("DESK_MACHINES", here / "data" / "machines_health.json"))
+if not _mh.exists() and _demo: _mh = here / "examples" / "machines" / "machines_health.example.json"
+try: machines = json.loads(_mh.read_text()) if _mh.exists() else None
+except Exception as e: print("machines_health.json skipped:", e); machines = None
+if machines and _mh.name.endswith(".example.json"):
+    _g = datetime.datetime.fromisoformat(machines["generated_at"]); _sh = datetime.datetime.now(_g.tzinfo) - _g
+    def _mvt(m): return (datetime.datetime.fromisoformat(m.group(0)) + _sh).replace(microsecond=0).isoformat()
+    machines = json.loads(_re.sub(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}", _mvt, json.dumps(machines)))
+_now = datetime.datetime.now(_TZ)
+def _iso(ts): return datetime.datetime.fromtimestamp(ts, _TZ).isoformat(timespec="seconds")
+# Refresh routine run history (read-only). If your refresh routine backs up status.json as
+# status.pre-refresh-<slot>.json before each run (and live.json as live.pre-refresh-<slot>.json when it rewrites it),
+# Desk lists the last runs. Backups are looked for next to status.json ($DESK_REFRESH_BACKUPS overrides).
+_bk = pathlib.Path(os.environ.get("DESK_REFRESH_BACKUPS", src.parent))
+_runs = []
+for _f in sorted(_bk.glob("status.pre-refresh-*.json"), key=lambda f: f.stat().st_mtime, reverse=True)[:14]:
+    _slot = _f.stem.split("pre-refresh-")[-1]
+    _runs.append({"slot": _slot, "at": _iso(_f.stat().st_mtime), "status_json": True, "live_json": (here / ("live.pre-refresh-%s.json" % _slot)).exists() or (_bk / ("live.pre-refresh-%s.json" % _slot)).exists()})
+if not _runs and _demo:  # demo: twice-daily runs, one of which skipped the live panels
+    _runs = [{"slot": "demo%d" % i, "at": (_now - datetime.timedelta(hours=12 * i + 2)).isoformat(timespec="seconds"), "status_json": True, "live_json": i != 2} for i in range(6)]
+if _runs:
+    live["routine_history"] = {"name": data.get("refresh_routine_name") or "Desk progress refresh", "runs": _runs,
+        "source": "backup files written by each run (status.pre-refresh-*, live.pre-refresh-*)"}
+# Teammate activity recency from the desk log (updates.jsonl): newest entry per agent.
+_ta = {}
+if _UPD.exists():
+    for _ln in _UPD.read_text(encoding="utf-8", errors="replace").splitlines():
+        try: _u = json.loads(_ln)
+        except Exception: continue
+        _ag, _at = _u.get("agent"), _u.get("at")
+        if isinstance(_ag, str) and isinstance(_at, str) and _at > _ta.get(_ag, ""): _ta[_ag] = _at
+live["team_activity"] = _ta
+# Stale-live guard: warn (and write LIVE_STALE) when live.json is older than "live_stale_hours" (default 13).
+if not _demo and live:
+    try: _lage_h = (_now - datetime.datetime.fromisoformat(live.get("fetched"))).total_seconds() / 3600
+    except Exception: _lage_h = None
+    _stale_flag = here / "LIVE_STALE"
+    if _lage_h is None or _lage_h > float(data.get("live_stale_hours", 13)):
+        print("WARNING: live.json fetched is %s old. Your refresh routine should rewrite live.json each run." % ("unknown" if _lage_h is None else "%.1fh" % _lage_h))
+        _stale_flag.write_text("live.json fetched=%s age_h=%s checked=%s\n" % (live.get("fetched"), None if _lage_h is None else round(_lage_h, 1), _now.isoformat(timespec="seconds")))
+    elif _stale_flag.exists(): _stale_flag.unlink()
 t = (here / "template.html").read_text()
 import layout_lib
 lay, lay_def = layout_lib.load(here, os.environ.get("DESK_LAYOUT"))
@@ -160,6 +219,27 @@ t = t.replace("/*__DATA__*/null", json.dumps(data).replace("</", "<\\/")).replac
 wid_dir = os.environ.get("DESK_WIDGETS", str(here / "widgets"))
 reg, bundled = layout_lib.load_registry(here)
 t = t.replace("/*__WIDGETS__*/null", layout_lib.js_json(layout_lib.load_widgets(wid_dir))).replace("/*__REGISTRY__*/null", layout_lib.js_json(reg)).replace("/*__BUNDLED__*/null", layout_lib.js_json(bundled))
+# Feature assets: custom/features.css + custom/features.js (org filter, stamps, machines, palette) and
+# custom/alerts.css + custom/alerts.js (alerts, run history, teammate badges), plus icons/*.svg.
+_ic = {}
+for _f in sorted((here / "icons").glob("*.svg")):
+    try:
+        _sv = _f.read_text(encoding="utf-8").strip()
+        if not _sv.startswith("<svg") or _re.search(r"<script|\bon\w+\s*=|javascript:|<foreignObject|href\s*=", _sv, _re.I): raise ValueError("unsafe svg")
+        _ic[_f.stem] = _re.sub(r'\s(width|height)="[^"]*"', "", _sv, count=2)
+    except Exception as e: print("icon", _f.name, "skipped:", e)
+for _ph, _fn in (("/*__B1CSS__*/", "features.css"), ("/*__B1JS__*/", "features.js"), ("/*__B2CSS__*/", "alerts.css"), ("/*__B2JS__*/", "alerts.js")):
+    _tx = (here / "custom" / _fn).read_text(encoding="utf-8")
+    if "</style" in _tx or "</script" in _tx: sys.exit("custom/%s contains a closing tag" % _fn)
+    t = t.replace(_ph, _tx, 1)
+t = t.replace("/*__B1ART__*/null", json.dumps(_ic).replace("</", "<\\/")).replace("/*__MACHINES__*/null", json.dumps(machines).replace("</", "<\\/"))
+# Safety scan: fail closed. Nothing is written if anything blocks. See tools/desk_scan.py and docs/safety-scan.md.
+sys.path.insert(0, str(here / "tools")); import desk_scan
+_fs = desk_scan.scan_payload("status", data) + desk_scan.scan_payload("live", live) + desk_scan.scan_payload("layout", lay) + desk_scan.scan_payload("machines", machines or {})
+_fs += desk_scan.scan_orgs(data["areas"], [(d.get("area"), "live:due/%s" % d.get("title", "")[:40], d) for d in live.get("due") or [] if isinstance(d, dict)])
+_fs += desk_scan.scan_html(t, "page")
+if not desk_scan.report(_fs, "scan"):
+    print("BUILD STOPPED: safety scan failed; index.html not written."); sys.exit(2)
 out = pathlib.Path(os.environ.get("DESK_OUT", here / "index.html"))
 out.write_text(t)
 print("wrote", out)
