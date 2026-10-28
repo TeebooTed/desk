@@ -19,3 +19,10 @@ heartbeat/config.json
 tools/scan_orgs.json
 status.pre-refresh-*.json
 live.pre-refresh-*.json
+team-perf/agents.json
+team-perf/agents/
+team-perf/log/
+team-perf/auto/
+team-perf/incidents/
+team-perf/improvements.json
+team-perf/routines.json

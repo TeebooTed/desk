@@ -1,0 +1,204 @@
+{
+ "_example": "EXAMPLE team-perf config. Copy to team-perf/agents.json and replace these agents with your own. See docs/team-performance.md.",
+ "version": 1,
+ "review": {
+  "self_review": "Fridays by 3:00 PM: each agent sends the lead a short self-review",
+  "team_review": "Mondays 8:00 AM: the lead's team review, result on Desk",
+  "monthly": "First Monday of the month: the lead reviews KPI targets and retires or replaces any that don't reflect the goal"
+ },
+ "agents": [
+  {
+   "name": "Assistant",
+   "lead": true,
+   "role": "Lead agent",
+   "goal": "Run the routines on time and keep Desk current.",
+   "tasks": [
+    {
+     "id": "desk-refresh",
+     "name": "Desk refresh",
+     "cadence": "Twice daily"
+    },
+    {
+     "id": "team-review",
+     "name": "Weekly team review",
+     "cadence": "Mondays"
+    }
+   ],
+   "kpis": [
+    {
+     "id": "refresh_ok",
+     "label": "Refreshes that completed",
+     "target": 95,
+     "dir": ">=",
+     "unit": "%",
+     "source": "self",
+     "from": "log"
+    },
+    {
+     "id": "minutes",
+     "label": "Minutes per refresh",
+     "target": 10,
+     "dir": "<=",
+     "unit": "min",
+     "source": "self",
+     "from": "log"
+    }
+   ],
+   "levers": [
+    "order of checks in the refresh",
+    "which panels are refreshed first"
+   ]
+  },
+  {
+   "name": "Researcher",
+   "role": "Research",
+   "goal": "Answer research questions with cited, checked sources.",
+   "tasks": [
+    {
+     "id": "weekly-brief",
+     "name": "Weekly research brief",
+     "cadence": "Thursdays"
+    }
+   ],
+   "kpis": [
+    {
+     "id": "cited",
+     "label": "Claims with a working citation",
+     "target": 100,
+     "dir": ">=",
+     "unit": "%",
+     "source": "self",
+     "from": "log"
+    },
+    {
+     "id": "on_time",
+     "label": "Briefs delivered on time",
+     "target": 90,
+     "dir": ">=",
+     "unit": "%",
+     "source": "self",
+     "from": "log"
+    },
+    {
+     "id": "corrections",
+     "label": "Corrections asked for",
+     "target": 1,
+     "dir": "<=",
+     "unit": "/wk",
+     "source": "self",
+     "from": "log"
+    }
+   ],
+   "levers": [
+    "source checklist",
+    "brief template"
+   ]
+  },
+  {
+   "name": "Writer",
+   "role": "Copy & newsletters",
+   "goal": "Ship drafts the owner approves with few edits.",
+   "tasks": [
+    {
+     "id": "newsletter",
+     "name": "Newsletter draft",
+     "cadence": "Weekly"
+    }
+   ],
+   "kpis": [
+    {
+     "id": "approved_first",
+     "label": "Drafts approved without rework",
+     "target": 80,
+     "dir": ">=",
+     "unit": "%",
+     "source": "self",
+     "from": "log"
+    },
+    {
+     "id": "minutes",
+     "label": "Minutes per draft",
+     "target": 30,
+     "dir": "<=",
+     "unit": "min",
+     "source": "self",
+     "from": "log"
+    }
+   ],
+   "levers": [
+    "draft template",
+    "self-edit checklist"
+   ]
+  },
+  {
+   "name": "Designer",
+   "role": "Design",
+   "goal": "Deliver design assets that pass review.",
+   "tasks": [
+    {
+     "id": "asset",
+     "name": "Design asset",
+     "cadence": "As requested"
+    }
+   ],
+   "kpis": [
+    {
+     "id": "passed_review",
+     "label": "Assets that pass review",
+     "target": 90,
+     "dir": ">=",
+     "unit": "%",
+     "source": "self",
+     "from": "log"
+    },
+    {
+     "id": "contrast_ok",
+     "label": "Assets meeting contrast rules",
+     "target": 100,
+     "dir": ">=",
+     "unit": "%",
+     "source": "self",
+     "from": "log"
+    },
+    {
+     "id": "turnaround",
+     "label": "Turnaround (hours)",
+     "target": 24,
+     "dir": "<=",
+     "unit": "h",
+     "source": "self",
+     "from": "log"
+    }
+   ],
+   "levers": [
+    "review checklist"
+   ]
+  },
+  {
+   "name": "Ops",
+   "role": "Home network",
+   "goal": "Keep the home services up.",
+   "tasks": [
+    {
+     "id": "uptime-check",
+     "name": "Uptime check",
+     "cadence": "Every 15 min"
+    }
+   ],
+   "kpis": [
+    {
+     "id": "uptime",
+     "label": "Checks that found the service up",
+     "target": 99,
+     "dir": ">=",
+     "unit": "%",
+     "source": "auto",
+     "from": "auto/ops.jsonl (your uptime checker)"
+    }
+   ],
+   "levers": [
+    "check interval"
+   ]
+  }
+ ]
+}

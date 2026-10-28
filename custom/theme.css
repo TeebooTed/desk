@@ -1,0 +1,76 @@
+/* ===== Desk themes (theme.css): picker UI + hardcoded colours moved onto theme variables ===== */
+:root[data-pal-fixed] #tt{display:none}
+/* Hacker / Dark: terminal feel */
+html:root[data-pal=hacker] body{font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;letter-spacing:0}
+html:root[data-pal=hacker] h1,html:root[data-pal=hacker] h2{text-shadow:0 0 8px color-mix(in srgb,var(--acc) 45%,transparent)}
+html:root[data-pal=hacker] .area,html:root[data-pal=hacker] .tile,html:root[data-pal=hacker] .wg,html:root[data-pal=hacker] .tcard{box-shadow:0 0 0 1px var(--bd),0 0 14px rgba(0,255,102,.06)}
+html:root[data-pal=hacker] ::selection{background:var(--acc);color:var(--on-acc)}
+/* text on accent backgrounds */
+:root[data-pal] .mbtn.pri,:root[data-pal] .ask button.pri,:root[data-pal] .setup button.pri,:root[data-pal] .ebar button.pri,:root[data-pal] .seg button.on,:root[data-pal] .wtab.on,:root[data-pal] .wdin .wok,:root[data-pal] .tdb .pri,:root[data-pal] .qf button,:root[data-pal] .qca button.pri{color:var(--on-acc)}
+/* status colours */
+:root[data-pal] .gear.on .dot,:root[data-pal] .cs.on i{background:var(--c-done)}
+:root[data-pal] .mic.rec{background:var(--c-blocked);border-color:var(--c-blocked);color:var(--card)}
+:root[data-pal] .toast.err{background:var(--c-blocked);color:var(--card)}
+:root[data-pal] #rts .bad,:root[data-pal] .rr.fail .st,:root[data-pal] .wg .d.dn,:root[data-pal] .werr,:root[data-pal] #routsum .rsbad,:root[data-pal] #routsum .rsf time,:root[data-pal] .tferr{color:var(--p-blocked)}
+:root[data-pal] .wdanger{color:var(--p-blocked)!important}
+:root[data-pal] .rr.fail{background:linear-gradient(90deg,color-mix(in srgb,var(--c-blocked) 10%,transparent),transparent)}
+:root[data-pal] .tm .wo,:root[data-pal] .kd.send{color:var(--p-hold)}
+:root[data-pal] .svb.warn{background:var(--p-hold-bg);color:var(--p-hold)}
+:root[data-pal] .wnew{background:var(--p-hold-bg);color:var(--p-hold)}
+:root[data-pal] .wwarn{background:var(--p-hold-bg);border-color:color-mix(in srgb,var(--c-hold) 45%,transparent)}
+:root[data-pal] .wperm.r1{border-color:color-mix(in srgb,var(--c-hold) 45%,transparent)}
+:root[data-pal] .wperm.r2{border-color:color-mix(in srgb,var(--c-blocked) 50%,transparent);background:var(--p-blocked-bg)}
+:root[data-pal] .tct .tcx:hover{background:var(--c-blocked);color:var(--card)}
+:root[data-pal] .qunv,:root[data-pal][data-theme=dark] .qunv{border-color:var(--c-hold);color:var(--p-hold)}
+:root[data-pal] .qkl button.qrm:hover,:root[data-pal] .qnav button.qrm:hover{color:var(--p-blocked);border-color:var(--c-blocked)}
+/* alerts, routine history, machine dots (custom/alerts.*) */
+:root[data-pal] .b2al.red{border-color:var(--c-blocked);background:color-mix(in srgb,var(--c-blocked) 9%,var(--bg2))}
+:root[data-pal] .b2al.yellow{border-color:var(--c-hold);background:color-mix(in srgb,var(--c-hold) 10%,var(--bg2))}
+:root[data-pal] .b2al .d-red,:root[data-pal] .b2tb .d-red{background:var(--c-blocked)}
+:root[data-pal] .b2al .d-yellow,:root[data-pal] .b2tb .d-yellow{background:var(--c-hold)}
+:root[data-pal] .b2tb .d-green{background:var(--c-done)}
+:root[data-pal] .b2tb .d-grey{background:var(--mut)}
+:root[data-pal] .b2rh .b2p.ok{color:var(--p-done)}
+:root[data-pal] .b2rh .b2p.bad,:root[data-pal] .b2rh .bad{color:var(--p-blocked)}
+/* theme picker */
+.thm{display:grid;gap:8px}
+.thg{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px}
+.thb{display:flex;flex-direction:column;align-items:stretch;gap:4px;padding:5px;border:1px solid var(--bd);border-radius:10px;background:var(--bg2);color:var(--fg);font:inherit;font-size:11.5px;cursor:pointer;text-align:center}
+.thb:hover{border-color:var(--acc)}.thb.on{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc)}
+.thb:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.thsw{display:block;height:34px;border-radius:7px;padding:6px;border:1px solid rgba(128,128,128,.25)}
+.thsw i{display:flex;flex-direction:column;gap:3px;height:100%;border:1px solid;border-radius:4px;padding:3px}
+.thsw b{display:block;height:4px;width:60%;border-radius:2px}.thsw u{display:block;height:2px;width:85%;border-radius:1px;text-decoration:none}
+.thcu{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;padding:8px;border:1px solid var(--bd);border-radius:10px;background:var(--bg2)}
+.thf{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--fg2);margin:0!important}
+.thf input[type=color]{width:30px;height:24px;padding:0;border:1px solid var(--bd);border-radius:6px;background:none;cursor:pointer}
+.thf input[type=color]:disabled{opacity:.55;cursor:default}
+.thcr{grid-column:1/-1;font-size:11.5px;color:var(--mut)}.thcr b{font-weight:600}.thcr b.ok{color:var(--p-done)}.thcr b.bad{color:var(--p-blocked)}
+.thrs{grid-column:1/-1;display:flex;align-items:center;gap:6px;flex-wrap:wrap}.thrs label{margin:0!important;font-size:12px}
+.thn{margin:0;font-size:11.5px;color:var(--mut)}
+/* Team performance panel (custom/teamperf.css owned by the Team panel job): map its fixed colours onto theme variables */
+:root[data-pal] .tpd,:root[data-pal] .tpd.d-grey{background:var(--mut)}
+:root[data-pal] .tpd.d-green{background:var(--c-done)}
+:root[data-pal] .tpd.d-amber{background:var(--c-hold)}
+:root[data-pal] .tpd.d-red{background:var(--c-blocked)}
+:root[data-pal] .tm.tp-red{border-color:color-mix(in srgb,var(--c-blocked) 55%,var(--bd))}
+:root[data-pal] .tm.tp-amber{border-color:color-mix(in srgb,var(--c-hold) 55%,var(--bd))}
+:root[data-pal] .tm.tmh{background:color-mix(in srgb,var(--acc) 6%,var(--bg2))}
+:root[data-pal] .tpl.lv-green,:root[data-pal] .tpa .up{color:var(--p-done)}
+:root[data-pal] .tpl.lv-amber{color:var(--p-hold)}
+:root[data-pal] .tpl.lv-red,:root[data-pal] .tpa .dn{color:var(--p-blocked)}
+:root[data-pal] .tpsp polyline{stroke:var(--acc)}
+:root[data-pal] .tpsp circle{fill:var(--acc)}
+:root[data-pal] .tpsp .tp7{fill:color-mix(in srgb,var(--acc) 8%,transparent)}
+:root[data-pal] .tpc.open{color:var(--p-hold);border-color:var(--c-hold)}
+:root[data-pal] .tpc.trial{color:var(--acc);border-color:var(--acc)}
+:root[data-pal] .tpc.rt-created{color:var(--p-done);border-color:var(--c-done)}
+:root[data-pal] .tpc.rt-declined,:root[data-pal] .tpc.rt-could_not_create{color:var(--p-blocked);border-color:var(--c-blocked)}
+:root[data-pal] .sec[data-size=s] .tm[class*="tp-"]::before,:root[data-pal] .sec[data-size=m] .tm[class*="tp-"]::before{background:var(--mut)}
+:root[data-pal] .sec[data-size=s] .tm.tp-green::before,:root[data-pal] .sec[data-size=m] .tm.tp-green::before{background:var(--c-done)}
+:root[data-pal] .sec[data-size=s] .tm.tp-amber::before,:root[data-pal] .sec[data-size=m] .tm.tp-amber::before{background:var(--c-hold)}
+:root[data-pal] .sec[data-size=s] .tm.tp-red::before,:root[data-pal] .sec[data-size=m] .tm.tp-red::before{background:var(--c-blocked)}
+/* Widget art (quotes / frame / podsta icons): tint the accent tile + glyphs to the theme; illustrations keep their art colours except the accent */
+:root[data-pal] .qart svg [fill="#2f6fed"],:root[data-pal] .qart svg [fill="#6a9bff"]{fill:var(--acc)}
+:root[data-pal] .qart svg[viewBox="0 0 100 100"] [fill="#ffffff"],:root[data-pal] .qart svg[viewBox="0 0 100 100"] [fill="#0c0e12"]{fill:var(--on-acc)}
+:root[data-pal] .qart svg[viewBox="0 0 100 100"] [stroke="#ffffff"],:root[data-pal] .qart svg[viewBox="0 0 100 100"] [stroke="#0c0e12"]{stroke:var(--on-acc)}

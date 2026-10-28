@@ -40,6 +40,10 @@ cp "$SRC/icons/"*.svg "$DEST/icons/"
 cp "$SRC/examples/machines/"*.json "$DEST/examples/machines/" 2>/dev/null || true
 cp "$SRC/heartbeat/"* "$DEST/heartbeat/" 2>/dev/null || true   # optional example, not installed
 for f in "$SRC/tools/"*.json; do [ -e "$DEST/tools/$(basename "$f")" ] || cp "$f" "$DEST/tools/"; done
+# team performance: framework files only; your agents.json and logs are never overwritten
+mkdir -p "$DEST/team-perf" "$DEST/examples/team-perf"
+cp "$SRC/team-perf/RULE_GENERAL.md" "$SRC/team-perf/log-run" "$SRC/team-perf/incident" "$DEST/team-perf/"
+cp -R "$SRC/examples/team-perf/." "$DEST/examples/team-perf/"
 OS="$(uname -s)"
 if [ "$OS" = "Darwin" ]; then
   PL="$HOME/Library/LaunchAgents/$LABEL.plist"; mkdir -p "$(dirname "$PL")"

@@ -1,0 +1,21 @@
+{
+ "_example": "EXAMPLE recurring jobs per agent. status: proposed | created | declined | could_not_create",
+ "agents": {
+  "Researcher": [
+   {
+    "name": "Monday source sweep",
+    "schedule": "Mondays 9:00 AM",
+    "goal": "Fresh sources for the weekly brief",
+    "status": "created"
+   }
+  ],
+  "Designer": [
+   {
+    "name": "Monthly asset audit",
+    "schedule": "1st of the month",
+    "goal": "Find assets that fail contrast rules",
+    "status": "proposed"
+   }
+  ]
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "_example": "EXAMPLE open improvement items.",
+ "items": [
+  {
+   "agent": "Researcher",
+   "what": "Check every link in the brief before sending",
+   "kpi": "cited",
+   "status": "open"
+  }
+ ]
+}

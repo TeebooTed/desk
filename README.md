@@ -87,7 +87,9 @@ You can also add your own cards (links, counters, lists, metrics) via `live.json
 | `tools/desk_scan.py` | Safety scan run by every build; see [docs/safety-scan.md](docs/safety-scan.md) |
 | `tools/machines_health.py`, `examples/machines/` | Builds the Machines panel data; example config and output |
 | `heartbeat/` | Optional read-only heartbeat example for macOS; see [docs/heartbeat.md](docs/heartbeat.md) |
-| `tools/test_features.py`, `tools/test_scan.sh` | Browser test on example data; scan test |
+| `custom/theme.*` | Themes: Desk, Spring, Summer, Fall, Winter, Hacker / Dark, or Custom; see [docs/themes.md](docs/themes.md) |
+| `custom/teamperf.*`, `tools/team_perf.py`, `team-perf/`, `examples/team-perf/` | Team performance: KPIs per agent, run logs, weekly review; see [docs/team-performance.md](docs/team-performance.md) |
+| `tools/test_features.py`, `tools/test_themes.py`, `tools/test_teamperf.py`, `tools/test_scan.sh` | Browser tests on example data; scan test |
 | `CHANGELOG.md`, `NOTICE` | What changed; credits for ideas and bundled code |
 | `assets/widgets/` | Widget icons and empty-state art (light and dark) for Picture Frame, Podsta, Famous Quotes and the pod welcome card. `install.sh` copies the whole `assets/` folder |
 | `assets/qrcode.js` | Small local QR generator (`qrcode-generator`, MIT) for **Connect another computer**; built by `tools/solid/` |
@@ -159,6 +161,14 @@ The logo and favicons in `assets/` (light, dark and tile variants) are regenerat
 ## License
 
 MIT. See `LICENSE`.
+
+## New: themes and team performance
+
+<p><img src="docs/img/themes.png" alt="Theme picker and the Fall theme (example data)" width="720"></p>
+<p><img src="docs/img/team-performance.png" alt="Team performance on the Teammates panel (example data)" width="720"></p>
+
+- **Themes**: in Customize layout → Appearance, pick **Desk** (the default look), **Spring**, **Summer**, **Fall**, **Winter**, **Hacker / Dark**, or **Custom** (your own background, card, card border, accent and text colours, with a live preview and a contrast report). Seasonal themes have light and dark versions and follow the Light / dark setting. Every preset passes WCAG AA contrast. See [docs/themes.md](docs/themes.md).
+- **Team performance**: give each agent a goal and 3-5 KPIs with targets; agents log every run with `team-perf/log-run`; `tools/team_perf.py` scores them (0-100 vs target, green / amber / red, grey when there's too little data) and the Teammates panel shows a score, a 28-day sparkline, the last run, open improvements and each agent's recurring jobs. Comes with a general self-improvement rule (`team-perf/RULE_GENERAL.md`) that never widens permissions, and a weekly review cadence. The demo uses a small example team in `examples/team-perf/`. See [docs/team-performance.md](docs/team-performance.md).
 
 ## New: org filter, machines, ⌘K palette, alerts, approvals
 

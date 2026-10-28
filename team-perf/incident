@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+"""Append-only incident log helper for a service you run (feeds uptime / incident KPIs in team performance).
+Log: team-perf/incidents/<service>.jsonl next to this script (override with INCIDENT_LOG=/path for tests)
+Lines are never edited. Corrections are new lines {"event":"update","id":...}.
+
+usage:
+  incident open  [--service NAME] [--at ISO] [--detection auto-uptime|manual] [--cause ..] [--note ..]
+  incident close [--id ID | latest open] [--at ISO] [--fix ..] [--note ..]
+  incident update --id ID [--cause ..] [--fix ..] [--approved-by ..] [--followups ..] [--note ..]
+  incident list [--days N] [--json]
+  incident summary --days N [--json]
+  incident current           # prints the open incident id (exit 1 if none)
+"""
+import argparse, datetime, json, os, pathlib, sys
+
+TZ = datetime.datetime.now().astimezone().tzinfo
+DIR = pathlib.Path(__file__).resolve().parent / "incidents"
+FIELDS = ["id", "service", "opened_at", "closed_at", "minutes_down", "detection", "status",
+          "cause", "fix", "approved_by", "followups", "note"]
+
+def now(): return datetime.datetime.now(TZ).isoformat(timespec="seconds")
+def parse(ts):
+    d = datetime.datetime.fromisoformat(ts)
+    return d if d.tzinfo else d.replace(tzinfo=TZ)
+def iso(ts): return parse(ts).astimezone(TZ).isoformat(timespec="seconds")
+def logpath(service): return pathlib.Path(os.environ.get("INCIDENT_LOG") or DIR / f"{service}.jsonl")
+
+def raw(service):
+    p = logpath(service)
+    if not p.exists(): return []
+    out = []
+    for l in p.read_text(encoding="utf-8").splitlines():
+        l = l.strip()
+        if l:
+            try: out.append(json.loads(l))
+            except ValueError: pass
+    return out
+
+def append(service, obj):
+    p = logpath(service); p.parent.mkdir(parents=True, exist_ok=True)
+    with p.open("a", encoding="utf-8") as fh: fh.write(json.dumps(obj, ensure_ascii=False) + "\n")
+
+def state(service):
+    """Fold base + update lines into current view of each incident, keyed by id (ordered)."""
+    inc = {}
+    for r in raw(service):
+        if r.get("event", "open") == "update":
+            i = inc.get(r.get("id"))
+            if i is None: continue
+            for k, v in r.items():
+                if k in FIELDS and k != "id" and v is not None: i[k] = v
+            i.setdefault("_updates", []).append(r.get("at"))
+        else:
+            inc[r["id"]] = {k: r.get(k) for k in FIELDS}
+    return inc
+
+def open_incident(service):
+    for i in reversed(list(state(service).values())):
+        if i.get("status") == "open": return i
+    return None
+
+def new_id(service, at):
+    base = f"{service}-{parse(at).astimezone(TZ):%Y%m%d-%H%M}"
+    ids = set(state(service)); n, cand = 1, base
+    while cand in ids: n += 1; cand = f"{base}-{n}"
+    return cand
+
+def minutes(a, b): return round((parse(b) - parse(a)).total_seconds() / 60)
+
+def cmd_open(a):
+    cur = open_incident(a.service)
+    if cur:
+        print(json.dumps({"already_open": cur["id"]})); return cur
+    at = iso(a.at) if a.at else now()
+    rec = {"id": new_id(a.service, at), "service": a.service, "opened_at": at, "closed_at": None, "minutes_down": None,
+           "detection": a.detection, "status": "open", "cause": a.cause or "unknown", "fix": a.fix, "approved_by": a.approved_by,
+           "followups": a.followups, "note": a.note, "event": "open", "logged_at": now()}
+    append(a.service, rec); print(json.dumps({"opened": rec["id"]})); return rec
+
+def cmd_close(a):
+    cur = state(a.service).get(a.id) if a.id else open_incident(a.service)
+    if not cur or cur.get("status") != "open":
+        print(json.dumps({"no_open_incident": True})); return None
+    at = iso(a.at) if a.at else now()
+    rec = {"event": "update", "id": cur["id"], "at": now(), "status": "closed", "closed_at": at,
+           "minutes_down": minutes(cur["opened_at"], at)}
+    for k in ("fix", "note", "cause"):
+        v = getattr(a, k, None)
+        if v: rec[k] = v
+    append(a.service, rec); print(json.dumps({"closed": cur["id"], "minutes_down": rec["minutes_down"]})); return rec
+
+def cmd_update(a):
+    if a.id not in state(a.service): sys.exit(f"no incident {a.id}")
+    rec = {"event": "update", "id": a.id, "at": now()}
+    for k, v in (("cause", a.cause), ("fix", a.fix), ("approved_by", a.approved_by), ("followups", a.followups), ("note", a.note)):
+        if v is not None: rec[k] = v
+    append(a.service, rec); print(json.dumps({"updated": a.id}))
+
+def window(service, days):
+    inc = list(state(service).values())
+    if days is None: return inc
+    cut = datetime.datetime.now(TZ) - datetime.timedelta(days=days)
+    return [i for i in inc if parse(i["opened_at"]) >= cut or i.get("status") == "open"
+            or (i.get("closed_at") and parse(i["closed_at"]) >= cut)]
+
+def cmd_list(a):
+    rows = window(a.service, a.days)
+    if a.json: print(json.dumps(rows, indent=1)); return
+    for i in rows:
+        print(f'{i["id"]:24} {i["status"]:6} {i["opened_at"]} -> {i.get("closed_at") or "…"} '
+              f'{i.get("minutes_down") if i.get("minutes_down") is not None else "?"}m {i["detection"]:11} cause: {i.get("cause")}')
+    if not rows: print("no incidents")
+
+def cmd_summary(a):
+    rows = window(a.service, a.days)
+    s = {"service": a.service, "days": a.days, "count": len(rows),
+         "minutes_down": sum(i.get("minutes_down") or 0 for i in rows),
+         "open": [i["id"] for i in rows if i.get("status") == "open"],
+         "auto_detected": sum(1 for i in rows if i.get("detection") == "auto-uptime"),
+         "cause_unknown": [i["id"] for i in rows if (i.get("cause") or "unknown") == "unknown"]}
+    print(json.dumps(s) if a.json else
+          f'{a.service}: {s["count"]} incident(s), {s["minutes_down"]} min down in last {a.days}d; open={s["open"] or "none"}; cause unknown={s["cause_unknown"] or "none"}')
+
+def cmd_current(a):
+    cur = open_incident(a.service)
+    if not cur: sys.exit(1)
+    print(cur["id"])
+
+def main(argv=None):
+    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument("--service", default="service")
+    sp = p.add_subparsers(dest="cmd", required=True)
+    o = sp.add_parser("open"); o.add_argument("--at"); o.add_argument("--detection", choices=["auto-uptime", "manual"], default="manual")
+    for x in ("cause", "fix", "approved-by", "followups", "note"): o.add_argument("--" + x)
+    c = sp.add_parser("close"); c.add_argument("--id"); c.add_argument("--at"); c.add_argument("--fix"); c.add_argument("--note"); c.add_argument("--cause")
+    u = sp.add_parser("update"); u.add_argument("--id", required=True)
+    for x in ("cause", "fix", "approved-by", "followups", "note"): u.add_argument("--" + x)
+    l = sp.add_parser("list"); l.add_argument("--days", type=float); l.add_argument("--json", action="store_true")
+    s = sp.add_parser("summary"); s.add_argument("--days", type=float, required=True); s.add_argument("--json", action="store_true")
+    sp.add_parser("current")
+    # allow --service after the subcommand too
+    for q in (o, c, u, l, s): q.add_argument("--service", default=argparse.SUPPRESS)
+    a = p.parse_args(argv)
+    {"open": cmd_open, "close": cmd_close, "update": cmd_update, "list": cmd_list, "summary": cmd_summary, "current": cmd_current}[a.cmd](a)
+
+if __name__ == "__main__": main()

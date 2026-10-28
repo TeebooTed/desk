@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-10-27: themes and team performance
+
+### Added
+- **Themes** (Customize layout → Appearance): Desk (default), Spring, Summer, Fall, Winter (light and dark versions),
+  Hacker / Dark, and Custom with colour pickers, live preview, contrast report and "Reset to" any preset. Applied
+  before first paint, saved in `localStorage["desk-pal"]`, synced like other settings. All presets pass WCAG AA.
+  `custom/theme.js`, `custom/theme.css`, `docs/themes.md`, `tools/test_themes.py`.
+- **Team performance** on the Teammates panel: per-agent score vs KPI targets (green / amber / red, grey for limited
+  data), 28-day sparkline, last run, open improvement, recurring-job status; dot + popover at small and medium sizes.
+  Framework: `tools/team_perf.py` (collector, `--write-rules`), `team-perf/log-run`, `team-perf/RULE_GENERAL.md`
+  (self-improvement rule, never widens permissions), optional `team-perf/incident` log helper, and a labelled
+  example team in `examples/team-perf/` that the demo uses. `docs/team-performance.md`, `tools/test_teamperf.py`.
+
+### Changed
+- The old Accent picker is replaced by the theme picker; a saved accent becomes a Custom theme automatically.
+- `.gitignore` ignores your own `team-perf/` config, logs and incidents. `install.sh` copies the framework files
+  without overwriting yours.
+
 ## 2026-10-27
 
 ### Added

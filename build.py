@@ -210,6 +210,21 @@ if not _demo and live:
         print("WARNING: live.json fetched is %s old. Your refresh routine should rewrite live.json each run." % ("unknown" if _lage_h is None else "%.1fh" % _lage_h))
         _stale_flag.write_text("live.json fetched=%s age_h=%s checked=%s\n" % (live.get("fetched"), None if _lage_h is None else round(_lage_h, 1), _now.isoformat(timespec="seconds")))
     elif _stale_flag.exists(): _stale_flag.unlink()
+# Team performance: data/team_perf.json from tools/team_perf.py (run it before build.py; $DESK_TEAMPERF overrides).
+# Demo mode with no data file: built on the fly from examples/team-perf/. Missing -> the panel says "no data yet".
+_tpf = pathlib.Path(os.environ.get("DESK_TEAMPERF", here / "data" / "team_perf.json"))
+live["team_perf"] = None
+try:
+    if _tpf.exists(): live["team_perf"] = json.loads(_tpf.read_text())
+    elif _demo and "DESK_TEAMPERF" not in os.environ:
+        sys.path.insert(0, str(here / "tools")); import team_perf as _tpm
+        live["team_perf"] = _tpm.collect(here / "examples" / "team-perf")[0]
+except Exception as e: print("team_perf skipped:", e); live["team_perf"] = None
+if live["team_perf"]:
+    try:
+        _tpa = (_now - datetime.datetime.fromisoformat(live["team_perf"]["generated"])).total_seconds() / 3600
+        if _tpa > 13: print("WARNING: team_perf.json is %.1fh old; run tools/team_perf.py before build.py." % _tpa)
+    except Exception: pass
 t = (here / "template.html").read_text()
 import layout_lib
 lay, lay_def = layout_lib.load(here, os.environ.get("DESK_LAYOUT"))
@@ -233,6 +248,11 @@ for _ph, _fn in (("/*__B1CSS__*/", "features.css"), ("/*__B1JS__*/", "features.j
     if "</style" in _tx or "</script" in _tx: sys.exit("custom/%s contains a closing tag" % _fn)
     t = t.replace(_ph, _tx, 1)
 t = t.replace("/*__B1ART__*/null", json.dumps(_ic).replace("</", "<\\/")).replace("/*__MACHINES__*/null", json.dumps(machines).replace("</", "<\\/"))
+# Team performance panel (custom/teamperf.*) and themes (custom/theme.*: palettes, picker; runs in <head> before first paint).
+for _ph, _fn in (("/*__TPCSS__*/", "teamperf.css"), ("/*__TPJS__*/", "teamperf.js"), ("/*__THCSS__*/", "theme.css"), ("/*__THJS__*/", "theme.js")):
+    _tx = (here / "custom" / _fn).read_text(encoding="utf-8")
+    if "</style" in _tx or "</script" in _tx: sys.exit("custom/%s contains a closing tag" % _fn)
+    t = t.replace(_ph, _tx, 1)
 # Safety scan: fail closed. Nothing is written if anything blocks. See tools/desk_scan.py and docs/safety-scan.md.
 sys.path.insert(0, str(here / "tools")); import desk_scan
 _fs = desk_scan.scan_payload("status", data) + desk_scan.scan_payload("live", live) + desk_scan.scan_payload("layout", lay) + desk_scan.scan_payload("machines", machines or {})
