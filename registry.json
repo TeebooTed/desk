@@ -34,15 +34,15 @@
       "id": "weather",
       "name": "Weather",
       "author": "Desk examples",
-      "description": "Current conditions and today's high/low from Open-Meteo (free, no key). Set your location in the widget.",
-      "version": "1.0.0",
+      "description": "Current conditions with a weather icon, plus today's high/low from Open-Meteo (free, no key). Set your location in the widget.",
+      "version": "1.1.2",
       "permissions": [
         "theme",
         "storage",
         "network"
       ],
       "manifest": "https://raw.githubusercontent.com/TeebooTed/desk/main/examples/widgets/weather/manifest.json",
-      "sha256": "728beeff34c3d7877bf0c3f32f4d933d9c8c1b192a1e6b1fe8470f2db8deaa10",
+      "sha256": "ccb2764e53fca8d2dcf6addfa387e8e8ed3c004fb388af513624ee3119a3dde9",
       "bundled": "examples/widgets/weather"
     }
   ]
